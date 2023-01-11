@@ -6,14 +6,16 @@ VPATH = src/
 # Compiler Variables
 CC		= cc
 CFLAGSS	= -Wall -Wextra -Werror -g
-INCFLAG	=
-AR		= ar
-ARFLAGS = -rcs
+INCFLAG	= -I include -I printf
+
 # File Variables
 NAME	= minishell
 SRC		= $(addprefix $(VPATH), main.c)
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 LIBFT	= ./libft/libft.a
+
+$(NAME): $(OBJ) | $(LIBFT)
+	$(CC) -o $(NAME) $(CFLAGSS) $(INCFLAG) $(OBJ) $(LIBFT) 
 
 $(LIBFT):
 	git submodule update --init
@@ -22,13 +24,7 @@ $(LIBFT):
 _bin :
 	mkdir _bin
 
-_bin/%.o : %.c $(LIBFT)/$(LIBFT).a | _bin
-	$(CC) -c $(CFLAGSS) $(INCFLAG) $< -o $@
-
-_bin :
-	mkdir _bin
-
-_bin/%.o : %.c $(LIBFT)/$(LIBFT).a | _bin
+_bin/%.o : %.c $(LIBFT) | _bin
 	$(CC) -c $(CFLAGSS) $(INCFLAG) $< -o $@
 
 .PHONY: clean fclean re all run
