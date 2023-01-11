@@ -6,13 +6,24 @@ VPATH = src/
 # Compiler Variables
 CC		= cc
 CFLAGSS	= -Wall -Wextra -Werror -g
-INCFLAG	= 
+INCFLAG	=
 AR		= ar
 ARFLAGS = -rcs
 # File Variables
-NAME	= minishell 
+NAME	= minishell
 SRC		= $(addprefix $(VPATH), main.c)
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
+LIBFT	= ./libft/libft.a
+
+$(LIBFT):
+	git submodule update --init
+	cd libft && make && make clean
+
+_bin :
+	mkdir _bin
+
+_bin/%.o : %.c $(LIBFT)/$(LIBFT).a | _bin
+	$(CC) -c $(CFLAGSS) $(INCFLAG) $< -o $@
 
 _bin :
 	mkdir _bin
