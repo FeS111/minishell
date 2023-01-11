@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   buildin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/11 17:09:15 by fschmid          ###   ########.fr       */
+/*   Created: 2023/01/11 17:01:52 by fschmid           #+#    #+#             */
+/*   Updated: 2023/01/11 17:15:42 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include "../libft/libft.h"
-# include <stdarg.h>
-# include "./buildin.h"
+#include "../include/minishell.h"
 
-#endif
+char	*pwd(void)
+{
+	char	*cwd;
+
+	cwd = ft_calloc(sizeof(char), PATH_MAX);
+	getcwd(cwd, PATH_MAX);
+	return (cwd);
+}

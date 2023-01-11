@@ -10,7 +10,7 @@ INCFLAG	= -I include -I printf
 
 # File Variables
 NAME	= minishell
-SRC		= $(addprefix $(VPATH), main.c)
+SRC		= $(addprefix $(VPATH), main.c buildin_pwd.c)
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 LIBFT	= ./libft/libft.a
 
