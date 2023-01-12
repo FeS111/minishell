@@ -1,42 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 16:26:45 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/12 15:37:05 by luntiet-         ###   ########.fr       */
+/*   Created: 2023/01/12 12:17:07 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/01/12 15:34:49 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(void)
+void	split_free(char **str)
 {
-	char	*line;
-	char	*env;
-	t_token	*tokens;
-	int		i;
+	int	i;
 
-	env = getenv("PATH");
-	i = 0;
-	while (1)
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	free(str);
+}
+
+char	**split_join(char **str)
+{
+	char	**new;
+	int		i;
+	char	*tmp;
+
+	if (!str)
+		return (NULL);
+	new = malloc(3 * sizeof(char *));
+	i = 1;
+	new[0] = str[0];
+	tmp = ft_strdup("");
+	while (str[i])
 	{
-		line = readline("minishell> ");
-		if (line && *line)
-			add_history(line);
-		if (!ft_strncmp(line, "exit", 4))
-		{
-			ft_putendl_fd("exit", 1);
-			free(line);
-			return (0);
-		}
-		tokens = parse_input(line);
-		ft_putendl_fd(tokens[0].cmd, 1);
-		ft_putendl_fd(tokens[0].args[0], 1);
+		tmp = ft_strjoin_gnl(tmp, str[i]);
 		i++;
-		free(line);
+		if (str[i])
+			tmp = ft_strjoin_gnl(tmp, " ");
 	}
-	return (0);
+	new[1] = tmp;
+	new[2] = NULL;
+	return (free (str), new);
 }

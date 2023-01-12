@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 16:26:45 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/12 15:37:05 by luntiet-         ###   ########.fr       */
+/*   Created: 2023/01/12 11:41:41 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/01/12 12:27:31 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(void)
+t_token	*parse_input(char *line)
 {
-	char	*line;
-	char	*env;
+	char	**cmd;
 	t_token	*tokens;
-	int		i;
+	t_token	tmp;
 
-	env = getenv("PATH");
-	i = 0;
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (line && *line)
-			add_history(line);
-		if (!ft_strncmp(line, "exit", 4))
-		{
-			ft_putendl_fd("exit", 1);
-			free(line);
-			return (0);
-		}
-		tokens = parse_input(line);
-		ft_putendl_fd(tokens[0].cmd, 1);
-		ft_putendl_fd(tokens[0].args[0], 1);
-		i++;
-		free(line);
-	}
-	return (0);
+	if (!line)
+		return (NULL);
+	cmd = ft_split(line, ' ');
+	tmp.cmd = cmd[0];
+	tmp.args = &cmd[1];
+	tokens = malloc(sizeof(t_token));
+	tokens[0] = tmp;
+	return (tokens);
 }
