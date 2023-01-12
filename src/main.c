@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:26:45 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/12 15:37:05 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:09:59 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	main(void)
 		}
 		tokens = parse_input(line);
 		ft_putendl_fd(tokens[0].cmd, 1);
-		ft_putendl_fd(tokens[0].args[0], 1);
+		if (tokens[1].cmd)
+			ft_putendl_fd(tokens[1].cmd, 1);
 		i++;
 		free(line);
 	}
