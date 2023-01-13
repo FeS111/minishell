@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 12:23:58 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 16:50:54 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-
 t_token		*lexer(char *line);
 
 char		**split_join(char **str);
 
+char		*strjoinn(char **arr, char *c, int start, int end);
 
-char	*strjoinn(char **arr, char *c, int start, int end);
+int			getnext_whitespace(char *str);
 
 #endif
