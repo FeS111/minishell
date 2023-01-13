@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildin_pwd.c                                      :+:      :+:    :+:   */
+/*   lexer_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 17:01:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 11:41:08 by fschmid          ###   ########.fr       */
+/*   Created: 2023/01/13 11:42:49 by fschmid           #+#    #+#             */
+/*   Updated: 2023/01/13 11:46:22 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/lexer.h"
 
-char	*ft_pwd(void)
+int	is_word(char *str, int end)
 {
-	char	*cwd;
-
-	cwd = ft_calloc(sizeof(char), PATH_MAX);
-	getcwd(cwd, PATH_MAX);
-	return (cwd);
+	
 }

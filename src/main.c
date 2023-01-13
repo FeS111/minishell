@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:26:45 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/12 16:09:59 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 10:54:19 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	main(void)
 {
 	char	*line;
-	char	*env;
 	t_token	*tokens;
 	int		i;
 
-	env = getenv("PATH");
 	i = 0;
 	while (1)
 	{

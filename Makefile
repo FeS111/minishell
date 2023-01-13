@@ -11,7 +11,7 @@ READLINE = -L/usr/include -lreadline
 
 # File Variables
 NAME	= minishell
-SRC		= $(addprefix $(VPATH), main.c buildin_pwd.c parser.c split_utils.c)
+SRC		= $(addprefix $(VPATH), main.c buildin_pwd.c parser.c split_utils.c lexer_util.c)
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 LIBFT	= ./libft/libft.a
 

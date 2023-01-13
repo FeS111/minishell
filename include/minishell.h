@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/12 12:26:58 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 11:46:33 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./buildin.h"
+# include "./lexer.h"
 # include "../libft/libft.h"
 
 # include <stdlib.h>
@@ -35,5 +36,7 @@ typedef struct s_token
 t_token	*parse_input(char *line);
 
 char	**split_join(char **str);
+
+char	*strjoinn(char **arr, char *c, int start, int end);
 
 #endif

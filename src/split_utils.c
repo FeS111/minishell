@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:17:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/12 16:10:09 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 10:52:53 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,32 @@ void	split_free(char **str)
 	while (str[++i])
 		free(str[i]);
 	free(str);
+}
+
+char	*strjoinn(char **arr, char *c, int start, int end)
+{
+	int		i;
+	char	*res;
+	char	*tmp;
+
+	res = ft_calloc(sizeof(char), 1);
+	i = start;
+	while (arr[i] != NULL && i <= end)
+	{
+		tmp = ft_strjoin(res, arr[i]);
+		free(res);
+		res = ft_strdup(tmp);
+		free(tmp);
+		if (i < end)
+		{
+			tmp = ft_strjoin(res, c);
+			free(res);
+			res = ft_strdup(tmp);
+			free(tmp);
+		}
+		i++;
+	}
+	return (res);
 }
 
 char	**split_join(char **str)

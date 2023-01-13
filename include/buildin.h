@@ -6,13 +6,13 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/11 17:04:40 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 11:41:15 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILDIN_H
 # define BUILDIN_H
 
-char	*pwd(void);
+char	*ft_pwd(void);
 
 #endif
