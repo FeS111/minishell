@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/12 12:26:58 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 09:41:10 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ typedef struct s_token
 	char	**args;
 }	t_token;
 
-t_token	*parse_input(char *line);
+t_token		*parse_input(char *line);
 
-char	**split_join(char **str);
+char		**split_join(char **str);
+
+t_token		new_token(char **cmd);
 
 #endif
