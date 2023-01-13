@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:42:49 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 15:12:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:05:49 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lexer.h"
+# include "../include/minishell.h"
 
 int	is_word(char *str, int end)
 {
@@ -44,4 +44,9 @@ char	*is_quoted(char *str, int i)
 		while (str[i] != '\"')
 			i++;
 	return (ft_substr(str, start, i));
+}
+
+t_token	*get_option(char *str)
+{
+	return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION));
 }

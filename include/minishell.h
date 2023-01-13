@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 16:50:54 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 17:02:10 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ char		**split_join(char **str);
 
 char		*strjoinn(char **arr, char *c, int start, int end);
 
-int			getnext_whitespace(char *str);
+size_t		getnext_whitespace(char *str);
 
 #endif
