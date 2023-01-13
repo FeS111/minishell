@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:43:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 12:13:14 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 12:24:34 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ enum	e_token_type
 
 typedef struct s_token
 {
-	char				*cmd;
+	char				*args;
 	enum e_token_type	type;
 }	t_token;
 
-t_token		new_token(char **cmd);
+t_token		new_token(char *args, enum e_token_type type);
 
 int			is_word(char *str, int end);
 

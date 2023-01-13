@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:42:49 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 14:46:10 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 14:49:32 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,9 @@ int	is_word(char *str, int end)
 			continue ;
 	}
 	return (1);
+}
+
+int	is_quoted(char *str)
+{
+
 }

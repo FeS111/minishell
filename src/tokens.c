@@ -6,17 +6,17 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 09:34:17 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/13 09:39:32 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:25:30 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_token	new_token(char **cmd)
+t_token	new_token(char *args, enum e_token_type type)
 {
 	t_token	new;
 
-	new.cmd = cmd[0];
-	new.args = &cmd[1];
+	new.args = args;
+	new.type = type;
 	return (new);
 }
