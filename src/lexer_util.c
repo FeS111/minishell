@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:42:49 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 15:12:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:17:37 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ int	is_word(char *str, int end)
 	return (1);
 }
 
-char	*is_quoted(char *str, int i)
+char	*get_quoted(char *str)
 {
-	int		start;
+	int		end;
 
-	start = i;
-	if (str[i] == '\'')
-		while (str[i] != '\'')
-			i++;
+	end = 1;
+	if (str[0] == '\'')
+		while (str[end] != '\'' || (str[end] == '\'' && str[end - 1] == '\\'))
+			end++;
 	else
-		while (str[i] != '\"')
-			i++;
-	return (ft_substr(str, start, i));
+		while (str[end] != '\"' || (str[end] == '\"' && str[end - 1] == '\\'))
+			end++;
+	return (ft_substr(str, 0, end + 1));
 }
