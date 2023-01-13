@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:43:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 17:02:17 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 17:22:02 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ int			is_word(char *str, int end);
 
 t_token		*get_option(char *str);
 
+t_token		*get_option2(char *str);
 #endif
