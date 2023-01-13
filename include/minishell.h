@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 11:56:21 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:13:39 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 
 # include "./buildin.h"
 # include "./lexer.h"
-# include "../libft/libft.h"
+
+# ifndef LIBFT_H
+#  include "../libft/libft.h"
+# endif
 
 # include <stdlib.h>
 # include <unistd.h>

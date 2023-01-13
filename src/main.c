@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:26:45 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 11:54:19 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:13:49 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	main(void)
 	char	*line;
 	t_token	*tokens;
 	int		i;
+
+	ft_printf("%d\n", is_word("test", 1));
 
 	i = 0;
 	while (1)
