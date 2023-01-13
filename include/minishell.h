@@ -19,7 +19,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-t_token		*lexer(char *line);
+t_token		**lexer(char *line);
 
 char		**split_join(char **str);
 
