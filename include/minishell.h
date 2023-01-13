@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 12:23:58 by fschmid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -30,12 +19,12 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-
 t_token		*lexer(char *line);
 
 char		**split_join(char **str);
 
+char		*strjoinn(char **arr, char *c, int start, int end);
 
-char	*strjoinn(char **arr, char *c, int start, int end);
+size_t		getnext_whitespace(char *str);
 
 #endif

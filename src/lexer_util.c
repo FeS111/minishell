@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer_util.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 11:42:49 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 17:17:37 by luntiet-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../include/lexer.h"
+# include "../include/minishell.h"
 
 int	is_word(char *str, int end)
 {
@@ -45,3 +34,14 @@ char	*get_quoted(char *str)
 			end++;
 	return (ft_substr(str, 0, end + 1));
 }
+
+t_token	*get_option(char *str)
+{
+	return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION));
+}
+
+t_token	*get_option2(char *str)
+{
+	return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION2));
+}
+
