@@ -1,7 +1,7 @@
 
 #include "../include/minishell.h"
 
-t_token	*piped_tokens(char **piped)
+t_token	**piped_tokens(char **piped)
 {
 	int		i;
 	char	**cmd;
@@ -17,7 +17,7 @@ t_token	*piped_tokens(char **piped)
 	return (tokens);
 }
 
-t_token	*lexer(char *line)
+t_token	**lexer(char *line)
 {
 	char	**cmd;
 	t_token	**tokens;

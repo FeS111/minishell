@@ -4,7 +4,7 @@
 int	main(void)
 {
 	char	*line;
-	t_token	*tokens;
+	t_token	**tokens;
 	int		i;
 
 	i = 0;
