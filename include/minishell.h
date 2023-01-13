@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:17:52 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 11:48:41 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 11:56:21 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,11 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-typedef struct s_token
-{
-	char	*cmd;
-	char	**args;
-}	t_token;
 
-t_token		*parse_input(char *line);
+t_token		*lexer(char *line);
 
 char		**split_join(char **str);
 
-t_token		new_token(char **cmd);
 
 char	*strjoinn(char **arr, char *c, int start, int end);
 

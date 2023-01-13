@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:26:45 by fschmid           #+#    #+#             */
-/*   Updated: 2023/01/13 11:48:04 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/01/13 11:54:19 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int	main(void)
 			free(line);
 			return (0);
 		}
-		tokens = parse_input(line);
-		//ft_putendl_fd(tokens[0].cmd, 1);
-		//if (tokens[1].cmd)
-		//	ft_putendl_fd(tokens[1].cmd, 1);
+		tokens = lexer(line);
 		i++;
 		free(line);
 	}

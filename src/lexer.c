@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 11:41:41 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/13 09:40:15 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/13 10:26:19 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_token	*piped_tokens(char **piped)
 	return (tokens);
 }
 
-t_token	*parse_input(char *line)
+t_token	*lexer(char *line)
 {
 	char	**cmd;
 	t_token	*tokens;
