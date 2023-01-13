@@ -7,6 +7,7 @@ int	main(void)
 	t_token	**tokens;
 	int		i;
 
+	ft_printf("\e[1;1H\e[2J");
 	i = 0;
 	while (1)
 	{
