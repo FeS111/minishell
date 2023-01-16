@@ -28,5 +28,4 @@ int			is_word(char *str, int end);
 
 t_token		*get_option(char *str);
 
-t_token		*get_option2(char *str);
 #endif

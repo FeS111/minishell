@@ -37,11 +37,7 @@ char	*get_quoted(char *str)
 
 t_token	*get_option(char *str)
 {
+	if (ft_strchr(str, '='))
+		return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION2));
 	return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION));
 }
-
-t_token	*get_option2(char *str)
-{
-	return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION2));
-}
-
