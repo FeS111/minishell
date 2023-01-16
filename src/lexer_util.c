@@ -14,9 +14,9 @@ int	is_word(char *str, int end)
 			++i;
 			continue ;
 		}
-		return (0);
-		if (ft_strchr("=”()/_-.~]+", str[i]) || ft_isalnum(str[i]))
+		if (ft_isalnum(str[i]))
 			continue ;
+		return (0);
 	}
 	return (1);
 }
