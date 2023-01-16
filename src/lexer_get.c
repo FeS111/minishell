@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	*get_quoted(char *str)
+t_token *get_quoted(char *str)
 {
 	int		end;
 
@@ -11,7 +11,7 @@ char	*get_quoted(char *str)
 	else
 		while (str[end] != '\"' || (str[end] == '\"' && str[end - 1] == '\\'))
 			end++;
-	return (ft_substr(str, 0, end + 1));
+	return (new_token(ft_substr(str, 0, end + 1), IO));
 }
 
 t_token	*get_option(char *str)
