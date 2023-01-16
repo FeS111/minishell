@@ -7,8 +7,15 @@ size_t	getnext_whitespace(char *str)
 	i = -1;
 	while (str[++i] != '\0')
 	{
-		if (ft_strchr(" \t\r\v\f", str[i]))
+		if (is_whitespace(str[i]))
 			return (i);
 	}
+	return (0);
+}
+
+int	is_whitespace(char c)
+{
+	if (ft_strchr(" \t\r\v\f", c))
+		return (1);
 	return (0);
 }
