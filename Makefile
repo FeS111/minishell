@@ -4,8 +4,8 @@ VPATH = src/
 DOWNLOADFOLDER=dwnlds
 CC		= cc
 CFLAGSS	= -Wall -Wextra -Werror -g
-INCFLAG	= -I include -I libft -I -I$(DOWNLOADFOLDER)/readline_out/include -I printf
-READLINE = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline
+INCFLAG	= -Iinclude -Ilibft -I$(DOWNLOADFOLDER)/readline_out/include
+LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft
 
 # File Variables
 NAME	= minishell
@@ -15,8 +15,8 @@ LIBFT	= ./libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ) | $(LIBFT)
-	$(CC) $(OBJ) $(LIBFT) $(INCFLAG) $(READLINE) -o $(NAME)
+$(NAME): $(SRC) $(LIBFT) $(DOWNLOADFOLDER)
+	$(CC) $(CFLAGS) $(SRC) $(INCFLAG) $(LINK) -o $(NAME)
 
 $(LIBFT):
 	git submodule update --init
@@ -38,10 +38,5 @@ clean:
 fclean: clean
 	rm $(NAME)
 
-_bin :
-	mkdir _bin
-
-_bin/%.o : %.c $(LIBFT) $(DOWNLOADFOLDER) | _bin
-	$(CC) -c $(CFLAGSS) $(INCFLAG) $< -o $@
 
 .PHONY: clean fclean re all run
