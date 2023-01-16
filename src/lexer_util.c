@@ -20,24 +20,3 @@ int	is_word(char *str, int end)
 	}
 	return (1);
 }
-
-char	*get_quoted(char *str)
-{
-	int		end;
-
-	end = 1;
-	if (str[0] == '\'')
-		while (str[end] != '\'' || (str[end] == '\'' && str[end - 1] == '\\'))
-			end++;
-	else
-		while (str[end] != '\"' || (str[end] == '\"' && str[end - 1] == '\\'))
-			end++;
-	return (ft_substr(str, 0, end + 1));
-}
-
-t_token	*get_option(char *str)
-{
-	if (ft_strchr(str, '='))
-		return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION2));
-	return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION));
-}
