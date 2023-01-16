@@ -8,9 +8,13 @@ t_token *get_quoted(char *str)
 	if (str[0] == '\'')
 		while (str[end] != '\'' || (str[end] == '\'' && str[end - 1] == '\\'))
 			end++;
-	else
+	else if (str[0] == '\"')
 		while (str[end] != '\"' || (str[end] == '\"' && str[end - 1] == '\\'))
 			end++;
+	else
+		return (NULL);
+	while (!is_whitespace(str[end]) && str[end])
+		end++;
 	return (new_token(ft_substr(str, 0, end + 1), IO));
 }
 

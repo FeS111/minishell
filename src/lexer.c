@@ -16,6 +16,8 @@ t_token	*get_token(char *charset)
 		return (get_option(charset));
 	else if (ft_strchr("><#", charset[0]))
 		return (get_io(charset));
+	else if (charset[0] == '&')
+		return (get_ampersand(charset));
 	else
 	{
 		while (!is_whitespace(charset[i]))
