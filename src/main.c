@@ -9,14 +9,17 @@ int	main(void)
 	int		j;
 
 	ft_printf("\e[1;1H\e[2J");
+	signal(SIGINT, ctrl_c_handler);
 	i = 0;
+	// disable_echo();
 	while (1)
 	{
 		line = readline("minishell> ");
-		if (!ft_strncmp(line, "exit", 4))
+		if (!line || !ft_strncmp(line, "exit", 4))
 		{
 			ft_putendl_fd("exit", 1);
-			free(line);
+			if (line)
+				free(line);
 			return (0);
 		}
 		tokens = lexer(line);
