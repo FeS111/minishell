@@ -27,6 +27,8 @@ char		*strjoinn(char **arr, char *c, int start, int end);
 
 size_t		getnext_whitespace(char *str);
 
+void  		ctrl_c_handler(int sig);
+
 int			is_whitespace(char c);
 
 #endif
