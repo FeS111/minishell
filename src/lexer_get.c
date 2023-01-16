@@ -29,6 +29,8 @@ t_token	*get_io(char *str)
 			return (new_token(ft_substr(str, 0, 2), IO));
 		else if (is_whitespace(str[1]))
 			return (new_token(ft_substr(str, 0, 1), IO));
+		else if (str[1] == '&')
+			return (new_token(ft_substr(str, 0, 2), IOR));
 	}
 	return (NULL);
 }
@@ -46,12 +48,5 @@ t_token	*get_ampersand(char *str)
 		return (new_token(ft_strdup("&"), AMBERSAND));
 	if (str[0] == '&' && str[1] == '&')
 		return (new_token(ft_strdup("&&"), AMBERSAND));
-	return (NULL);
-}
-
-t_token	*get_ior(char *str)
-{
-	if (ft_strchr("<>#", str[0]) && str[1] == '&')
-		return (new_token(ft_substr(str, 0, 2), IOR));
 	return (NULL);
 }

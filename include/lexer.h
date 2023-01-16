@@ -33,6 +33,4 @@ t_token		*get_io(char *str);
 t_token		*get_pipe(char *str);
 
 t_token		*get_ampersand(char *str);
-
-t_token		*get_ior(char *str);
 #endif
