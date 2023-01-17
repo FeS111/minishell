@@ -38,7 +38,7 @@ t_token	**lexer(char *line)
 		return (NULL);
 	i = 0;
 	j = 0;
-	tokens = malloc(sizeof(t_token *));
+	tokens = malloc(8 * sizeof(t_token *));
 	while (line[i])
 	{
 		tokens[j] = get_token(&line[i]);

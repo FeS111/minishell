@@ -3,7 +3,7 @@ VPATH = src/
 # Compiler Variables
 DOWNLOADFOLDER=dwnlds
 CC		= cc
-CFLAGSS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g
 INCFLAG	= -Iinclude -Ilibft -I$(DOWNLOADFOLDER)/readline_out/include
 LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft
 
@@ -31,6 +31,9 @@ $(DOWNLOADFOLDER):
 	make install -C $(DOWNLOADFOLDER)/readline-8.1.2
 
 re: fclean all
+
+lsan: CFLAG += -fsanitize=address -static-libsan
+lsan: all
 
 clean:
 	rm -rf _bin
