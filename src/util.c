@@ -19,3 +19,19 @@ int	is_whitespace(char c)
 		return (1);
 	return (0);
 }
+
+int	count_whitespace(char *line)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		if (is_whitespace(line[i]))
+			count++;
+		i++;
+	}
+	return (count);
+}
