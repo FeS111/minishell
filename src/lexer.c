@@ -18,6 +18,8 @@ t_token	*get_token(char *charset)
 		return (get_io(charset));
 	else if (charset[0] == '&')
 		return (get_ampersand(charset));
+	else if (charset[0] == '|')
+		return (get_pipe(charset));
 	else
 	{
 		while (!is_whitespace(charset[i]))
@@ -33,6 +35,7 @@ t_token	**lexer(char *line)
 	t_token	**tokens;
 	int		i;
 	int		j;
+			ft_putendl_fd(tokens[j]->value, 1);
 
 	if (!line)
 		return (NULL);
@@ -44,7 +47,6 @@ t_token	**lexer(char *line)
 		tokens[j] = get_token(&line[i]);
 		if (tokens[j])
 		{
-			ft_putendl_fd(tokens[j]->value, 1);
 			i += ft_strlen(tokens[j]->value);
 			j++;
 			continue;
