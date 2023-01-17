@@ -33,5 +33,5 @@ int	count_whitespace(char *line)
 			count++;
 		i++;
 	}
-	return (count);
+	return (count + 1);
 }
