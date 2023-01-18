@@ -9,9 +9,7 @@ int	main(void)
 	int		j;
 
 	o = create_options();
-	ft_printf("\e[1;1H\e[2J");
 	signal(SIGINT, ctrl_c_handler);
-
 	i = 0;
 	while (1)
 	{
@@ -33,8 +31,6 @@ int	main(void)
 			free(o->line);
 			o->line = NULL;
 		}
-		j = 0;
 	}
-	system("leaks minishell");
 	ft_exit(o);
 }

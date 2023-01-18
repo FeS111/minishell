@@ -50,6 +50,7 @@ t_options	*create_options(void)
 	int			size;
 	extern char	**environ;
 
+	ft_printf("\e[1;1H\e[2J");
 	size = 0;
 	while (environ[size] != NULL)
 		size++;
