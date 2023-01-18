@@ -2,7 +2,6 @@
 
 void	ft_exit(t_options *o)
 {
-
 	ft_putendl_fd("exit", 1);
 	free_options(o);
 	system("leaks minishell");
@@ -21,7 +20,7 @@ void	ft_env(t_options *o)
 	i = -1;
 	while (o->env[++i] != NULL)
 		ft_putendl_fd(o->env[i], 1);
-};
+}
 
 void	ft_unset(t_options *o, char *name)
 {
@@ -48,4 +47,3 @@ void	ft_unset(t_options *o, char *name)
 	free(o->env);
 	o->env = env;
 }
-

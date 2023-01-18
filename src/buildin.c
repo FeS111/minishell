@@ -32,7 +32,7 @@ void	ft_cd(t_options *o, char *arg)
 	while (tmp[++i] != NULL)
 	{
 		if (tmp[i][0] == '.' && tmp[i][1] == '\0')
-			continue;
+			continue ;
 		else if (tmp[i][0] == '.' && tmp[i][1] == '.')
 			pwd_one_back(o);
 		else
@@ -43,7 +43,7 @@ void	ft_cd(t_options *o, char *arg)
 			else
 			{
 				ft_printf("cd: no such file or directory: %s\n", tmp[i]);
-				break;
+				break ;
 			}
 		}
 	}
