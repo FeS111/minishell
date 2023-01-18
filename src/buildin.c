@@ -12,9 +12,7 @@ void	ft_env(t_options *o)
 
 	i = -1;
 	while (o->env[++i] != NULL)
-	{
 		ft_putendl_fd(o->env[i], 1);
-	}
 };
 
 void	ft_unset(t_options *o, char *name)
