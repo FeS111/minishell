@@ -1,4 +1,4 @@
-#ifndef LEXER_H
+#sifndef LEXER_H
 # define LEXER_H
 
 # ifndef LIBFT_H
@@ -13,7 +13,8 @@ enum	e_token_type
 	AMBERSAND,
 	OPTION,
 	OPTION2,
-	WORD
+	WORD,
+  VARIABLE
 };
 
 typedef struct s_token
@@ -26,6 +27,7 @@ t_token		*new_token(char *args, enum e_token_type type);
 void		free_tokens(t_token **tokens);
 
 t_token		*get_quoted(char *str);
+t_token		*get_variable(char *str);
 t_token		*get_option(char *str);
 t_token		*get_io(char *str);
 t_token		*get_pipe(char *str);
