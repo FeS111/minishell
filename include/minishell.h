@@ -24,6 +24,7 @@ typedef struct s_options
 {
 	char	**env;
 	char	*pwd;
+	char	**paths;
 } t_options;
 
 t_token		**lexer(char *line);
