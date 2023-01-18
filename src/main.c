@@ -25,6 +25,12 @@ int	main(void)
 			return (free_options(o), 0);
 		}
 		tokens = lexer(line);
+		while (tokens[j])
+		{
+			ft_putendl_fd(tokens[j]->value, 1);
+			j++;
+		}
+		free_tokens(tokens);
 		i++;
 		if (line && *line)
 		{
@@ -32,11 +38,7 @@ int	main(void)
 			free(line);
 		}
 		j = 0;
-		while (tokens[j])
-		{
-			ft_putendl_fd(tokens[j]->value, 1);
-			j++;
-		}
 	}
+	system("leaks minishell");
 	return (free_options(o), 0);
 }

@@ -23,7 +23,8 @@ void	free_tokens(t_token **tokens)
 	i = 0;
 	while (tokens[i])
 	{
-		free(tokens[i]->value);
+		if (tokens[i]->value)
+			free(tokens[i]->value);
 		free(tokens[i]);
 		i++;
 	}
