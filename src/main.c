@@ -14,7 +14,6 @@ int	main(void)
 	signal(SIGINT, ctrl_c_handler);
 
 	i = 0;
-	// disable_echo();
 	while (1)
 	{
 		line = readline("minishell> ");
