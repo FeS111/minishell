@@ -19,9 +19,17 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
+typedef struct s_options
+{
+	char	**env;
+	char	*pwd;
+} t_options;
+
 t_token		**lexer(char *line);
 
 char		**split_join(char **str);
+
+void		split_free(char **str);
 
 char		*strjoinn(char **arr, char *c, int start, int end);
 
@@ -30,5 +38,11 @@ size_t		getnext_whitespace(char *str);
 void  		ctrl_c_handler(int sig);
 
 int			is_whitespace(char c);
+
+t_options	*create_options(void);
+
+void		free_options(t_options *o);
+
+char		*get_pwd(void);
 
 #endif

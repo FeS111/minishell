@@ -1,12 +1,10 @@
-
-
 #ifndef BUILDIN_H
 # define BUILDIN_H
 
-# ifndef LIBFT_H
-#  include "../libft/libft.h"
-# endif
+typedef struct s_options t_options;
+void	ft_pwd(t_options *o);
+void	ft_env(t_options *o);
+void	ft_unset(t_options *o, char *name);
 
-char	*ft_pwd(void);
 
 #endif

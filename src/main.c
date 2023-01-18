@@ -3,11 +3,13 @@
 
 int	main(void)
 {
-	char	*line;
-	t_token	**tokens;
+	char		*line;
+	t_token		**tokens;
+	t_options	*o;
 	int		i;
 	int		j;
 
+	o = create_options();
 	ft_printf("\e[1;1H\e[2J");
 	signal(SIGINT, ctrl_c_handler);
 	i = 0;
@@ -20,7 +22,7 @@ int	main(void)
 			ft_putendl_fd("exit", 1);
 			if (line)
 				free(line);
-			return (0);
+			return (free_options(o), 0);
 		}
 		tokens = lexer(line);
 		i++;
@@ -36,5 +38,5 @@ int	main(void)
 			j++;
 		}
 	}
-	return (0);
+	return (free_options(o), 0);
 }
