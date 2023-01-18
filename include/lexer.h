@@ -34,6 +34,5 @@ t_token		*get_pipe(char *str);
 t_token		*get_ampersand(char *str);
 
 int			is_word(char *str, int end);
-int			count_whitespace(char *line);
 
 #endif
