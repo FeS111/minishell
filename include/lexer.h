@@ -1,4 +1,4 @@
-#sifndef LEXER_H
+#ifndef LEXER_H
 # define LEXER_H
 
 # ifndef LIBFT_H
@@ -14,7 +14,7 @@ enum	e_token_type
 	OPTION,
 	OPTION2,
 	WORD,
-  VARIABLE
+	VARIABLE
 };
 
 typedef struct s_token
