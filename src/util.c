@@ -62,6 +62,7 @@ t_options	*create_options(void)
 		o->env[i] = ft_strdup(environ[i]);
 	o->env[i] = NULL;
 	o->pwd = get_pwd();
+	o->line = NULL;
 	o->paths = get_paths();
 	return (o);
 }
@@ -69,6 +70,7 @@ t_options	*create_options(void)
 void	free_options(t_options *o)
 {
 	free(o->pwd);
+	free(o->line);
 	split_free(o->env);
 	split_free(o->paths);
 	free(o);

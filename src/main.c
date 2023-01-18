@@ -3,7 +3,6 @@
 
 int	main(void)
 {
-	char		*line;
 	t_token		**tokens;
 	t_options	*o;
 	int		i;
@@ -16,15 +15,11 @@ int	main(void)
 	i = 0;
 	while (1)
 	{
-		line = readline("minishell> ");
-		if (!line || !ft_strncmp(line, "exit", 4))
-		{
-			ft_putendl_fd("exit", 1);
-			if (line)
-				free(line);
-			return (free_options(o), 0);
-		}
-		tokens = lexer(line);
+		o->line = readline("minishell> ");
+		if (!o->line || !ft_strncmp(o->line, "exit", 4))
+			ft_exit(o);
+		tokens = lexer(o->line);
+		j = 0;
 		while (tokens[j])
 		{
 			ft_putendl_fd(tokens[j]->value, 1);
@@ -32,13 +27,14 @@ int	main(void)
 		}
 		free_tokens(tokens);
 		i++;
-		if (line && *line)
+		if (o->line && *(o->line))
 		{
-			add_history(line);
-			free(line);
+			add_history(o->line);
+			free(o->line);
+			o->line = NULL;
 		}
 		j = 0;
 	}
 	system("leaks minishell");
-	return (free_options(o), 0);
+	ft_exit(o);
 }

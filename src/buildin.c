@@ -1,5 +1,15 @@
 
 #include "../include/minishell.h"
+#include <stdlib.h>
+
+void	ft_exit(t_options *o)
+{
+
+	ft_putendl_fd("exit", 1);
+	free_options(o);
+	system("leaks minishell");
+	exit(0);
+}
 
 void	ft_pwd(t_options *o)
 {
