@@ -9,6 +9,20 @@ char	*get_pwd(void)
 	return (cwd);
 }
 
+void	pwd_one_back(t_options *o)
+{
+	char	**tmp;
+	int		i;
+
+	tmp = ft_split(o->pwd, '/');
+	i = 0;
+	while (tmp[i] != NULL)
+		i++;
+	free(o->pwd);
+	o->pwd = str_prefix(strjoinn(tmp, "/", 0, i - 2), "/");
+	split_free(tmp);
+}
+
 size_t	getnext_whitespace(char *str)
 {
 	size_t	i;

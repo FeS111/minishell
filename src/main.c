@@ -12,6 +12,7 @@ int	main(void)
 	o = create_options();
 	ft_printf("\e[1;1H\e[2J");
 	signal(SIGINT, ctrl_c_handler);
+
 	i = 0;
 	// disable_echo();
 	while (1)

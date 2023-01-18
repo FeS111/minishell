@@ -36,6 +36,15 @@ char	*strjoinn(char **arr, char *c, int start, int end)
 	return (res);
 }
 
+char	*str_prefix(char *str, char *prefix)
+{
+	char	*res;
+
+	res = ft_strjoin(prefix, str);
+	free(str);
+	return (res);
+}
+
 char	**split_join(char **str)
 {
 	char	**new;
