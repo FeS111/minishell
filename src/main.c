@@ -5,12 +5,10 @@ int	main(void)
 {
 	t_token		**tokens;
 	t_options	*o;
-	int		i;
 	int		j;
 
 	o = create_options();
 	signal(SIGINT, ctrl_c_handler);
-	i = 0;
 	while (1)
 	{
 		o->line = readline("minishell> ");
@@ -24,7 +22,6 @@ int	main(void)
 			j++;
 		}
 		free_tokens(tokens);
-		i++;
 		if (o->line && *(o->line))
 		{
 			add_history(o->line);

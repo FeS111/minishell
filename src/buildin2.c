@@ -47,3 +47,4 @@ void	ft_unset(t_options *o, char *name)
 	free(o->env);
 	o->env = env;
 }
+
