@@ -6,11 +6,11 @@ t_token *get_quoted(char *str)
 
 	end = 1;
 	if (str[0] == '\'')
-		while (str[end] && (str[end] != '\'' || (str[end] == '\'' 
+		while (str[end] && (str[end] != '\'' || (str[end] == '\''
 						&& str[end - 1] == '\\')))
 			end++;
 	else if (str[0] == '\"')
-		while (str[end] && (str[end] != '\"' || (str[end] == '\"' 
+		while (str[end] && (str[end] != '\"' || (str[end] == '\"'
 						&& str[end - 1] == '\\')))
 			end++;
 	else
@@ -35,10 +35,10 @@ t_token	*get_io(char *str)
 	{
 		if (str[1] == str[0])
 			return (new_token(ft_substr(str, 0, 2), IO));
-		else if (is_whitespace(str[1]))
-			return (new_token(ft_substr(str, 0, 1), IO));
 		else if (str[1] == '&')
 			return (new_token(ft_substr(str, 0, 2), IOR));
+		else
+			return (new_token(ft_substr(str, 0, 1), IO));
 	}
 	return (NULL);
 }
