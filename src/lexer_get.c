@@ -6,16 +6,20 @@ t_token *get_quoted(char *str)
 
 	end = 1;
 	if (str[0] == '\'')
-		while (str[end] != '\'' || (str[end] == '\'' && str[end - 1] == '\\'))
+		while (str[end] && (str[end] != '\'' || (str[end] == '\'' 
+						&& str[end - 1] == '\\')))
 			end++;
 	else if (str[0] == '\"')
-		while (str[end] != '\"' || (str[end] == '\"' && str[end - 1] == '\\'))
+		while (str[end] && (str[end] != '\"' || (str[end] == '\"' 
+						&& str[end - 1] == '\\')))
 			end++;
 	else
 		return (NULL);
+	if (str[end] != '\"' && str[end] != '\'')
+		return (NULL);
 	while (!is_whitespace(str[end]) && str[end])
 		end++;
-	return (new_token(ft_substr(str, 0, end + 1), IO));
+	return (new_token(ft_substr(str, 0, end + 1), WORD));
 }
 
 t_token	*get_option(char *str)

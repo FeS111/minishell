@@ -35,7 +35,6 @@ t_token	**lexer(char *line)
 	t_token	**tokens;
 	int		i;
 	int		j;
-			ft_putendl_fd(tokens[j]->value, 1);
 
 	if (!line)
 		return (NULL);

@@ -30,11 +30,11 @@ int	main(void)
 			free(line);
 		}
 		j = 0;
-		//while (tokens[j])
-		//{
-		//	ft_putendl_fd(tokens[j]->value, 1);
-		//	j++;
-		//}
+		while (tokens[j])
+		{
+			ft_putendl_fd(tokens[j]->value, 1);
+			j++;
+		}
 	}
 	return (0);
 }

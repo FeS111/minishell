@@ -23,18 +23,15 @@ typedef struct s_token
 }	t_token;
 
 t_token		*new_token(char *args, enum e_token_type type);
-
-int			is_word(char *str, int end);
-
-int			count_whitespace(char *line);
+void		free_tokens(t_token **tokens);
 
 t_token		*get_quoted(char *str);
-
 t_token		*get_option(char *str);
-
 t_token		*get_io(char *str);
-
 t_token		*get_pipe(char *str);
-
 t_token		*get_ampersand(char *str);
+
+int			is_word(char *str, int end);
+int			count_whitespace(char *line);
+
 #endif
