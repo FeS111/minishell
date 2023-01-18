@@ -2,9 +2,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./buildin.h"
-# include "./lexer.h"
-# include "./executer.h"
+# include "buildin.h"
+# include "lexer.h"
+# include "parser.h"
+# include "executer.h"
+
 
 # ifndef LIBFT_H
 #  include "../libft/libft.h"
