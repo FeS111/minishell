@@ -11,7 +11,6 @@ int	main(void)
 
 	o = create_options();
 	ft_printf("\e[1;1H\e[2J");
-	ft_printf("%s\n", search_binary(o, "/bin/ls"));
 	signal(SIGINT, ctrl_c_handler);
 
 	i = 0;
