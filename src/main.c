@@ -13,7 +13,7 @@ int	main(void)
 	{
 		o->line = readline("minishell> ");
 		if (!o->line || !ft_strncmp(o->line, "exit", 4))
-			ft_exit(o);
+			panic(o);
 		tokens = lexer(o->line);
 		j = 0;
 		while (tokens[j])
@@ -29,5 +29,5 @@ int	main(void)
 			o->line = NULL;
 		}
 	}
-	ft_exit(o);
+	panic(o);
 }

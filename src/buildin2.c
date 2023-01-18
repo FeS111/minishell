@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	ft_exit(t_options *o)
+void	panic(t_options *o)
 {
 	ft_putendl_fd("exit", 1);
 	free_options(o);
