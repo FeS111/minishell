@@ -6,14 +6,22 @@ char	*str_replace(char *str, char *old, char *newValue)
 	size_t	start;
 	char	*res;
 	char	*tmp;
+	char	*tmp2;
 
-	start = (size_t)(ft_strnstr(str, old, ft_strlen(str)) - str);
-	res = ft_substr(str, 0, start);
-	res = ft_strjoin_gnl(res, newValue);
-	start += ft_strlen(old);
-	tmp = ft_substr(str, start, ft_strlen(str) - start);
-	res = ft_strjoin_gnl(res, tmp);
-	free(str);
-	free(tmp);
+	tmp2 = str;
+	res = NULL;
+	while (ft_strnstr(tmp2, old, ft_strlen(tmp2)))
+	{
+		free(res);
+		start = (size_t)(ft_strnstr(tmp2, old, ft_strlen(tmp2)) - tmp2);
+		res = ft_substr(tmp2, 0, start);
+		res = ft_strjoin_gnl(res, newValue);
+		start += ft_strlen(old);
+		tmp = ft_substr(tmp2, start, ft_strlen(tmp2) - start);
+		res = ft_strjoin_gnl(res, tmp);
+		free(tmp2);
+		free(tmp);
+		tmp2 = ft_strdup(res);
+	}
 	return (res);
 }
