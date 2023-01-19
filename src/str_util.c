@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <stddef.h>
 
 char	*str_replace(char *str, char *old, char *newValue)
 {
