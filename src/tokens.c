@@ -2,6 +2,16 @@
 
 #include "../include/minishell.h"
 
+int	token_size(t_token **tokens)
+{
+	int	size;
+
+	size = 0;
+	while (tokens[size])
+		size++;
+	return (size);
+}
+
 t_token	*new_token(char *args, enum e_token_type type)
 {
 	t_token	*new;

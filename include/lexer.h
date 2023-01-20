@@ -25,6 +25,7 @@ typedef struct s_token
 
 t_token		*new_token(char *args, enum e_token_type type);
 void		free_tokens(t_token **tokens);
+int			token_size(t_token **tokens);
 
 t_token		*get_quoted(char *str);
 t_token		*get_variable(char *str);

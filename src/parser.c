@@ -1,17 +1,26 @@
-#include "../include/minishell.h"
+#include "../include/parser.h"
+#include <stdlib.h>
 
-char	**parser(t_token **tokens)
+t_parse_table	**parser(t_token **tokens)
 {
 	int 			i;
-	char			**table;
+	int				j;
 	t_parse_table	**tables;
+	int				in;
+	int				out;
 
 	i = 0;
-	table = malloc((sizeof(char *) * 4) + 1);
-	table[4] = NULL;
-	tables = NULL;
+	j = 0;
+	in = 0;
+	out = 1;
+	tables = malloc(sizeof(t_parse_table *) * token_size(tokens));
 	while (tokens[i])
 	{
+		tables[j] = new_table(build_cmd(tokens, &in, &out, &i), in, out);
+		if (!tables[j])
+			exit(EXIT_FAILURE);
+		j++;
 		i++;
 	}
+	return (tables);
 }
