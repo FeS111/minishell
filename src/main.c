@@ -1,5 +1,6 @@
 
 #include "../include/minishell.h"
+#include <stdlib.h>
 
 int	main(void)
 {
@@ -18,7 +19,7 @@ int	main(void)
 		j = 0;
 		while (tokens[j])
 		{
-			ft_putendl_fd(tokens[j]->value, 1);
+			ft_printf("%s %d\n", tokens[j]->value, tokens[j]->type);
 			j++;
 		}
 		free_tokens(tokens);
