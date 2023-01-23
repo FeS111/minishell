@@ -1,11 +1,11 @@
 #include "../include/minishell.h"
 
-void	panic(t_options *o)
+void	panic(t_options *o, int code)
 {
 	ft_putendl_fd("exit", 1);
 	free_options(o);
 	system("leaks minishell");
-	exit(0);
+	exit(code);
 }
 
 void	ft_pwd(t_options *o)

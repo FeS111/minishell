@@ -32,21 +32,21 @@ t_token	*get_token(char *charset)
 	return (NULL);
 }
 
-t_token	**lexer(char *line)
+void	lexer(t_options *o)
 {
 	t_token	**tokens;
 	int		i;
 	int		j;
 
-	if (!line)
-		return (NULL);
+	if (!o->line)
+		return ;
 	i = 0;
 	j = 0;
 	tokens = malloc(sizeof(t_token *) * 1024);
 	ft_bzero(tokens, 1024);
-	while (line[i])
+	while (o->line[i])
 	{
-		tokens[j] = get_token(&line[i]);
+		tokens[j] = get_token(&(o->line)[i]);
 		if (tokens[j])
 		{
 			i += ft_strlen(tokens[j]->value);
@@ -55,5 +55,5 @@ t_token	**lexer(char *line)
 		}
 		i++;
 	}
-	return (tokens);
+	o->tokens = tokens;
 }

@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 char	*get_pwd(void)
 {
@@ -64,6 +65,7 @@ t_options	*create_options(void)
 	o->env[i] = NULL;
 	o->pwd = get_pwd();
 	o->line = NULL;
+	o->tokens = NULL;
 	o->paths = get_paths();
 	return (o);
 }
@@ -72,6 +74,7 @@ void	free_options(t_options *o)
 {
 	free(o->pwd);
 	free(o->line);
+	free_tokens(o->tokens);
 	split_free(o->env);
 	split_free(o->paths);
 	free(o);
