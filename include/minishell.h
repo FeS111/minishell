@@ -51,8 +51,6 @@ void		free_options(t_options *o);
 
 char		*get_pwd(void);
 
-void		pwd_one_back(t_options *o);
-
 char		*str_prefix(char *str, char *prefix);
 
 char	*str_replace(char *str, char *old, char *newValue);

@@ -20,8 +20,22 @@ int	main(void)
 {
 	t_options	*o;
 	int		j;
+	t_parse_table	**cmds;
+	char			**cmd = ft_calloc(sizeof(char *),  5);
+	char			**cmd2 = ft_calloc(sizeof(char *),  5);
+	cmd[0] = ft_strdup("/bin/ls");
+	cmd[1] = ft_strdup("-lah");
+	cmd2[0] = ft_strdup("wc");
+	cmd2[1] = ft_strdup("-l");
+
+	cmds = malloc(sizeof(t_parse_table *) * 3);
+	cmds[0] = new_table(cmd, 0, -2);
+	cmds[1] = new_table(cmd2, 0, 1);
+	cmds[2] = NULL;
+
 
 	o = create_options();
+	executer(o, cmds);
 	signal(SIGINT, ctrl_c_handler);
 	while (1)
 	{

@@ -23,29 +23,7 @@ void	ft_export(t_options *o, char *arg)
 
 void	ft_cd(t_options *o, char *arg)
 {
-	char	**tmp;
-	char	*pwd;
-	int		i;
-
-	tmp = ft_split(arg, '/');
-	i = -1;
-	while (tmp[++i] != NULL)
-	{
-		if (tmp[i][0] == '.' && tmp[i][1] == '\0')
-			continue ;
-		else if (tmp[i][0] == '.' && tmp[i][1] == '.')
-			pwd_one_back(o);
-		else
-		{
-			pwd = ft_strjoin_gnl(o->pwd, ft_strjoin("/", tmp[i]));
-			if (access(pwd, F_OK) != -1)
-				o->pwd = pwd;
-			else
-			{
-				ft_printf("cd: no such file or directory: %s\n", tmp[i]);
-				break ;
-			}
-		}
-	}
-	split_free(tmp);
+	chdir(arg);
+	free(o->pwd);
+	o->pwd = get_pwd();
 }
