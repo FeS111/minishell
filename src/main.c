@@ -1,10 +1,23 @@
 
 #include "../include/minishell.h"
+#include <readline/readline.h>
 #include <stdlib.h>
+
+
+void	history(t_options *o)
+{
+	free_tokens(o->tokens);
+	o->tokens = NULL;
+	if (o->line && *(o->line))
+	{
+		add_history(o->line);
+		free(o->line);
+		o->line = NULL;
+	}
+}
 
 int	main(void)
 {
-	t_token		**tokens;
 	t_options	*o;
 	int		j;
 
@@ -14,21 +27,15 @@ int	main(void)
 	{
 		o->line = readline("minishell> ");
 		if (!o->line || !ft_strncmp(o->line, "exit", 4))
-			panic(o);
-		tokens = lexer(o->line);
+			panic(o, 0);
+		lexer(o);
 		j = 0;
-		while (tokens[j])
+		while (o->tokens[j])
 		{
-			ft_printf("%s %d\n", tokens[j]->value, tokens[j]->type);
+			ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
 			j++;
 		}
-		free_tokens(tokens);
-		if (o->line && *(o->line))
-		{
-			add_history(o->line);
-			free(o->line);
-			o->line = NULL;
-		}
+		history(o);
 	}
-	panic(o);
+	panic(o, 0);
 }

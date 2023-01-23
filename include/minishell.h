@@ -27,10 +27,11 @@ typedef struct s_options
 	char	**env;
 	char	*pwd;
 	char	*line;
+	t_token	**tokens;
 	char	**paths;
 } t_options;
 
-t_token		**lexer(char *line);
+void		lexer(t_options *o);
 
 char		**split_join(char **str);
 
