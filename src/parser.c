@@ -1,5 +1,4 @@
 #include "../include/parser.h"
-#include <stdlib.h>
 
 t_parse_table	**parser(t_token **tokens)
 {

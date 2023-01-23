@@ -18,7 +18,8 @@ void	history(t_options *o)
 
 int	main(void)
 {
-	t_options	*o;
+	t_options		*o;
+	//t_parse_table	**table;
 	int		j;
 
 	o = create_options();
@@ -35,6 +36,9 @@ int	main(void)
 			ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
 			j++;
 		}
+		//table = parser(o->tokens);
+		//if (table)
+		//	ft_printf("%s, %i, %i\n", table[0]->cmd[0], table[0]->in, table[0]->out);
 		history(o);
 	}
 	panic(o, 0);

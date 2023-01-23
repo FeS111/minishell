@@ -9,7 +9,23 @@ LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft
 
 # File Variables
 NAME	= minishell
-SRC		= $(addprefix $(VPATH), main.c buildin2.c buildin.c lexer.c lexer_util.c split_utils.c tokens.c util.c lexer_get.c signal_handler.c lexer_get2.c executer.c str_util.c parser.c parser_utils.c handler.c)
+SRC		= $(addprefix $(VPATH), main.c \
+								buildin2.c \
+								buildin.c \
+								lexer.c \
+								lexer_util.c \
+								split_utils.c \
+								tokens.c util.c \
+								lexer_get.c \
+								signal_handler.c \
+								lexer_get2.c \
+								executer.c \
+								str_util.c \
+								parser.c \
+								parser_utils.c \
+								parse_handler.c \
+								parse_handler_utils.c)
+
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 LIBFT	= ./libft/libft.a
 
