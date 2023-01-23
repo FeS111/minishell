@@ -17,7 +17,7 @@ t_parse_table *new_table(char **cmd, int in, int out)
 
 	if (!cmd)
 		return (NULL);
-	new = malloc(sizeof(t_parse_table));
+	new = malloc(sizeof(t_parse_table *));
 	new->cmd = cmd;
 	new->in = in;
 	new->out = out;
