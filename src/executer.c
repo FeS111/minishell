@@ -64,7 +64,7 @@ static void	execute_pipe(t_options *o, t_parse_table *cmd, t_parse_table *next_c
 		panic(o, 1);
 	if (child == 0)
 	{
-		dup2(next_cmd->in, STDIN_FILENO);
+		next_cmd->in = fd[0];
 		close(next_cmd->in);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
