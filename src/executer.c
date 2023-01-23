@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdlib.h>
 
 char		**get_paths(void)
 {
@@ -31,5 +32,6 @@ char	*search_binary(t_options *o, char *cmd)
 	}
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(": command not found", 2);
-	exit(EXIT_FAILURE);
+	panic(o, EXIT_FAILURE);
+	return (NULL);
 }

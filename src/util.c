@@ -74,7 +74,8 @@ void	free_options(t_options *o)
 {
 	free(o->pwd);
 	free(o->line);
-	free_tokens(o->tokens);
+	if (o->tokens)
+		free_tokens(o->tokens);
 	split_free(o->env);
 	split_free(o->paths);
 	free(o);

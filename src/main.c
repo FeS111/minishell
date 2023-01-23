@@ -1,6 +1,20 @@
 
 #include "../include/minishell.h"
+#include <readline/readline.h>
 #include <stdlib.h>
+
+
+void	history(t_options *o)
+{
+	free_tokens(o->tokens);
+	o->tokens = NULL;
+	if (o->line && *(o->line))
+	{
+		add_history(o->line);
+		free(o->line);
+		o->line = NULL;
+	}
+}
 
 int	main(void)
 {
@@ -21,12 +35,7 @@ int	main(void)
 			ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
 			j++;
 		}
-		if (o->line && *(o->line))
-		{
-			add_history(o->line);
-			free(o->line);
-			o->line = NULL;
-		}
+		history(o);
 	}
 	panic(o, 0);
 }
