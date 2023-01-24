@@ -24,7 +24,8 @@ SRC		= $(addprefix $(VPATH), main.c \
 								parser.c \
 								parser_utils.c \
 								parse_handler.c \
-								parse_handler_utils.c)
+								parse_handler_utils.c \
+			)
 
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 LIBFT	= ./libft/libft.a

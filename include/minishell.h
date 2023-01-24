@@ -24,11 +24,12 @@
 
 typedef struct s_options
 {
-	char	**env;
-	char	*pwd;
-	char	*line;
-	t_token	**tokens;
-	char	**paths;
+	char			**env;
+	char			*pwd;
+	char			*line;
+	t_token			**tokens;
+	//t_parse_table	**table;
+	char			**paths;
 } t_options;
 
 void		lexer(t_options *o);
