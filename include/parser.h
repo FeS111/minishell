@@ -19,8 +19,9 @@ typedef enum e_fd
 {
 	STD_INPUT,
 	STD_OUTPUT,
-	STD_ERROR,
-	FD,
+	PIPE_FD,
+	WRITE,
+	READ,
 } t_fd;
 
 typedef struct s_parse_table
@@ -39,7 +40,9 @@ char			**handle_io(t_token **tokens, int *in, int *out, int *i);
 char			**handle_ior(t_token **tokens, int *in, int *out, int *i);
 char			**handle_word(t_token **tokens, int *in, int *out, int *i);
 
-char			**left_redir(t_token	**tokens, int *in, int *out, int *i);
+char			**left_redir(t_token **tokens, int *in, int *out, int *i);
+char			**right_redir(t_token **tokens, int *in, int *out, int *i);
+
 void			panic_token(char *str);
 void			free_table(t_parse_table **table);
 #endif

@@ -40,7 +40,12 @@ int	main(void)
 		table = parser(o->tokens);
 		if (table)
 		{
-			ft_printf("%s, %i, %i\n", table[0]->cmd[0], table[0]->in, table[0]->out);
+			j = 0;
+			while (table[j])
+			{
+				ft_printf("%s, %i, %i\n", table[j]->cmd[j], table[j]->in, table[j]->out);
+				j++;
+			}
 			free_table(table);
 		}
 		history(o);
