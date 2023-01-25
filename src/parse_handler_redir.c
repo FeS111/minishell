@@ -36,6 +36,6 @@ char	**right_redir(t_token **tokens, int *in, int *out, int *i)
 		return (new);
 	}
 	else
-		return (ft_putendl_fd("parse error near \\n \n", 2), NULL);
+		return (panic_token("`newline'"), NULL);
 	return (NULL);
 }

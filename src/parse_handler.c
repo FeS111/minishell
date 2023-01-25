@@ -4,7 +4,7 @@ char	**handle_io(t_token **tokens, int *in, int *out, int *i)
 {
 	if (!ft_strncmp(tokens[*i]->value, "<", 1))
 	{
-		if (tokens[*i + 1]->type != WORD)
+		if (!tokens[*i + 1] || tokens[*i + 1]->type != WORD)
 			return (panic_token(tokens[*i]->value), NULL);
 		return (left_redir(tokens, in, out, i));
 	}
@@ -12,17 +12,9 @@ char	**handle_io(t_token **tokens, int *in, int *out, int *i)
 		return (right_redir(tokens, in, out, i));
 	else if (!ft_strncmp(tokens[*i]->value, "<<", 2))
 	{
-		*i += 1;
-		if (tokens[*i]->type != WORD)
+		if (tokens[*i + 1] && tokens[*i + 1]->type != WORD)
 			return (panic_token(tokens[*i]->value), NULL);
-		return (NULL);
-	}
-	else if (!ft_strncmp(tokens[*i]->value, ">>", 2))
-	{
-		*i += 1;
-		if (tokens[*i]->type != WORD)
-			return (panic_token(tokens[*i]->value), NULL);
-		return (NULL);
+		return (here_doc(tokens, in, out, i));
 	}
 	return (NULL);
 }
