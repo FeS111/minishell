@@ -96,6 +96,8 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 				tmp3 = ft_strjoin_gnl(tmp3, " ");
 			}
 			*i += 1;
+			if (tokens[*i] && (tokens[*i]->type != OPTION || tokens[*i]->type != OPTION2 || tokens[*i]->type != WORD))
+				break;
 		}
 		ft_putendl_fd(tmp, 1);
 		new = new_cmd(word, tmp, tmp2 ,tmp3);

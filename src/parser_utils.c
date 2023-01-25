@@ -24,6 +24,19 @@ t_parse_table *new_table(char **cmd, int in, int out)
 	return (new);
 }
 
+void	free_cmd(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (cmd[i])
+			free(cmd[i]);
+		i++;
+	}
+}
+
 void	free_table(t_parse_table **table)
 {
 	int	i;
@@ -35,11 +48,7 @@ void	free_table(t_parse_table **table)
 		j = 0;
 		if (table[i]->cmd)
 		{
-			while (table[i]->cmd[j])
-			{
-				free (table[i]->cmd[j]);
-				j++;
-			}
+			free_cmd(table[i]->cmd);
 			free(table[i]->cmd);
 		}
 		if (table[i]->in > 2)
