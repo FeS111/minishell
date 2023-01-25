@@ -26,6 +26,16 @@ char	*replace_variable(t_options *go, char *str, int start, int end)
 	return (str_replace(o));
 }
 
+static int	get_varlength(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (!is_whitespace(str[i]) && ! ft_strchr("\"\0", str[i]))
+		i++;
+	return (i);
+}
+
 char	*replace_home(char *str, int start)
 {
 	char	*home;
@@ -62,7 +72,7 @@ void	evaluator(t_options *o, t_parse_table **cmds)
 			if (!replace)
 				continue ;
 			if (cmds[i]->cmd[ARGS][j] == '$')
-				cmds[i]->cmd[ARGS] = replace_variable(o, cmds[i]->cmd[ARGS], j, getnext_whitespace(&cmds[i]->cmd[ARGS][j]));
+				cmds[i]->cmd[ARGS] = replace_variable(o, cmds[i]->cmd[ARGS], j, get_varlength(&cmds[i]->cmd[ARGS][j]));
 			else if (cmds[i]->cmd[ARGS][j] == '~')
 				cmds[i]->cmd[ARGS] = replace_home(cmds[i]->cmd[ARGS], j);
 		}
