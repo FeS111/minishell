@@ -43,7 +43,7 @@ int	main(void)
 			j = 0;
 			while (table[j])
 			{
-				ft_printf("%s, %i, %i\n", table[j]->cmd[j], table[j]->in, table[j]->out);
+				ft_printf("%s, %s, %s, %s, %i, %i\n", table[j]->cmd[CMD], table[j]->cmd[OPT], table[j]->cmd[OPT2], table[j]->cmd[ARGS], table[j]->in, table[j]->out);
 				j++;
 			}
 			free_table(table);

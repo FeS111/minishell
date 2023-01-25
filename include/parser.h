@@ -44,5 +44,6 @@ char			**left_redir(t_token **tokens, int *in, int *out, int *i);
 char			**right_redir(t_token **tokens, int *in, int *out, int *i);
 
 void			panic_token(char *str);
+char			**new_cmd(char *cmd, char *opt, char *opt2, char *args);
 void			free_table(t_parse_table **table);
 #endif
