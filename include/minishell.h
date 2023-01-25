@@ -5,6 +5,7 @@
 # include "buildin.h"
 # include "lexer.h"
 # include "parser.h"
+# include "evaluator.h"
 # include "executer.h"
 
 
@@ -24,12 +25,23 @@
 
 typedef struct s_options
 {
-	char	**env;
-	char	*pwd;
-	char	*line;
-	t_token	**tokens;
-	char	**paths;
+	char			**env;
+	char			*pwd;
+	char			*line;
+	t_token			**tokens;
+	int				last_status;
+	t_parse_table	**tables;
+	char			**paths;
 } t_options;
+
+typedef struct s_replace_options
+{
+	char	*str;
+	char	*old;
+	char	*newValue;
+	int		start;
+	int		end;
+} t_replace_options;
 
 void		lexer(t_options *o);
 
@@ -53,6 +65,7 @@ char		*get_pwd(void);
 
 char		*str_prefix(char *str, char *prefix);
 
-char	*str_replace(char *str, char *old, char *newValue);
+char		*str_replace(t_replace_options options);
+char		*replace_join(char *one, char *two);
 
 #endif
