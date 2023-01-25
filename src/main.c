@@ -1,8 +1,5 @@
 
 #include "../include/minishell.h"
-#include <readline/readline.h>
-#include <stdlib.h>
-
 
 void	history(t_options *o)
 {
@@ -21,7 +18,7 @@ int	main(void)
 {
 	t_options		*o;
 	t_parse_table	**table;
-	int		j;
+	int				j;
 
 	o = create_options();
 	signal(SIGINT, ctrl_c_handler);

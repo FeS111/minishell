@@ -1,26 +1,27 @@
 #include "../include/minishell.h"
 
-char	*str_replace(char *str, char *old, char *newValue)
+char	*replace_join(char *one, char *two)
 {
-	size_t	start;
 	char	*res;
-	char	*tmp;
-	char	*tmp2;
 
-	tmp2 = str;
-	res = NULL;
-	while (ft_strnstr(tmp2, old, ft_strlen(tmp2)))
+	res = ft_strjoin_gnl(one, two);
+	free(two);
+	return (res);
+}
+
+char		*str_replace(t_replace_options o)
+{
+	int		i;
+	char	*res;
+
+	i = o.start - 1;
+	while (o.str[++i] != '\0' && i < o.end)
 	{
-		free(res);
-		start = (size_t)(ft_strnstr(tmp2, old, ft_strlen(tmp2)) - tmp2);
-		res = ft_substr(tmp2, 0, start);
-		res = ft_strjoin_gnl(res, newValue);
-		start += ft_strlen(old);
-		tmp = ft_substr(tmp2, start, ft_strlen(tmp2) - start);
-		res = ft_strjoin_gnl(res, tmp);
-		free(tmp2);
-		free(tmp);
-		tmp2 = ft_strdup(res);
+		if (o.str[i] != '$')
+			continue ;
+		res = ft_substr(o.str, 0, i);
+		res = ft_strjoin_gnl(res, o.newValue);
+		res = replace_join(res, ft_substr(o.str, o.end, ft_strlen(o.str) - o.end));
 	}
 	return (res);
 }
