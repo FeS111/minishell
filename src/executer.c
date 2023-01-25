@@ -114,21 +114,21 @@ char	*read_fd(int fd)
 	return (content);
 }
 
-void	executer(t_options *o, t_parse_table **cmds)
+void	executer(t_options *o)
 {
 	int	    i;
 	int	    l;
 
 	l = 0;
-	while (cmds[l])
+	while (o->tables[l])
 		l++;
 	i = -1;
-	while (cmds[++i])
+	while (o->tables[++i])
 	{
-		if (cmds[i]->out == -2)
-			execute_pipe(o, cmds[i], cmds[i + 1]);
+		if (o->tables[i]->out == -2)
+			execute_pipe(o, o->tables[i], o->tables[i + 1]);
 		else
-			execute_non_pipe(o, cmds[i]);
+			execute_non_pipe(o, o->tables[i]);
 		waitpid(0, NULL, 0);
 	}
 }

@@ -79,7 +79,6 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 		*i += 1;
 		while (tokens[*i])
 		{
-			ft_putendl_fd(tokens[*i]->value, 1);
 			if (tokens[*i] && tokens[*i]->type == OPTION)
 			{
 				tmp = ft_strjoin_gnl(tmp, tokens[*i]->value);
@@ -99,7 +98,6 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 			if (tokens[*i] && (tokens[*i]->type != OPTION && tokens[*i]->type != OPTION2 && tokens[*i]->type != WORD))
 				break;
 		}
-		ft_putendl_fd(tmp, 1);
 		new = new_cmd(word, tmp, tmp2 ,tmp3);
 		return (new);
 	}

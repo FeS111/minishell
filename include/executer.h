@@ -7,6 +7,6 @@ char	*search_binary(t_options *o, char *cmd);
 
 char	**get_paths(void);
 
-void	executer(t_options *o, t_parse_table **cmds);
+void	executer(t_options *o);
 
 #endif
