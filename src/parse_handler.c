@@ -67,6 +67,7 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 		}
 		else
 		{
+			*in = READ;
 			new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL);
 			*i += 1;
 			return (new);
@@ -93,8 +94,8 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 			else if (tokens[*i] && tokens[*i]->type == WORD)
 			{
 				if (tmp3)
-					tmp3 = ft_strjoin_gnl(tmp3, tokens[*i]->value);
-				tmp3 = ft_strjoin_gnl(tmp3, " ");
+					tmp3 = ft_strjoin_gnl(tmp3, " ");
+				tmp3 = ft_strjoin_gnl(tmp3, tokens[*i]->value);
 			}
 			*i += 1;
 			if (tokens[*i] && !is_woo2(tokens[*i]->type))
