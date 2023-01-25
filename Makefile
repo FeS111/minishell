@@ -49,6 +49,9 @@ $(DOWNLOADFOLDER):
 	make -C $(DOWNLOADFOLDER)/readline-8.1.2
 	make install -C $(DOWNLOADFOLDER)/readline-8.1.2
 
+run: $(NAME)
+	./$(NAME)
+
 re: fclean all
 
 lsan: CFLAG += -fsanitize=address -static-libsan
