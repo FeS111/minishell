@@ -30,7 +30,7 @@ typedef struct s_options
 	char			*line;
 	t_token			**tokens;
 	int				last_status;
-	//t_parse_table	**table;
+	t_parse_table	**tables;
 	char			**paths;
 } t_options;
 

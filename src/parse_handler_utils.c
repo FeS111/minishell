@@ -1,4 +1,4 @@
-#include "../include/parser.h"
+#include "../include/minishell.h"
 
 void	panic_token(char *str)
 {

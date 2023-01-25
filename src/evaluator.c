@@ -52,7 +52,7 @@ char	*replace_home(char *str, int start)
 	return (res);
 }
 
-void	evaluator(t_options *o, t_parse_table **cmds)
+void	evaluator(t_options *o)
 {
 	int	i;
 	int	j;
@@ -60,21 +60,21 @@ void	evaluator(t_options *o, t_parse_table **cmds)
 
 	replace = 1;
 	i = -1;
-	while (cmds[++i])
+	while (o->tables[++i])
 	{
 		j = -1;
-		while (cmds[i]->cmd[ARGS][++j] != '\0')
+		while (o->tables[i]->cmd[ARGS][++j] != '\0')
 		{
-			if (cmds[i]->cmd[ARGS][j] == '\'' && replace)
+			if (o->tables[i]->cmd[ARGS][j] == '\'' && replace)
 				replace = 0;
-			if (cmds[i]->cmd[ARGS][j] == '\'' && !replace)
+			if (o->tables[i]->cmd[ARGS][j] == '\'' && !replace)
 				replace = 1;
 			if (!replace)
 				continue ;
-			if (cmds[i]->cmd[ARGS][j] == '$')
-				cmds[i]->cmd[ARGS] = replace_variable(o, cmds[i]->cmd[ARGS], j, get_varlength(&cmds[i]->cmd[ARGS][j]));
-			else if (cmds[i]->cmd[ARGS][j] == '~')
-				cmds[i]->cmd[ARGS] = replace_home(cmds[i]->cmd[ARGS], j);
+			if (o->tables[i]->cmd[ARGS][j] == '$')
+				o->tables[i]->cmd[ARGS] = replace_variable(o, o->tables[i]->cmd[ARGS], j, get_varlength(&o->tables[i]->cmd[ARGS][j]));
+			else if (o->tables[i]->cmd[ARGS][j] == '~')
+				o->tables[i]->cmd[ARGS] = replace_home(o->tables[i]->cmd[ARGS], j);
 		}
 	}
 }

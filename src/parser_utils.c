@@ -1,4 +1,4 @@
-#include "../include/parser.h"
+#include "../include/minishell.h"
 
 char	**build_cmd(t_token **tokens, int *in, int *out, int *i)
 {

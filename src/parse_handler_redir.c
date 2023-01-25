@@ -1,4 +1,4 @@
-#include "../include/parser.h"
+#include "../include/minishell.h"
 
 char	**left_redir(t_token **tokens, int *in, int *out, int *i)
 {

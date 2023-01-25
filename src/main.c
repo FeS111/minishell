@@ -4,7 +4,7 @@
 void	history(t_options *o)
 {
 	free_tokens(o->tokens);
-	//free_table(o->table)
+	free_table(o->tables);
 	o->tokens = NULL;
 	if (o->line && *(o->line))
 	{
@@ -17,7 +17,6 @@ void	history(t_options *o)
 int	main(void)
 {
 	t_options		*o;
-	t_parse_table	**table;
 	int				j;
 
 	o = create_options();
@@ -34,16 +33,22 @@ int	main(void)
 			ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
 			j++;
 		}
-		table = parser(o->tokens);
-		if (table)
+		parser(o);
+		if (o->tables)
 		{
 			j = 0;
-			while (table[j])
+			while (o->tables[j])
 			{
-				ft_printf("%s, %s, %s, %s, %i, %i\n", table[j]->cmd[CMD], table[j]->cmd[OPT], table[j]->cmd[OPT2], table[j]->cmd[ARGS], table[j]->in, table[j]->out);
+				ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd[CMD], o->tables[j]->cmd[OPT], o->tables[j]->cmd[OPT2], o->tables[j]->cmd[ARGS], o->tables[j]->in, o->tables[j]->out);
 				j++;
 			}
-			free_table(table);
+		}
+		evaluator(o);
+		j = 0;
+		while (o->tables[j])
+		{
+			ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd[CMD], o->tables[j]->cmd[OPT], o->tables[j]->cmd[OPT2], o->tables[j]->cmd[ARGS], o->tables[j]->in, o->tables[j]->out);
+			j++;
 		}
 		history(o);
 	}

@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "../include/minishell.h"
+#include "buildin.h"
 
 #include <stdlib.h>
 #include <sys/fcntl.h>
@@ -31,7 +31,10 @@ typedef struct s_parse_table
 	int		out;
 }			t_parse_table;
 
-t_parse_table	**parser(t_token **tokens);
+typedef struct s_options t_options;
+typedef struct s_token t_token;
+
+void			parser(t_options *o);
 
 char			**build_cmd(t_token **tokens, int *in, int *out, int *i);
 t_parse_table	*new_table(char **cmd, int in, int out);
