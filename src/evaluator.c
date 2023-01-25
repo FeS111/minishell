@@ -63,7 +63,7 @@ void	evaluator(t_options *o)
 	while (o->tables[++i])
 	{
 		j = -1;
-		while (o->tables[i]->cmd[ARGS][++j] != '\0')
+		while (o->tables[i]->cmd[ARGS] && o->tables[i]->cmd[ARGS][++j] != '\0')
 		{
 			if (o->tables[i]->cmd[ARGS][j] == '\'' && replace)
 				replace = 0;
