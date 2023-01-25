@@ -18,3 +18,8 @@ char	**new_cmd(char *cmd, char *opt, char *opt2, char *args)
 	new[4] = NULL;
 	return (new);
 }
+
+int	is_woo2(int type)
+{
+	return (type == OPTION || type == OPTION2 || type == WORD);
+}
