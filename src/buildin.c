@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	ft_export(t_options *o, char *arg)
+void	ft_export(t_options *o, t_parse_table *cmd)
 {
 	int		i;
 	int		size;
@@ -15,15 +15,15 @@ void	ft_export(t_options *o, char *arg)
 	{
 		env[i] = o->env[i];
 	}
-	env[i] = ft_strdup(arg);
+	env[i] = ft_strdup(cmd->cmd[ARGS]);
 	env[i + 1] = NULL;
 	free(o->env);
 	o->env = env;
 }
 
-void	ft_cd(t_options *o, char *arg)
+void	ft_cd(t_options *o, t_parse_table *cmd)
 {
-	chdir(arg);
+	chdir(cmd->cmd[ARGS]);
 	free(o->pwd);
 	o->pwd = get_pwd();
 }

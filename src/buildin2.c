@@ -22,7 +22,7 @@ void	ft_env(t_options *o)
 		ft_putendl_fd(o->env[i], 1);
 }
 
-void	ft_unset(t_options *o, char *name)
+void	ft_unset(t_options *o, t_parse_table *cmd)
 {
 	int		i;
 	int		j;
@@ -37,7 +37,7 @@ void	ft_unset(t_options *o, char *name)
 	j = 0;
 	while (o->env[++i] != NULL)
 	{
-		if (!ft_strnstr(o->env[i], name, ft_strlen(name)))
+		if (!ft_strnstr(o->env[i], cmd->cmd[ARGS], ft_strlen(cmd->cmd[ARGS])))
 		{
 			env[j] = o->env[i];
 			j++;
