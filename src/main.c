@@ -18,19 +18,9 @@ int	main(void)
 {
 	t_options		*o;
 	t_parse_table	**table;
-	t_parse_table	**tmp;
-	char			**cmd;
-
-	int		j;
+	int				j;
 
 	o = create_options();
-	tmp = ft_calloc(sizeof(t_parse_table *), 2);
-	cmd = ft_calloc(sizeof(char *), 5);
-	cmd[0] = ft_strdup("echo");
-	cmd[3] = ft_strdup("\" $PATH \"");
-	tmp[0] = new_table(cmd, 0, 1);
-	evaluator(o, tmp);
-	ft_putendl_fd(tmp[0]->cmd[ARGS], 1);
 	signal(SIGINT, ctrl_c_handler);
 	while (1)
 	{
