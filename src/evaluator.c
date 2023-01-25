@@ -23,6 +23,22 @@ char	*replace_variable(char *str, int start, int end)
 	return (str_replace(o));
 }
 
+char	*replace_home(char *str, int start)
+{
+	char	*home;
+	char	*res;
+
+	home = getenv("HOME");
+	if (start > 0)
+		res = ft_substr(str, 0, start);
+	else
+		res = ft_strdup("");
+	res = ft_strjoin_gnl(res, home);
+	res = replace_join(res, ft_substr(str, start + 1, ft_strlen(str) - start));
+	free(str);
+	return (res);
+}
+
 void	evaluator(t_parse_table **cmds)
 {
 	int	i;
@@ -44,6 +60,8 @@ void	evaluator(t_parse_table **cmds)
 				continue ;
 			if (cmds[i]->cmd[ARGS][j] == '$')
 				cmds[i]->cmd[ARGS] = replace_variable(cmds[i]->cmd[ARGS], j, getnext_whitespace(&cmds[i]->cmd[ARGS][j]));
+			else if (cmds[i]->cmd[ARGS][j] == '~')
+				cmds[i]->cmd[ARGS] = replace_home(cmds[i]->cmd[ARGS], j);
 		}
 	}
 }

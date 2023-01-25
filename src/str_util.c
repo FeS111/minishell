@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-static char	*replace_join(char *one, char *two)
+char	*replace_join(char *one, char *two)
 {
 	char	*res;
 

@@ -67,5 +67,6 @@ void		pwd_one_back(t_options *o);
 char		*str_prefix(char *str, char *prefix);
 
 char		*str_replace(t_replace_options options);
+char		*replace_join(char *one, char *two);
 
 #endif
