@@ -29,6 +29,7 @@ typedef struct s_options
 	char			*pwd;
 	char			*line;
 	t_token			**tokens;
+	int				last_status;
 	//t_parse_table	**table;
 	char			**paths;
 } t_options;
