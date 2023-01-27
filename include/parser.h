@@ -19,7 +19,9 @@ typedef enum e_fd
 {
 	STD_INPUT,
 	STD_OUTPUT,
+	STD_ERROR,
 	PIPE_FD,
+	IOR_FD,
 	WRITE,
 	READ,
 } t_fd;
@@ -40,7 +42,6 @@ char			**build_cmd(t_token **tokens, int *in, int *out, int *i);
 t_parse_table	*new_table(char **cmd, int in, int out);
 
 char			**handle_io(t_token **tokens, int *in, int *out, int *i);
-char			**handle_ior(t_token **tokens, int *in, int *out, int *i);
 char			**handle_word(t_token **tokens, int *in, int *out, int *i);
 
 char			**left_redir(t_token **tokens, int *in, int *out, int *i);

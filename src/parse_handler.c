@@ -16,15 +16,7 @@ char	**handle_io(t_token **tokens, int *in, int *out, int *i)
 			return (panic_token(tokens[*i]->value), NULL);
 		return (here_doc(tokens, in, out, i));
 	}
-	return (NULL);
-}
-
-char	**handle_ior(t_token **tokens, int *in, int *out, int *i)
-{
-	tokens = NULL;
-	in = out;
-	*i = *i;
-	return (NULL);
+	 return (NULL);
 }
 
 char	**handle_word(t_token **tokens, int *in, int *out, int *i)

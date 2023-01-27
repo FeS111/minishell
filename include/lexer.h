@@ -8,9 +8,7 @@
 enum	e_token_type
 {
 	IO,
-	IOR,
 	PIPE,
-	AMBERSAND,
 	OPTION,
 	OPTION2,
 	WORD,
@@ -32,7 +30,6 @@ t_token		*get_variable(char *str);
 t_token		*get_option(char *str);
 t_token		*get_io(char *str);
 t_token		*get_pipe(char *str);
-t_token		*get_ampersand(char *str);
 
 int			is_word(char *str, int end);
 

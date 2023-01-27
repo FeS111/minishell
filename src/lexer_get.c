@@ -35,8 +35,6 @@ t_token	*get_io(char *str)
 	{
 		if (str[1] == str[0])
 			return (new_token(ft_substr(str, 0, 2), IO));
-		else if (str[1] == '&')
-			return (new_token(ft_substr(str, 0, 2), IOR));
 		else
 			return (new_token(ft_substr(str, 0, 1), IO));
 	}
