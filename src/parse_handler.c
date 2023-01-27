@@ -2,7 +2,13 @@
 
 char	**handle_io(t_token **tokens, int *in, int *out, int *i)
 {
-	if (!ft_strncmp(tokens[*i]->value, "<", 1))
+	if (!ft_strncmp(tokens[*i]->value, "<<", 2))
+	{
+		if (!tokens[*i + 1])
+			return (panic_token(tokens[*i]->value), NULL);
+		return (here_doc(tokens, in, out, i));
+	}
+	else if (!ft_strncmp(tokens[*i]->value, "<", 1))
 	{
 		if (!tokens[*i + 1] || tokens[*i + 1]->type != WORD)
 			return (panic_token(tokens[*i]->value), NULL);
@@ -10,13 +16,15 @@ char	**handle_io(t_token **tokens, int *in, int *out, int *i)
 	}
 	else if (!ft_strncmp(tokens[*i]->value, ">", 1))
 		return (right_redir(tokens, in, out, i));
-	else if (!ft_strncmp(tokens[*i]->value, "<<", 2))
-	{
-		if (tokens[*i + 1] && tokens[*i + 1]->type != WORD)
-			return (panic_token(tokens[*i]->value), NULL);
-		return (here_doc(tokens, in, out, i));
-	}
-	 return (NULL);
+	return (NULL);
+}
+
+char	**handle_ior(t_token **tokens, int *in, int *out, int *i)
+{
+	tokens = NULL;
+	in = out;
+	*i = *i;
+	return (NULL);
 }
 
 char	**handle_word(t_token **tokens, int *in, int *out, int *i)
@@ -72,8 +80,8 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 			else if (tokens[*i] && tokens[*i]->type == OPTION2)
 			{
 				if (tmp2)
-					tmp2 = ft_strjoin_gnl(tmp2, tokens[*i]->value);
-				tmp2 = ft_strjoin_gnl(tmp2, " ");
+					tmp2 = ft_strjoin_gnl(tmp2, " ");
+				tmp2 = ft_strjoin_gnl(tmp2, tokens[*i]->value);
 			}
 			else if (tokens[*i] && tokens[*i]->type == WORD)
 			{

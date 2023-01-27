@@ -2,6 +2,7 @@
 # define PARSER_H
 
 #include "buildin.h"
+#include "minishell.h"
 
 #include <stdlib.h>
 #include <sys/fcntl.h>
