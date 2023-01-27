@@ -20,9 +20,7 @@ typedef enum e_fd
 {
 	STD_INPUT,
 	STD_OUTPUT,
-	STD_ERROR,
 	PIPE_FD,
-	IOR_FD,
 	WRITE,
 	READ,
 } t_fd;

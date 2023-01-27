@@ -19,14 +19,6 @@ char	**handle_io(t_token **tokens, int *in, int *out, int *i)
 	return (NULL);
 }
 
-char	**handle_ior(t_token **tokens, int *in, int *out, int *i)
-{
-	tokens = NULL;
-	in = out;
-	*i = *i;
-	return (NULL);
-}
-
 char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 {
 	char	**new;
@@ -38,7 +30,7 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 	tmp = NULL;
 	tmp2 = NULL;
 	tmp3 = NULL;
-	if (tokens[*i - 1] && tokens[*i - 1])
+	if (tokens[*i - 1] && tokens[*i - 1]->type == PIPE)
 		*in = PIPE_FD;
 	if (tokens[*i + 1] && tokens[*i + 1]->type == IO)
 	{
