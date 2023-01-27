@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stddef.h>
 #include <stdio.h>
 
 char	*get_pwd(void)
@@ -21,6 +22,16 @@ size_t	getnext_whitespace(char *str)
 			return (i + 1);
 	}
 	return (0);
+}
+
+size_t	getafter_option(char *str)
+{
+	size_t	i;
+
+	i = 1;
+	while (!is_whitespace(str[i + 1]) && !ft_strchr("|<>&", str[i + 1]))
+		i++;
+	return (i + 2);
 }
 
 int	is_whitespace(char c)

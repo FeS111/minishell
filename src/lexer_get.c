@@ -24,10 +24,9 @@ t_token *get_quoted(char *str)
 
 t_token	*get_option(char *str)
 {
-	// TODO pipes and redirections uberspringen
 	if (ft_strchr(str, '='))
-		return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION2));
-	return (new_token(ft_substr(str, 0, getnext_whitespace(str)), OPTION));
+		return (new_token(ft_substr(str, 0, getafter_option(str + 1)), OPTION2));
+	return (new_token(ft_substr(str, 0, getafter_option(str + 1)), OPTION));
 }
 
 t_token	*get_io(char *str)
