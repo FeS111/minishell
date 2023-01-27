@@ -1,5 +1,6 @@
 
 #include "../include/minishell.h"
+#include <unistd.h>
 
 void	history(t_options *o)
 {
@@ -29,11 +30,11 @@ int	main(void)
 			panic(o, 0);
 		lexer(o);
 		j = 0;
-		//while (o->tokens[j])
-		//{
-		//	ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
-		//	j++;
-		//}
+		/* while (o->tokens[j]) */
+		/* { */
+		/* 	ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type); */
+		/* 	j++; */
+		/* } */
 		parser(o);
 		/* if (o->tables) */
 		/* { */
@@ -44,14 +45,14 @@ int	main(void)
 		/* 		j++; */
 		/* 	} */
 		/* } */
-		//evaluator(o);
-		//j = 0;
+		evaluator(o);
+		j = 0;
 		/* while (o->tables[j]) */
 		/* { */
 		/* 	ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd[CMD], o->tables[j]->cmd[OPT], o->tables[j]->cmd[OPT2], o->tables[j]->cmd[ARGS], o->tables[j]->in, o->tables[j]->out); */
 		/* 	j++; */
 		/* } */
-		//executer(o);
+		executer(o);
 		history(o);
 	}
 	panic(o, 0);

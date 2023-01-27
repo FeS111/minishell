@@ -48,11 +48,3 @@ t_token	*get_pipe(char *str)
 	return (NULL);
 }
 
-t_token	*get_ampersand(char *str)
-{
-	if (str[0] == '&')
-		return (new_token(ft_strdup("&"), AMBERSAND));
-	if (str[0] == '&' && str[1] == '&')
-		return (new_token(ft_strdup("&&"), AMBERSAND));
-	return (NULL);
-}

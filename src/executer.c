@@ -41,12 +41,17 @@ char	*search_binary(t_options *o, char *cmd)
 static char	**build_args(char **cmd)
 {
 	char	**args;
+	int		i;
 
 	args = ft_calloc(sizeof(char *), 5);
+	i = 1;
 	args[0] = cmd[CMD];
-	args[1] = cmd[OPT];
-	args[2] = cmd[OPT2];
-	args[3] = cmd[ARGS];
+	if (cmd[OPT])
+		args[i++] = cmd[OPT];
+	if (cmd[OPT2])
+		args[i++] = cmd[OPT2];
+	if (cmd[ARGS])
+		args[i++] = cmd[ARGS];
 	return (args);
 }
 
@@ -79,7 +84,7 @@ int	try_buildin(t_options *o, t_parse_table *cmd)
 	if (ft_strncmp(cmd->cmd[CMD], "cd", 2) == 0)
 		return (ft_cd(o, cmd), 1);
 	if (ft_strncmp(cmd->cmd[CMD], "echo", 4) == 0)
-		return (1);
+		return (ft_echo(o, cmd), 1);
 	if (ft_strncmp(cmd->cmd[CMD], "pwd", 3) == 0)
 		return (ft_pwd(o), 1);
 	if (ft_strncmp(cmd->cmd[CMD], "export", 6) == 0)

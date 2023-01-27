@@ -47,4 +47,11 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 	free(o->env);
 	o->env = env;
 }
+void	ft_echo(t_options *o, t_parse_table *cmd)
+{
+	if (cmd->cmd[OPT] && ft_strncmp(cmd->cmd[OPT], "-n", 2) == 0)
+		ft_putstr_fd(cmd->cmd[ARGS], 1);
+	else
+		ft_putendl_fd(cmd->cmd[ARGS], 1);
+}
 
