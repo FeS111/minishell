@@ -6,7 +6,7 @@ char	**here_doc(t_token **tokens, int *in, int *out, int *i)
 	int		fd;
 	char	*line;
 
-	fd = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
+	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	while (1)
 	{
 		line = readline("heredoc> ");
@@ -21,5 +21,6 @@ char	**here_doc(t_token **tokens, int *in, int *out, int *i)
 		}
 	}
 	free(line);
+	close(fd);
 	return (new_cmd(ft_strdup("here_doc"), NULL, NULL, NULL));
 }
