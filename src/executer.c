@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -38,18 +39,35 @@ char	*search_binary(t_options *o, char *cmd)
 	return (NULL);
 }
 
+static void	build_opt(char **args, int *i, char *str)
+{
+	int		j;
+	char	**tmp;
+
+	tmp = ft_split(str, ' ');
+	j = -1;
+	while(tmp[++j])
+	{
+		args[*i] = tmp[j];
+		*i += 1;
+	}
+	free(tmp);
+}
+
 static char	**build_args(char **cmd)
 {
 	char	**args;
 	int		i;
+	int		j;
+	char	**tmp;
 
 	args = ft_calloc(sizeof(char *), 5);
 	i = 1;
 	args[0] = cmd[CMD];
 	if (cmd[OPT])
-		args[i++] = cmd[OPT];
+		build_opt(args, &i, cmd[OPT]);
 	if (cmd[OPT2])
-		args[i++] = cmd[OPT2];
+		build_opt(args, &i, cmd[OPT2]);
 	if (cmd[ARGS])
 		args[i++] = cmd[ARGS];
 	return (args);
