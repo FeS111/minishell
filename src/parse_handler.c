@@ -30,7 +30,8 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 	tmp = NULL;
 	tmp2 = NULL;
 	tmp3 = NULL;
-	if (tokens[*i - 1] && tokens[*i - 1]->type == PIPE)
+
+	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == PIPE)
 		*in = PIPE_FD;
 	if (tokens[*i + 1] && tokens[*i + 1]->type == IO)
 	{

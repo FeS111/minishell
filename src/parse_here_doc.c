@@ -1,5 +1,4 @@
 #include "../include/parser.h"
-#include <unistd.h>
 
 char	**here_doc(t_token **tokens, int *in, int *out, int *i)
 {
@@ -22,5 +21,6 @@ char	**here_doc(t_token **tokens, int *in, int *out, int *i)
 	}
 	free(line);
 	close(fd);
+	*i += 1;
 	return (new_cmd(ft_strdup("here_doc"), NULL, NULL, NULL));
 }
