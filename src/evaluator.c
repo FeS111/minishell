@@ -56,25 +56,30 @@ void	evaluator(t_options *o)
 {
 	int	i;
 	int	j;
+	int	k;
 	int	replace;
 
 	replace = 1;
 	i = -1;
 	while (o->tables[++i])
 	{
-		j = -1;
-		while (o->tables[i]->cmd[ARGS] && o->tables[i]->cmd[ARGS][++j] != '\0')
+		k = -1;
+		while (o->tables[i]->cmd->args[++k])
 		{
-			if (o->tables[i]->cmd[ARGS][j] == '\'' && replace)
-				replace = 0;
-			if (o->tables[i]->cmd[ARGS][j] == '\'' && !replace)
-				replace = 1;
-			if (!replace)
-				continue ;
-			if (o->tables[i]->cmd[ARGS][j] == '$')
-				o->tables[i]->cmd[ARGS] = replace_variable(o, o->tables[i]->cmd[ARGS], j, get_varlength(&o->tables[i]->cmd[ARGS][j]));
-			else if (o->tables[i]->cmd[ARGS][j] == '~')
-				o->tables[i]->cmd[ARGS] = replace_home(o->tables[i]->cmd[ARGS], j);
+			j = -1;
+			while (o->tables[i]->cmd->args[k] && o->tables[i]->cmd->args[k][++j] != '\0')
+			{
+				if (o->tables[i]->cmd->args[k][j] == '\'' && replace)
+					replace = 0;
+				if (o->tables[i]->cmd->args[k][j] == '\'' && !replace)
+					replace = 1;
+				if (!replace)
+					continue ;
+				if (o->tables[i]->cmd->args[k][j] == '$')
+					o->tables[i]->cmd->args[k] = replace_variable(o, o->tables[i]->cmd->args[k], j, get_varlength(&o->tables[i]->cmd->args[k][j]));
+				else if (o->tables[i]->cmd->args[k][j] == '~')
+					o->tables[i]->cmd->args[k] = replace_home(o->tables[i]->cmd->args[k], j);
+			}
 		}
 	}
 }

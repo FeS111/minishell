@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	**handle_io(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*handle_io(t_token **tokens, int *in, int *out, int *i)
 {
 	if (!ft_strncmp(tokens[*i]->value, "<<", 2))
 	{
@@ -19,17 +19,19 @@ char	**handle_io(t_token **tokens, int *in, int *out, int *i)
 	return (NULL);
 }
 
-char	**handle_word(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 {
-	char	**new;
+	t_parse_cmd	*new;
 	char	*word;
 	char	*tmp;
 	char	*tmp2;
-	char	*tmp3;
+	char	**tmp3;
+	int		j;
 
 	tmp = NULL;
 	tmp2 = NULL;
-	tmp3 = NULL;
+	tmp3 = ft_calloc(sizeof(char *), token_size(tokens) + 1);
+	j = -1;
 
 	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == PIPE)
 		*in = PIPE_FD;
@@ -46,7 +48,7 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 		{
 			*out = WRITE;
 			new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL,
-							ft_strdup(tokens[*i + 1]->value));
+							ft_split(tokens[*i]->value, 0));
 			*i += 1;
 			return (new);
 		}
@@ -70,18 +72,14 @@ char	**handle_word(t_token **tokens, int *in, int *out, int *i)
 					tmp = ft_strjoin_gnl(tmp, " ");
 				tmp = ft_strjoin_gnl(tmp, tokens[*i]->value);
 			}
-			else if (tokens[*i] && tokens[*i]->type == OPTION2)
+			if (tokens[*i] && tokens[*i]->type == OPTION2)
 			{
 				if (tmp2)
 					tmp2 = ft_strjoin_gnl(tmp2, " ");
 				tmp2 = ft_strjoin_gnl(tmp2, tokens[*i]->value);
 			}
-			else if (tokens[*i] && tokens[*i]->type == WORD)
-			{
-				if (tmp3)
-					tmp3 = ft_strjoin_gnl(tmp3, " ");
-				tmp3 = ft_strjoin_gnl(tmp3, tokens[*i]->value);
-			}
+			if (tokens[*i] && (tokens[*i]->type == WORD || tokens[*i]->type == OPTION2 || tokens[*i]->type == OPTION))
+				tmp3[++j] = ft_strdup(tokens[*i]->value);
 			*i += 1;
 			if (tokens[*i] && !is_woo2(tokens[*i]->type))
 				break;

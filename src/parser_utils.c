@@ -1,6 +1,7 @@
 #include "../include/minishell.h"
+#include <stdlib.h>
 
-char	**build_cmd(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*build_cmd(t_token **tokens, int *in, int *out, int *i)
 {
 	if (tokens[*i]->type == IO)
 		return (handle_io(tokens, in, out, i));
@@ -9,7 +10,7 @@ char	**build_cmd(t_token **tokens, int *in, int *out, int *i)
 	return (NULL);
 }
 
-t_parse_table *new_table(char **cmd, int in, int out)
+t_parse_table *new_table(t_parse_cmd *cmd, int in, int out)
 {
 	t_parse_table *new;
 
@@ -22,17 +23,12 @@ t_parse_table *new_table(char **cmd, int in, int out)
 	return (new);
 }
 
-void	free_cmd(char **cmd)
+void	free_cmd(t_parse_cmd *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (cmd[i])
-			free(cmd[i]);
-		i++;
-	}
+	free(cmd->cmd);
+	free(cmd->opt);
+	free(cmd->opt2);
+	split_free(cmd->args);
 }
 
 void	free_table(t_parse_table **table)

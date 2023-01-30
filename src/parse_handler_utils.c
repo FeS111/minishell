@@ -6,17 +6,16 @@ void	panic_token(char *str)
 	ft_putendl_fd(str, 2);
 }
 
-char	**new_cmd(char *cmd, char *opt, char *opt2, char *args)
+t_parse_cmd	*new_cmd(char *cmd, char *opt, char *opt2, char **args)
 {
-	char	**new;
+	t_parse_cmd	*new_cmd;
 
-	new = malloc(sizeof(char *) * 4 + 1);
-	new[CMD] = cmd;
-	new[OPT] = opt;
-	new[OPT2] = opt2;
-	new[ARGS] = args;
-	new[4] = NULL;
-	return (new);
+	new_cmd = malloc(sizeof(t_parse_cmd));
+	new_cmd->cmd = cmd;
+	new_cmd->opt = opt;
+	new_cmd->opt2 = opt2;
+	new_cmd->args = args;
+	return (new_cmd);
 }
 
 int	is_woo2(int type)

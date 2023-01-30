@@ -1,9 +1,7 @@
 #include "../include/minishell.h"
 
-char	**left_redir(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*left_redir(t_token **tokens, int *in, int *out, int *i)
 {
-	char **new;
-
 	if (*i > 0)
 		*out = WRITE;
 	else
@@ -19,21 +17,18 @@ char	**left_redir(t_token **tokens, int *in, int *out, int *i)
 		i++;
 		return (NULL);
 	}
-	new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL);
-	return (new);
+	return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL));
 }
 
-char	**right_redir(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*right_redir(t_token **tokens, int *in, int *out, int *i)
 {
-	char	**new;
 
 	if (tokens[*i + 1])
 	{
 		*i += 1;
 		*out = WRITE;
 		*in = STD_INPUT;
-		new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL);
-		return (new);
+		return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL));
 	}
 	else
 		return (panic_token("`newline'"), NULL);

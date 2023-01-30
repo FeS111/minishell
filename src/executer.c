@@ -39,37 +39,21 @@ char	*search_binary(t_options *o, char *cmd)
 	return (NULL);
 }
 
-static void	build_opt(char **args, int *i, char *str)
-{
-	int		j;
-	char	**tmp;
-
-	tmp = ft_split(str, ' ');
-	j = -1;
-	while(tmp[++j])
-	{
-		args[*i] = tmp[j];
-		*i += 1;
-	}
-	free(tmp);
-}
-
-static char	**build_args(char **cmd)
+static char	**build_args(t_parse_cmd *cmd)
 {
 	char	**args;
 	int		i;
-	int		j;
-	char	**tmp;
+	int		l;
 
-	args = ft_calloc(sizeof(char *), 5);
-	i = 1;
-	args[0] = cmd[CMD];
-	if (cmd[OPT])
-		build_opt(args, &i, cmd[OPT]);
-	if (cmd[OPT2])
-		build_opt(args, &i, cmd[OPT2]);
-	if (cmd[ARGS])
-		args[i++] = cmd[ARGS];
+	l = 0;
+	while (cmd->args[l])
+		l++;
+	args = ft_calloc(sizeof(char *), l + 1);
+	i = 0;
+	args[0] = cmd->cmd;
+	l = -1;
+	while (cmd->args[++l])
+		args[++i] = cmd->args[l];
 	return (args);
 }
 
@@ -99,19 +83,19 @@ static void	execute_pipe(t_options *o, t_parse_table *cmd, t_parse_table *next_c
 
 int	try_buildin(t_options *o, t_parse_table *cmd)
 {
-	if (ft_strncmp(cmd->cmd[CMD], "cd", 2) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "cd", 2) == 0)
 		return (ft_cd(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd[CMD], "echo", 4) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "echo", 4) == 0)
 		return (ft_echo(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd[CMD], "pwd", 3) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "pwd", 3) == 0)
 		return (ft_pwd(o), 1);
-	if (ft_strncmp(cmd->cmd[CMD], "export", 6) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "export", 6) == 0)
 		return (ft_export(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd[CMD], "unset", 5) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "unset", 5) == 0)
 		return (ft_unset(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd[CMD], "env", 3) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "env", 3) == 0)
 		return (ft_env(o), 1);
-	if (ft_strncmp(cmd->cmd[CMD], "exit", 4) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "exit", 4) == 0)
 		return (panic(o, 0), 1);
 	return (0);
 }
@@ -129,7 +113,7 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd)
 		panic(o, 1);
 	if (child == 0)
 	{
-		binary = search_binary(o, cmd->cmd[CMD]);
+		binary = search_binary(o, cmd->cmd->cmd);
 		args = build_args(cmd->cmd);
 		execve(binary, args, o->env);
 		free(binary);

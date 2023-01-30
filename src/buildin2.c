@@ -37,7 +37,7 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 	j = 0;
 	while (o->env[++i] != NULL)
 	{
-		if (!ft_strnstr(o->env[i], cmd->cmd[ARGS], ft_strlen(cmd->cmd[ARGS])))
+		if (!ft_strnstr(o->env[i], cmd->cmd->args[0], ft_strlen(cmd->cmd->args[0])))
 		{
 			env[j] = o->env[i];
 			j++;
@@ -49,9 +49,12 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 }
 void	ft_echo(t_options *o, t_parse_table *cmd)
 {
-	if (cmd->cmd[OPT] && ft_strncmp(cmd->cmd[OPT], "-n", 2) == 0)
-		ft_putstr_fd(cmd->cmd[ARGS], 1);
+	/* char	*tmp; */
+	/*  */
+	/* tmp = strjoinn(cmd->cmd->args, " ", int start, int end) */
+	if (cmd->cmd->opt && ft_strncmp(cmd->cmd->opt, "-n", 2) == 0)
+		ft_putstr_fd(cmd->cmd->args[1], 1);
 	else
-		ft_putendl_fd(cmd->cmd[ARGS], 1);
+		ft_putendl_fd(cmd->cmd->args[0], 1);
 }
 
