@@ -12,7 +12,7 @@ char	*replace_variable(t_options *go, char *str, int start, int end)
 	if (str[start + 1] == '?')
 		newValue = ft_itoa(go->last_status);
 	else
-		newValue = getenv(tmp);
+		newValue = ft_getenv(go, tmp);
 	free(tmp);
 	if (!newValue)
 		return str;

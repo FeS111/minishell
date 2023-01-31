@@ -70,5 +70,6 @@ char		*str_prefix(char *str, char *prefix);
 char		*str_replace(t_replace_options options);
 char		*replace_join(char *one, char *two);
 char		*str_replace_char(char *str, char c);
+char		*ft_getenv(t_options *o, char *name);
 
 #endif

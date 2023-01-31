@@ -26,3 +26,24 @@ void	ft_cd(t_options *o, t_parse_table *cmd)
 	free(o->pwd);
 	o->pwd = get_pwd();
 }
+
+char *ft_getenv(t_options *o, char *name)
+{
+	int		i;
+	char	*res;
+	char	**tmp;
+
+	i = -1;
+	res = NULL;
+	while (o->env[++i])
+	{
+		if (ft_strncmp(o->env[i], name, ft_strlen(name)) == 0)
+		{
+			tmp = ft_split(o->env[i], '=');
+			res = ft_strdup(tmp[1]);
+			split_free(tmp);
+			break ;
+		}
+	}
+	return (res);
+}
