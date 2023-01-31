@@ -57,28 +57,59 @@ static char	**build_args(t_parse_cmd *cmd)
 	return (args);
 }
 
-static void	execute_pipe(t_options *o, t_parse_table *cmd, t_parse_table *next_cmd)
+static void	do_op(t_options *o, char **cmd)
 {
 	char	*binary;
 	char	**args;
-	int		child;
-	int		fd[2];
 
-	if (pipe(fd) == -1)
-		panic(o, 1);
+	binary = search_binary(o, cmd[CMD]);
+	args = build_args(cmd);
+	execve(binary, args, o->env);
+	free(binary);
+	split_free(args);
+	ft_putendl_fd("error", 2);
+}
+
+static int	run(t_options *o, int *pipefd, int fd, int *i)
+{
+	pid_t	child;
+
 	child = fork();
 	if (child < 0)
 		panic(o, 1);
-	if (child == 0)
+	else if (child == 0)
 	{
-		next_cmd->in = fd[0];
-		close(next_cmd->in);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(pipefd[1]);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		do_op(o, o->tables[*i]->cmd);
 	}
-	close(fd[1]);
-	close(next_cmd->in);
+	close(pipefd[1]);
+	return (pipefd[0]);
+}
+
+
+static void	execute_pipe(t_options *o, t_parse_table **tables, int *i)
+{
+	char	*binary;
+	char	**args;
+	int		fd;
+	int		child;
+	int		pipefd[2];
+
+	if (pipe(pipefd) == -1)
+		panic(o, 1);
+	fd = pipefd[0];
+	while (tables[*i])
+	{
+		fd = run(o, pipefd, fd, i);
+		*i += 1;
+		waitpid(0, NULL, 0);
+	}
+	close(fd);
+	close(pipefd[0]);
+	close(pipefd[1]);
 }
 
 int	try_buildin(t_options *o, t_parse_table *cmd)
@@ -156,8 +187,8 @@ void	executer(t_options *o)
 	i = -1;
 	while (o->tables[++i])
 	{
-		if (o->tables[i]->out == -2)
-			execute_pipe(o, o->tables[i], o->tables[i + 1]);
+		if (o->tables[i]->out == PIPE_FD)
+			execute_pipe(o, o->tables, &i);
 		else
 			pid = execute_non_pipe(o, o->tables[i]);
 		if (pid == 0)

@@ -4,7 +4,7 @@ void	panic(t_options *o, int code)
 {
 	ft_putendl_fd("exit", 1);
 	free_options(o);
-	system("leaks minishell");
+	//system("leaks minishell");
 	exit(code);
 }
 

@@ -30,11 +30,11 @@ int	main(void)
 			panic(o, 0);
 		lexer(o);
 		j = 0;
-		/* while (o->tokens[j]) */
-		/* { */
-		/* 	ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type); */
-		/* 	j++; */
-		/* } */
+		//while (o->tokens[j])
+		//{
+		//	ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
+		// 	j++;
+		//}
 		parser(o);
 		if (o->tables)
 		{
