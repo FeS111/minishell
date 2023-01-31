@@ -29,6 +29,7 @@ void	free_cmd(t_parse_cmd *cmd)
 	free(cmd->opt);
 	free(cmd->opt2);
 	split_free(cmd->args);
+	free(cmd);
 }
 
 void	free_table(t_parse_table **table)
@@ -41,10 +42,7 @@ void	free_table(t_parse_table **table)
 	{
 		j = 0;
 		if (table[i]->cmd)
-		{
 			free_cmd(table[i]->cmd);
-			free(table[i]->cmd);
-		}
 		if (table[i]->in > 2)
 			close(table[i]->in);
 		if (table[i]->out > 2)

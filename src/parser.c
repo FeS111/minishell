@@ -17,7 +17,7 @@ void	parser(t_options *o)
 	{
 		tables[j] = new_table(build_cmd(o->tokens, &in, &out, &i), in, out);
 		if (!tables[j])
-			break;
+			break ;
  		j++;
 		i++;
 	}

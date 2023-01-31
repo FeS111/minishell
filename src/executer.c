@@ -48,12 +48,12 @@ static char	**build_args(t_parse_cmd *cmd)
 	l = 0;
 	while (cmd->args[l])
 		l++;
-	args = ft_calloc(sizeof(char *), l + 1);
+	args = ft_calloc(sizeof(char *), l + 2);
 	i = 0;
-	args[0] = cmd->cmd;
+	args[0] = ft_strdup(cmd->cmd);
 	l = -1;
 	while (cmd->args[++l])
-		args[++i] = cmd->args[l];
+		args[++i] = ft_strdup(cmd->args[l]);
 	return (args);
 }
 
