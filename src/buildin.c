@@ -5,7 +5,6 @@ void	ft_export(t_options *o, t_parse_table *cmd)
 	int		i;
 	int		size;
 	char	**env;
-	char	**tmp;
 
 	size = 0;
 	while (o->env[size] != NULL)

@@ -49,9 +49,7 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 }
 void	ft_echo(t_options *o, t_parse_table *cmd)
 {
-	/* char	*tmp; */
-	/*  */
-	/* tmp = strjoinn(cmd->cmd->args, " ", int start, int end) */
+	(void)o;
 	if (cmd->cmd->opt && ft_strncmp(cmd->cmd->opt, "-n", 2) == 0)
 		ft_putstr_fd(cmd->cmd->args[1], 1);
 	else

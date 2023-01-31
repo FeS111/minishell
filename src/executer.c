@@ -57,12 +57,12 @@ static char	**build_args(t_parse_cmd *cmd)
 	return (args);
 }
 
-static void	do_op(t_options *o, char **cmd)
+static void	do_op(t_options *o, t_parse_cmd *cmd)
 {
 	char	*binary;
 	char	**args;
 
-	binary = search_binary(o, cmd[CMD]);
+	binary = search_binary(o, cmd->cmd);
 	args = build_args(cmd);
 	execve(binary, args, o->env);
 	free(binary);
@@ -92,10 +92,7 @@ static int	run(t_options *o, int *pipefd, int fd, int *i)
 
 static void	execute_pipe(t_options *o, t_parse_table **tables, int *i)
 {
-	char	*binary;
-	char	**args;
 	int		fd;
-	int		child;
 	int		pipefd[2];
 
 	if (pipe(pipefd) == -1)
@@ -139,12 +136,14 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd)
 
 	if (try_buildin(o, cmd))
 		return (-1);
+	binary = search_binary(o, cmd->cmd->cmd);
+	if (!binary)
+		return (-1);
 	child = fork();
 	if (child < 0)
 		panic(o, 1);
 	if (child == 0)
 	{
-		binary = search_binary(o, cmd->cmd->cmd);
 		args = build_args(cmd->cmd);
 		execve(binary, args, o->env);
 		free(binary);

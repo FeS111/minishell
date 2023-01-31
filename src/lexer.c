@@ -38,8 +38,7 @@ void	lexer(t_options *o)
 		return ;
 	i = 0;
 	j = 0;
-	tokens = malloc(sizeof(t_token *) * 1024);
-	ft_bzero(tokens, 1024);
+	tokens = ft_calloc(sizeof(t_token *), 1024);
 	while (o->line[i])
 	{
 		tokens[j] = get_token(&(o->line)[i]);

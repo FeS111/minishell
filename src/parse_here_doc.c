@@ -5,6 +5,8 @@ t_parse_cmd	*here_doc(t_token **tokens, int *in, int *out, int *i)
 	int		fd;
 	char	*line;
 
+	(void)in;
+	(void)out;
 	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	while (1)
 	{

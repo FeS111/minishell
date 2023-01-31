@@ -1,5 +1,6 @@
 
 #include "../include/minishell.h"
+#include <stdio.h>
 #include <unistd.h>
 
 void	history(t_options *o)
@@ -7,6 +8,7 @@ void	history(t_options *o)
 	free_tokens(o->tokens);
 	free_table(o->tables);
 	o->tokens = NULL;
+	o->tables = NULL;
 	if (o->line && *(o->line))
 	{
 		add_history(o->line);
@@ -29,6 +31,7 @@ int	main(void)
 		if (!o->line || !ft_strncmp(o->line, "exit", 4))
 			panic(o, 0);
 		lexer(o);
+		printf("lexer finished\n");
 		j = 0;
 		//while (o->tokens[j])
 		//{
@@ -36,6 +39,7 @@ int	main(void)
 		// 	j++;
 		//}
 		parser(o);
+		printf("parser finished\n");
 		if (o->tables)
 		{
 			j = 0;

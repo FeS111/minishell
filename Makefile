@@ -3,7 +3,7 @@ VPATH = src/
 # Compiler Variables
 DOWNLOADFOLDER=dwnlds
 CC		= cc
-# CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g
 INCFLAG	= -Iinclude -Ilibft -I$(DOWNLOADFOLDER)/readline_out/include
 LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft
 

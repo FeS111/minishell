@@ -1,6 +1,7 @@
 
 
 #include "../include/minishell.h"
+#include <stdio.h>
 
 int	token_size(t_token **tokens)
 {
