@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 char	*replace_join(char *one, char *two)
 {
@@ -24,5 +25,23 @@ char		*str_replace(t_replace_options o)
 		res = replace_join(res, ft_substr(o.str, o.end, ft_strlen(o.str) - o.end));
 	}
 	free(o.str);
+	return (res);
+}
+
+char	*str_replace_char(char *str, char c)
+{
+	int		i;
+	int		j;
+	char	*res;
+
+	i = -1;
+	j = -1;
+	res = ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	while (str[++i] != '\0')
+	{
+		if (str[i] != c)
+			res[++j] = str[i];
+	}
+	free(str);
 	return (res);
 }

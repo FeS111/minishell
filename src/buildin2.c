@@ -49,10 +49,27 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 }
 void	ft_echo(t_options *o, t_parse_table *cmd)
 {
+	int		l;
+	char	*tmp;
+
 	(void)o;
+	l = 0;
+	while (cmd->cmd->args[l])
+		l++;
+	tmp = strjoinn(cmd->cmd->args, " ", 0, l);
+	l = -1;
+	while (tmp[++l])
+	{
+		if (tmp[l] == '"' || tmp[l] == '\'')
+		{
+			tmp = str_replace_char(tmp, tmp[l]);
+			break ;
+		}
+	}
 	if (cmd->cmd->opt && ft_strncmp(cmd->cmd->opt, "-n", 2) == 0)
-		ft_putstr_fd(cmd->cmd->args[1], 1);
+		ft_putstr_fd(tmp, 1);
 	else
-		ft_putendl_fd(cmd->cmd->args[0], 1);
+		ft_putendl_fd(tmp, 1);
+	free(tmp);
 }
 
