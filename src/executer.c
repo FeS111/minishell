@@ -35,7 +35,6 @@ char	*search_binary(t_options *o, char *cmd)
 	}
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(": command not found", 2);
-	panic(o, EXIT_FAILURE);
 	return (NULL);
 }
 
@@ -111,19 +110,19 @@ static void	execute_pipe(t_options *o, t_parse_table **tables, int *i)
 
 int	try_buildin(t_options *o, t_parse_table *cmd)
 {
-	if (ft_strncmp(cmd->cmd->cmd, "cd", 2) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "cd\0", 3) == 0)
 		return (ft_cd(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd->cmd, "echo", 4) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "echo\0", 5) == 0)
 		return (ft_echo(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd->cmd, "pwd", 3) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "pwd\0", 4) == 0)
 		return (ft_pwd(o), 1);
-	if (ft_strncmp(cmd->cmd->cmd, "export", 6) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "export\0", 7) == 0)
 		return (ft_export(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd->cmd, "unset", 5) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "unset\0", 6) == 0)
 		return (ft_unset(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd->cmd, "env", 3) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "env\0", 4) == 0)
 		return (ft_env(o), 1);
-	if (ft_strncmp(cmd->cmd->cmd, "exit", 4) == 0)
+	if (ft_strncmp(cmd->cmd->cmd, "exit\0", 5) == 0)
 		return (panic(o, 0), 1);
 	return (0);
 }
