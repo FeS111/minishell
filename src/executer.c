@@ -72,16 +72,20 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	ft_putendl_fd("error", 2);
 }
 
-static int	run(t_options *o, int *pipefd, int fd, int *i)
+static int	run(t_options *o, int fd, int *i)
 {
 	pid_t	child;
+	int		pipefd[2];
 
+	if (pipe(pipefd) == -1)
+		panic(o, 1);
 	child = fork();
 	if (child < 0)
 		panic(o, 1);
 	else if (child == 0)
 	{
-		dup2(pipefd[1], STDOUT_FILENO);
+		if (o->tables[*i + 1])
+			dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 		dup2(fd, STDIN_FILENO);
 		close(fd);
@@ -95,20 +99,15 @@ static int	run(t_options *o, int *pipefd, int fd, int *i)
 static void	execute_pipe(t_options *o, t_parse_table **tables, int *i)
 {
 	int		fd;
-	int		pipefd[2];
 
-	if (pipe(pipefd) == -1)
-		panic(o, 1);
-	fd = pipefd[0];
+	fd = dup(STDIN_FILENO);
 	while (tables[*i])
 	{
-		fd = run(o, pipefd, fd, i);
+		fd = run(o, fd, i);
 		*i += 1;
 		waitpid(0, NULL, 0);
 	}
 	close(fd);
-	close(pipefd[0]);
-	close(pipefd[1]);
 }
 
 int	try_buildin(t_options *o, t_parse_table *cmd)
