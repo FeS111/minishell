@@ -1,7 +1,10 @@
 
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <sys/signal.h>
 #include <unistd.h>
+
+int	g_in_executer;
 
 void	history(t_options *o)
 {
@@ -25,8 +28,10 @@ int	main(void)
 
 	o = create_options();
 	signal(SIGINT, ctrl_c_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
+		g_in_executer = 0;
 		o->line = readline("minishell> ");
 		if (!o->line || !ft_strncmp(o->line, "exit", 4))
 			panic(o, 0);
@@ -38,15 +43,15 @@ int	main(void)
 		// 	j++;
 		//}
 		parser(o);
-		if (o->tables)
-		{
-			j = 0;
-			while (o->tables[j])
-			{
-				ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args[0], o->tables[j]->in, o->tables[j]->out);
-				j++;
-			}
-		}
+		// if (o->tables)
+		// {
+		// 	j = 0;
+		// 	while (o->tables[j])
+		// 	{
+		// 		ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args[0], o->tables[j]->in, o->tables[j]->out);
+		// 		j++;
+		// 	}
+		// }
 		evaluator(o);
 		j = 0;
 		/* while (o->tables[j]) */

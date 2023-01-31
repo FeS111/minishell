@@ -1,8 +1,11 @@
 #include "../include/minishell.h"
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
+
+int	g_in_executer;
 
 char		**get_paths(void)
 {
@@ -143,6 +146,8 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd)
 		panic(o, 1);
 	if (child == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		args = build_args(cmd->cmd);
 		execve(binary, args, o->env);
 		free(binary);
@@ -183,6 +188,7 @@ void	executer(t_options *o)
 	while (o->tables[l])
 		l++;
 	i = -1;
+	g_in_executer = 1;
 	while (o->tables[++i])
 	{
 		if (o->tables[i]->out == PIPE_FD)
