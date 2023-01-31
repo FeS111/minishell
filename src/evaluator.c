@@ -81,5 +81,20 @@ void	evaluator(t_options *o)
 					o->tables[i]->cmd->args[k] = replace_home(o->tables[i]->cmd->args[k], j);
 			}
 		}
+		k = -1;
+		replace = 1;
+		while (o->tables[i]->cmd->cmd[++k] != '\0')
+		{
+			if (o->tables[i]->cmd->cmd[k] == '\'' && replace)
+				replace = 0;
+			if (o->tables[i]->cmd->cmd[k] == '\'' && !replace)
+				replace = 1;
+			if (!replace)
+				continue ;
+			if (o->tables[i]->cmd->cmd[k] == '$')
+				o->tables[i]->cmd->cmd = replace_variable(o, o->tables[i]->cmd->cmd, k, get_varlength(&o->tables[i]->cmd->cmd[k]));
+			else if (o->tables[i]->cmd->cmd[k] == '~')
+				o->tables[i]->cmd->cmd = replace_home(o->tables[i]->cmd->cmd, k);
+		}
 	}
 }
