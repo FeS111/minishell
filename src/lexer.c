@@ -1,5 +1,6 @@
 
 #include "../include/minishell.h"
+#include <stdio.h>
 
 t_token	*get_token(char *charset)
 {

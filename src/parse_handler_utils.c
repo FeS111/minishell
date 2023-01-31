@@ -11,6 +11,8 @@ t_parse_cmd	*new_cmd(char *cmd, char *opt, char *opt2, char **args)
 	t_parse_cmd	*new_cmd;
 
 	new_cmd = malloc(sizeof(t_parse_cmd));
+	if (!new_cmd)
+		return (NULL);
 	new_cmd->cmd = cmd;
 	new_cmd->opt = opt;
 	new_cmd->opt2 = opt2;

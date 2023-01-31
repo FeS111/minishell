@@ -31,7 +31,6 @@ int	main(void)
 		if (!o->line || !ft_strncmp(o->line, "exit", 4))
 			panic(o, 0);
 		lexer(o);
-		printf("lexer finished\n");
 		j = 0;
 		//while (o->tokens[j])
 		//{
@@ -39,7 +38,6 @@ int	main(void)
 		// 	j++;
 		//}
 		parser(o);
-		printf("parser finished\n");
 		if (o->tables)
 		{
 			j = 0;

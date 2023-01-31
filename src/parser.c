@@ -12,7 +12,7 @@ void	parser(t_options *o)
 	j = 0;
 	in = 0;
 	out = 1;
-	tables = malloc(sizeof(t_parse_table *) * token_size(o->tokens) + 1);
+	tables = ft_calloc(sizeof(t_parse_table *), token_size(o->tokens) + 1);
 	while (o->tokens[i])
 	{
 		tables[j] = new_table(build_cmd(o->tokens, &in, &out, &i), in, out);
