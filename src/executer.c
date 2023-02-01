@@ -1,9 +1,4 @@
 #include "../include/minishell.h"
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
 
 int	g_in_executer;
 
@@ -64,6 +59,8 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	*binary;
 	char	**args;
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	binary = search_binary(o, cmd->cmd);
 	args = build_args(cmd);
 	execve(binary, args, o->env);
@@ -132,26 +129,16 @@ int	try_buildin(t_options *o, t_parse_table *cmd)
 
 static int execute_non_pipe(t_options *o, t_parse_table *cmd)
 {
-	char	*binary;
-	char	**args;
 	int		child;
 
 	if (try_buildin(o, cmd))
-		return (-1);
-	binary = search_binary(o, cmd->cmd->cmd);
-	if (!binary)
 		return (-1);
 	child = fork();
 	if (child < 0)
 		panic(o, 1);
 	if (child == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		args = build_args(cmd->cmd);
-		execve(binary, args, o->env);
-		free(binary);
-		split_free(args);
+		do_op(o, cmd->cmd);
 		return (0);
 	}
 	return (0);

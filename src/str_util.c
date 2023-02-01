@@ -25,6 +25,7 @@ char		*str_replace(t_replace_options o)
 		res = replace_join(res, ft_substr(o.str, o.end, ft_strlen(o.str) - o.end));
 	}
 	free(o.str);
+	free(o.newValue);
 	return (res);
 }
 
