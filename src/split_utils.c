@@ -1,10 +1,13 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 void	split_free(char **str)
 {
 	int	i;
 
 	i = -1;
+	if (!str)
+		return;
 	while (str[++i])
 		free(str[i]);
 	free(str);

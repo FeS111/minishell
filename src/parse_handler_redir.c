@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 t_parse_cmd	*left_redir(t_token **tokens, int *in, int *out, int *i)
 {
@@ -7,14 +8,11 @@ t_parse_cmd	*left_redir(t_token **tokens, int *in, int *out, int *i)
 	else
 		*out = STD_OUTPUT;
 	*i += 1;
-	if (!tokens[*i] || tokens[*i]->type != WORD)
-		return (panic_token(tokens[*i]->value), NULL);
 	*in = READ;
 	if (*in < 0)
 	{
 		perror(tokens[*i]->value);
 		*in = STD_INPUT;
-		i++;
 		return (NULL);
 	}
 	return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL));

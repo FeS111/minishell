@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 t_parse_cmd	*handle_io(t_token **tokens, int *in, int *out, int *i)
 {
@@ -78,7 +79,7 @@ t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 					tmp2 = ft_strjoin_gnl(tmp2, " ");
 				tmp2 = ft_strjoin_gnl(tmp2, tokens[*i]->value);
 			}
-			if (tokens[*i] && (tokens[*i]->type == WORD || tokens[*i]->type == OPTION2 || tokens[*i]->type == OPTION))
+			if (tokens[*i] && is_woo2(tokens[*i]->type))
 				tmp3[++j] = ft_strdup(tokens[*i]->value);
 			*i += 1;
 			if (tokens[*i] && !is_woo2(tokens[*i]->type))
