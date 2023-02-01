@@ -1,12 +1,13 @@
 #include "../include/parser.h"
+#include <unistd.h>
 
 t_parse_cmd	*here_doc(t_token **tokens, int *in, int *out, int *i)
 {
 	int		fd;
 	char	*line;
 
-	(void)in;
-	(void)out;
+	*in = READ;
+	*out = STDOUT_FILENO;
 	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	while (1)
 	{

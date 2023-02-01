@@ -37,21 +37,21 @@ int	main(void)
 			panic(o, 0);
 		lexer(o);
 		j = 0;
-		while (o->tokens[j])
-		{
-			ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
-			j++;
-		}
+		// while (o->tokens[j])
+		// {
+		// 	ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
+		// 	j++;
+		// }
 		parser(o);
-		if (o->tables)
-		{
-			j = 0;
-			while (o->tables[j])
-			{
-				ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->in, o->tables[j]->out);
-				j++;
-			}
-		}
+		// if (o->tables)
+		// {
+		// 	j = 0;
+		// 	while (o->tables[j])
+		// 	{
+		// 		ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->in, o->tables[j]->out);
+		// 		j++;
+		// 	}
+		// }
 		evaluator(o);
 		j = 0;
 		/* while (o->tables[j]) */

@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <unistd.h>
 
 int	g_in_executer;
 
@@ -59,17 +60,14 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	*binary;
 	char	**args;
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	binary = search_binary(o, cmd->cmd);
 	args = build_args(cmd);
 	execve(binary, args, o->env);
 	free(binary);
 	split_free(args);
-	ft_putendl_fd("error", 2);
 }
 
-static int	run(t_options *o, int fd, int *i)
+static int	run(t_options *o, int *i, int in, int out)
 {
 	pid_t	child;
 	int		pipefd[2];
@@ -81,30 +79,29 @@ static int	run(t_options *o, int fd, int *i)
 		panic(o, 1);
 	else if (child == 0)
 	{
-		if (o->tables[*i + 1])
+		if (o->pipes > 0)
 			dup2(pipefd[1], STDOUT_FILENO);
+		if (o->pipes == 0 && out != STDOUT_FILENO)
+			dup2(pipefd[1], out);
 		close(pipefd[1]);
-		dup2(fd, STDIN_FILENO);
-		close(fd);
+		dup2(in, STDIN_FILENO);
+		close(in);
 		do_op(o, o->tables[*i]->cmd);
 	}
+	o->pipes--;
 	close(pipefd[1]);
 	return (pipefd[0]);
 }
 
 
-static void	execute_pipe(t_options *o, t_parse_table **tables, int *i)
+static void	execute_pipe(t_options *o, int *i, int in, int out)
 {
-	int		fd;
-
-	fd = dup(STDIN_FILENO);
-	while (tables[*i])
+	while (o->tables[*i])
 	{
-		fd = run(o, fd, i);
+		in = run(o, i, in, out);
 		*i += 1;
 		waitpid(0, NULL, 0);
 	}
-	close(fd);
 }
 
 int	try_buildin(t_options *o, t_parse_table *cmd)
@@ -126,7 +123,7 @@ int	try_buildin(t_options *o, t_parse_table *cmd)
 	return (0);
 }
 
-static int execute_non_pipe(t_options *o, t_parse_table *cmd)
+static int execute_non_pipe(t_options *o, t_parse_table *cmd, int in, int out)
 {
 	int		child;
 
@@ -137,20 +134,27 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd)
 		panic(o, 1);
 	if (child == 0)
 	{
+		if (out != STDOUT_FILENO)
+		{
+			dup2(out, STDOUT_FILENO);
+			close(out);
+		}
+		dup2(in, STDIN_FILENO);
+		close(in);
 		do_op(o, cmd->cmd);
-		return (0);
 	}
+	close(in);
 	return (0);
 }
 
-
-char	*read_fd(int fd)
+ 
+char	*read_fd(int in)
 {
 	char	*tmp;
 	char	*content;
 	char	*line;
 
-	line = get_next_line(fd);
+	line = get_next_line(in);
 	content = ft_strdup("");
 	while (line)
 	{
@@ -159,29 +163,70 @@ char	*read_fd(int fd)
 		content = ft_strdup(tmp);
 		free(tmp);
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(in);
 	}
 	return (content);
+}
+int	get_in(t_parse_table **tables)
+{
+	int	i;
+
+	i = 0;
+	while (tables[i])
+		i++;
+	i -= 1;
+	while (i > 0)
+	{
+		if (tables[i]->in == READ)
+		{
+			if (!ft_strncmp(tables[i]->cmd->cmd, "here_doc", 9))
+				return (open("here_doc", O_RDONLY));
+			else
+				return (open(tables[i]->cmd->cmd, O_RDONLY));
+		}
+		i--;
+	}
+	return (dup(STDIN_FILENO));
+}
+
+int	get_out(t_parse_table **tables)
+{
+	int	i;
+
+	i = 0;
+	while (tables[i])
+		i++;
+	i -= 1;
+	while (i > 0)
+	{
+		if (tables[i]->out == WRITE)
+			return (open(tables[i]->cmd->cmd, O_CREAT| O_TRUNC | O_WRONLY));
+		i--;
+	}
+	return (STDOUT_FILENO);
 }
 
 void	executer(t_options *o)
 {
 	int	    i;
-	int	    l;
 	int		pid;
+	int		in;
+	int		out;
 
-	l = 0;
-	while (o->tables[l])
-		l++;
+	in = get_in(o->tables);
+	out = get_out(o->tables);
 	i = -1;
 	g_in_executer = 1;
 	while (o->tables[++i])
 	{
 		if (o->tables[i]->out == PIPE_FD)
-			execute_pipe(o, o->tables, &i);
+			execute_pipe(o, &i, in, out);
 		else
-			pid = execute_non_pipe(o, o->tables[i]);
+			pid = execute_non_pipe(o, o->tables[i], in, out);
 		if (pid == 0)
 			waitpid(0, NULL, 0);
 	}
+	close(in);
+	if (out != STDOUT_FILENO)
+		close(out);
 }
