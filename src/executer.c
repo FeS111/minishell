@@ -181,6 +181,6 @@ void	executer(t_options *o)
 		else
 			pid = execute_non_pipe(o, o->tables[i]);
 		if (pid == 0)
-			waitpid(0, NULL, 0);
+			waitpid(0, &o->last_status, 0);
 	}
 }

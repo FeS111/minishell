@@ -11,6 +11,7 @@ void	panic(t_options *o, int code)
 void	ft_pwd(t_options *o)
 {
 	ft_putendl_fd(o->pwd, 1);
+	o->last_status = 0;
 }
 
 void	ft_env(t_options *o)
@@ -20,6 +21,7 @@ void	ft_env(t_options *o)
 	i = -1;
 	while (o->env[++i] != NULL)
 		ft_putendl_fd(o->env[i], 1);
+	o->last_status = 0;
 }
 
 void	ft_unset(t_options *o, t_parse_table *cmd)
@@ -46,6 +48,7 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 	env[j] = NULL;
 	free(o->env);
 	o->env = env;
+	o->last_status = 0;
 }
 void	ft_echo(t_options *o, t_parse_table *cmd)
 {
@@ -71,5 +74,6 @@ void	ft_echo(t_options *o, t_parse_table *cmd)
 	else
 		ft_putendl_fd(tmp, 1);
 	free(tmp);
+	o->last_status = 0;
 }
 

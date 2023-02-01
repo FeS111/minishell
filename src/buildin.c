@@ -18,13 +18,20 @@ void	ft_export(t_options *o, t_parse_table *cmd)
 	env[i + 1] = NULL;
 	free(o->env);
 	o->env = env;
+	o->last_status = 0;
 }
 
 void	ft_cd(t_options *o, t_parse_table *cmd)
 {
-	chdir(cmd->cmd->args[0]);
+	if (chdir(cmd->cmd->args[0]) != 0)
+	{
+		ft_printf("cd: No such file or directory\n");
+		o->last_status = 1;
+		return ;
+	}
 	free(o->pwd);
 	o->pwd = get_pwd();
+	o->last_status = 0;
 }
 
 char *ft_getenv(t_options *o, char *name)
@@ -48,5 +55,27 @@ char *ft_getenv(t_options *o, char *name)
 		}
 		split_free(tmp);
 	}
+	return (res);
+}
+
+char	*get_current_folder(t_options *o)
+{
+	char	**tmp;
+	char	*res;
+	char	*color;
+	int		i;
+
+	tmp = ft_split(o->pwd, '/');
+	i = 0;
+	while (tmp[i])
+		i++;
+	if (o->last_status == 0)
+		color = "\033[32m";
+	else
+		color = "\033[31m";
+	res = ft_strjoin(color, "➜\033[0m ");
+	res = ft_strjoin_gnl(res, tmp[i - 1]);
+	res = ft_strjoin_gnl(res, " > ");
+	split_free(tmp);
 	return (res);
 }
