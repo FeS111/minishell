@@ -64,7 +64,7 @@ void	evaluator(t_options *o)
 	while (o->tables[++i])
 	{
 		k = -1;
-		while (o->tables[i]->cmd->args[++k])
+		while (o->tables[i]->cmd->args && o->tables[i]->cmd->args[++k])
 		{
 			j = -1;
 			while (o->tables[i]->cmd->args[k] && o->tables[i]->cmd->args[k][++j] != '\0')
