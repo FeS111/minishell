@@ -19,12 +19,13 @@ void	ft_env(t_options *o)
 	int				i;
 
 	i = -1;
+	ft_putendl_fd("super custom env", 1);
 	while (o->env[++i] != NULL)
 		ft_putendl_fd(o->env[i], 1);
 	o->last_status = 0;
 }
 
-void	ft_unset(t_options *o, t_parse_table *cmd)
+void	ft_unset(t_options *o, t_parse_cmd *cmd)
 {
 	int		i;
 	int		j;
@@ -39,7 +40,7 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 	j = 0;
 	while (o->env[++i] != NULL)
 	{
-		if (!ft_strnstr(o->env[i], cmd->cmd->args[0], ft_strlen(cmd->cmd->args[0])))
+		if (!ft_strnstr(o->env[i], cmd->args[0], ft_strlen(cmd->args[0])))
 		{
 			env[j] = o->env[i];
 			j++;
@@ -50,16 +51,16 @@ void	ft_unset(t_options *o, t_parse_table *cmd)
 	o->env = env;
 	o->last_status = 0;
 }
-void	ft_echo(t_options *o, t_parse_table *cmd)
+void	ft_echo(t_options *o, t_parse_cmd *cmd)
 {
 	int		l;
 	char	*tmp;
 
 	(void)o;
 	l = 0;
-	while (cmd->cmd->args[l])
+	while (cmd->args[l])
 		l++;
-	tmp = strjoinn(cmd->cmd->args, " ", 0, l);
+	tmp = strjoinn(cmd->args, " ", 0, l);
 	l = -1;
 	while (tmp[++l])
 	{
@@ -69,7 +70,7 @@ void	ft_echo(t_options *o, t_parse_table *cmd)
 			break ;
 		}
 	}
-	if (cmd->cmd->opt && ft_strncmp(cmd->cmd->opt, "-n", 2) == 0)
+	if (cmd->opt && ft_strncmp(cmd->opt, "-n", 2) == 0)
 		ft_putstr_fd(tmp, 1);
 	else
 		ft_putendl_fd(tmp, 1);

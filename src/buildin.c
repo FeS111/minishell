@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	ft_export(t_options *o, t_parse_table *cmd)
+void	ft_export(t_options *o, t_parse_cmd *cmd)
 {
 	int		i;
 	int		size;
@@ -14,16 +14,16 @@ void	ft_export(t_options *o, t_parse_table *cmd)
 	while (o->env[++i] != NULL)
 		env[i] = o->env[i];
 	size = 0;
-	env[i] = ft_strdup(cmd->cmd->args[0]);
+	env[i] = ft_strdup(cmd->args[0]);
 	env[i + 1] = NULL;
 	free(o->env);
 	o->env = env;
 	o->last_status = 0;
 }
 
-void	ft_cd(t_options *o, t_parse_table *cmd)
+void	ft_cd(t_options *o, t_parse_cmd *cmd)
 {
-	if (chdir(cmd->cmd->args[0]) != 0)
+	if (chdir(cmd->args[0]) != 0)
 	{
 		ft_printf("cd: No such file or directory\n");
 		o->last_status = 1;

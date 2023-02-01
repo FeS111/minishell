@@ -1,1 +1,4 @@
-Todos: - count pipes and take the dup2 to stdin only the amount of pipes right now its not handled for every instance for example cat | grep m | wc -l < file1 because i only check if there ist table next element
+Todos:
+	- count pipes and take the dup2 to stdin only the amount of pipes right now its not handled for every instance for example cat | grep m | wc -l < file1 because i only check if there ist table next element
+	- lexer >< without whitespace
+	- pipe buildin
