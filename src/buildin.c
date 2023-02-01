@@ -32,18 +32,21 @@ char *ft_getenv(t_options *o, char *name)
 	int		i;
 	char	*res;
 	char	**tmp;
+	char	*tmp2;
 
 	i = -1;
 	res = NULL;
 	while (o->env[++i])
 	{
-		if (ft_strncmp(o->env[i], name, ft_strlen(name)) == 0)
+		tmp = ft_split(o->env[i], '=');
+		tmp2 = tmp[0];
+		if (ft_strncmp(tmp2, name, ft_strlen(tmp2)) == 0)
 		{
-			tmp = ft_split(o->env[i], '=');
 			res = ft_strdup(tmp[1]);
 			split_free(tmp);
 			break ;
 		}
+		split_free(tmp);
 	}
 	return (res);
 }

@@ -15,7 +15,7 @@ char	*replace_variable(t_options *go, char *str, int start, int end)
 		newValue = ft_getenv(go, tmp);
 	free(tmp);
 	if (!newValue)
-		return str;
+		newValue = ft_strdup("");
 	o.str = ft_strdup(str);
 	o.start = start;
 	o.end = start + end;
