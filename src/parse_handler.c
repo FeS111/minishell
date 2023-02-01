@@ -80,10 +80,12 @@ t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 				tmp2 = ft_strjoin_gnl(tmp2, tokens[*i]->value);
 			}
 			if (tokens[*i] && is_woo2(tokens[*i]->type))
+			{
 				tmp3[++j] = ft_strdup(tokens[*i]->value);
-			*i += 1;
+			}
 			if (tokens[*i] && !is_woo2(tokens[*i]->type))
 				break;
+			*i += 1;
 		}
 		new = new_cmd(word, tmp, tmp2 ,tmp3);
 		if (tokens[*i] && tokens[*i]->type == PIPE)

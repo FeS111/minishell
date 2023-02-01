@@ -66,7 +66,6 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	execve(binary, args, o->env);
 	free(binary);
 	split_free(args);
-	ft_putendl_fd("error", 2);
 }
 
 static int	run(t_options *o, int fd, int *i)
