@@ -22,9 +22,9 @@ t_parse_cmd	*new_cmd(char *cmd, char *opt, char *opt2, char **args)
 
 int	is_woo2(int type)
 {
-	if (type != OPTION && type != OPTION2 && type != WORD)
+	if (type == OPTION || type == OPTION2 || type == WORD)
 	{
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
