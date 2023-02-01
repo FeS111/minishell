@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <unistd.h>
 
 int	g_in_executer;
 
@@ -65,6 +64,7 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	execve(binary, args, o->env);
 	free(binary);
 	split_free(args);
+	exit(EXIT_FAILURE);
 }
 
 static int	run(t_options *o, int *i, int in, int out)
@@ -110,7 +110,7 @@ static void	execute_pipe(t_options *o, int *i, int in, int out)
 	{
 		in = run(o, i, in, out);
 		*i += 1;
-		waitpid(0, NULL, 0);
+		waitpid(0, &o->last_status, 0);
 	}
 }
 
@@ -153,10 +153,11 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd, int in, int out)
 		close(in);
 		do_op(o, cmd->cmd);
 	}
+	if (out != STDOUT_FILENO)
+		close(out);
 	close(in);
-	return (0);
+	return (child);
 }
-
 
 char	*read_fd(int in)
 {
@@ -177,6 +178,7 @@ char	*read_fd(int in)
 	}
 	return (content);
 }
+
 int	get_in(t_parse_table **tables)
 {
 	int	i;
@@ -232,9 +234,11 @@ void	executer(t_options *o)
 		if (o->tables[i]->out == PIPE_FD)
 			execute_pipe(o, &i, in, out);
 		else
+		{
 			pid = execute_non_pipe(o, o->tables[i], in, out);
-		if (pid == 0)
-			waitpid(0, &o->last_status, 0);
+			waitpid(pid, &o->last_status, 0);
+		}
+
 	}
 	close(in);
 	if (out != STDOUT_FILENO)
