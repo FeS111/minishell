@@ -32,6 +32,7 @@ typedef struct s_options
 	int				last_status;
 	t_parse_table	**tables;
 	char			**paths;
+	int				pipes;
 } t_options;
 
 typedef struct s_replace_options
