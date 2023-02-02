@@ -1,7 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <sys/signal.h>
-#include <unistd.h>
 
 int	g_in_executer;
 
@@ -48,15 +45,19 @@ int	main(void)
 		// 	ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
 		// 	j++;
 		// }
-		parser(o);
+		if (parser(o) == -1)
+		{
+			free_tokens(o->tokens);
+			continue ;
+		}
 		// if (o->tables)
 		// {
 		// 	j = 0;
 		// 	while (o->tables[j])
 		// 	{
 		// 		ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->in, o->tables[j]->out);
-		// 		j++;
-		// 	}
+				// j++;
+			// }
 		// }
 		evaluator(o);
 		j = 0;
