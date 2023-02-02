@@ -1,2 +1,4 @@
 Todos:
 	- pipe buildin
+	- atty
+	- command execute here_doc not working
