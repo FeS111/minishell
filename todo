@@ -2,3 +2,4 @@ Todos:
 	- pipe buildin
 	- atty
 	- command execute here_doc not working
+	- > change parse table or get a new statement for execution

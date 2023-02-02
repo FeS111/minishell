@@ -28,10 +28,7 @@ char	*search_binary(t_options *o, char *cmd)
 		absolute_path = ft_strjoin(o->paths[i], "/");
 		absolute_path = ft_strjoin_gnl(absolute_path, cmd);
 		if (access(absolute_path, F_OK) >= 0)
-		{
-			ft_putendl_fd(absolute_path, 2);
 			return (absolute_path);
-		}
 		free(absolute_path);
 		i++;
 	}
@@ -64,9 +61,7 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	**args;
 	
 	binary = search_binary(o, cmd->cmd);
-	ft_putendl_fd(binary, 2);
 	args = build_args(cmd);
-	ft_putendl_fd("hellol", 2);
 	execve(binary, args, o->env);
 	free(binary);
 	split_free(args);
@@ -193,7 +188,7 @@ int	get_in(t_parse_table **tables)
 	while (tables[i])
 		i++;
 	i -= 1;
-	while (i > 0)
+	while (i >= 0)
 	{
 		if (tables[i]->in == READ)
 		{
@@ -215,10 +210,11 @@ int	get_out(t_parse_table **tables)
 	while (tables[i])
 		i++;
 	i -= 1;
-	while (i > 0)
+	while (i >= 0)
 	{
 		if (tables[i]->out == WRITE)
-			return (open(tables[i]->cmd->cmd, O_CREAT| O_TRUNC | O_WRONLY));
+			return (open(tables[i]->cmd->cmd,
+						O_CREAT| O_TRUNC | O_WRONLY, 0644));
 		i--;
 	}
 	return (STDOUT_FILENO);
@@ -237,8 +233,9 @@ void	executer(t_options *o)
 	g_in_executer = 1;
 	if (o->pipes > 0)
 		execute_pipe(o, &i, in, out);
-	else
+	else if (o->tables[i]->out != WRITE)
 	{
+		ft_putnbr_fd(out, 2);
 		pid = execute_non_pipe(o, o->tables[i], in, out);
 		waitpid(pid, &o->last_status, 0);
 	}
