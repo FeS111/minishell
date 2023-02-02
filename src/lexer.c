@@ -13,7 +13,7 @@ t_token	*get_token(char *charset)
 		return (NULL);
 	else if (charset[0] == '\'' || charset[0] == '\"')
 		return (get_quoted(charset));
-	else if (charset[0] == '-' && getafter_option(charset + 1) == 0)
+	else if (charset[0] == '-' && getafter_option(charset) > 1)
 		return (get_option(charset));
 	else if (ft_strchr("><#", charset[0]))
 		return (get_io(charset));

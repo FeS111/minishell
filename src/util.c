@@ -27,9 +27,9 @@ size_t	getafter_option(char *str)
 	size_t	i;
 
 	i = 1;
-	while (!is_whitespace(str[i]) && !ft_strchr("|<>&", str[i]))
+	while (!is_whitespace(str[i]) && !ft_strchr("|<>&\0", str[i]))
 		i++;
-	return (i + 1);
+	return (i);
 }
 
 int	is_whitespace(char c)
