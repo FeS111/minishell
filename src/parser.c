@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdlib.h>
 
 int	count_pipes(t_token **tokens)
 {
@@ -16,7 +17,7 @@ int	count_pipes(t_token **tokens)
 	return (count);
 }
 
-void	parser(t_options *o)
+int	parser(t_options *o)
 {
 	int 			i;
 	int				j;
@@ -34,10 +35,11 @@ void	parser(t_options *o)
 	{
 		tables[j] = new_table(build_cmd(o->tokens, &in, &out, &i), in, out);
 		if (!tables[j])
-			break ;
+			return (-1) ;
  		j++;
 		i++;
 	}
 	tables[j] = NULL;
 	o->tables = tables;
+	return (0);
 }

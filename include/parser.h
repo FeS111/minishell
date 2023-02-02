@@ -43,7 +43,7 @@ typedef struct s_parse_table
 typedef struct s_options t_options;
 typedef struct s_token t_token;
 
-void			parser(t_options *o);
+int				parser(t_options *o);
 
 t_parse_cmd		*build_cmd(t_token **tokens, int *in, int *out, int *i);
 t_parse_table	*new_table(t_parse_cmd *cmd, int in, int out);
