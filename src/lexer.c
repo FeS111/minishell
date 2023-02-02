@@ -21,7 +21,7 @@ t_token	*get_token(char *charset)
 		return (get_pipe(charset));
 	else
 	{
-		while (!is_whitespace(charset[i]))
+		while (!is_whitespace(charset[i]) && !ft_strchr("|<>#", charset[i]))
 			i++;
 		if (is_word(charset, i))
 			return (new_token(ft_substr(charset, 0, i), WORD));
