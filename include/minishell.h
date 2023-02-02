@@ -2,7 +2,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "buildin.h"
+# include "builtin.h"
 # include "lexer.h"
 # include "parser.h"
 # include "evaluator.h"

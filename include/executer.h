@@ -9,6 +9,6 @@ char	*search_binary(t_options *o, char *cmd);
 char	**get_paths(void);
 
 void	executer(t_options *o);
-int		try_buildin(t_options *o, t_parse_cmd *cmd);
+int		try_builtin(t_options *o, t_parse_cmd *cmd);
 
 #endif
