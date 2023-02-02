@@ -26,6 +26,7 @@
 typedef struct s_options
 {
 	char			**env;
+	int				is_shell;
 	char			*pwd;
 	char			*line;
 	t_token			**tokens;

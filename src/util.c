@@ -1,6 +1,4 @@
 #include "../include/minishell.h"
-#include <stddef.h>
-#include <stdio.h>
 
 char	*get_pwd(void)
 {
@@ -48,7 +46,6 @@ t_options	*create_options(void)
 	int			size;
 	extern char	**environ;
 
-	ft_printf("\e[1;1H\e[2J");
 	size = 0;
 	while (environ[size] != NULL)
 		size++;
@@ -64,6 +61,7 @@ t_options	*create_options(void)
 	o->line = NULL;
 	o->tokens = NULL;
 	o->paths = get_paths();
+	o->is_shell = isatty(0);
 	return (o);
 }
 
