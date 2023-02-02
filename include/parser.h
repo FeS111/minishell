@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "buildin.h"
+#include "builtin.h"
 #include "minishell.h"
 
 #include <stdlib.h>

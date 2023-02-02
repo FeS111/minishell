@@ -80,7 +80,7 @@ static int	run(t_options *o, int *i, int in, int out)
 
 	if (pipe(pipefd) == -1)
 		panic(o, 1);
-	if (try_buildin(o, o->tables[*i]->cmd))
+	if (try_builtin(o, o->tables[*i]->cmd))
 	{
 		if (o->pipes > 0)
 			dup2(pipefd[1], STDOUT_FILENO);
@@ -120,7 +120,7 @@ static void	execute_pipe(t_options *o, int *i, int in, int out)
 	}
 }
 
-int	try_buildin(t_options *o, t_parse_cmd *cmd)
+int	try_builtin(t_options *o, t_parse_cmd *cmd)
 {
 	if (ft_strncmp(cmd->cmd, "cd\0", 3) == 0)
 		return (ft_cd(o, cmd), 1);
@@ -143,7 +143,7 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd, int in, int out)
 {
 	int		child;
 
-	if (try_buildin(o, cmd->cmd))
+	if (try_builtin(o, cmd->cmd))
 		return (-1);
 	child = fork();
 	if (child < 0)

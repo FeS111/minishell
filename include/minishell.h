@@ -2,7 +2,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "buildin.h"
+# include "builtin.h"
 # include "lexer.h"
 # include "parser.h"
 # include "evaluator.h"
@@ -26,6 +26,7 @@
 typedef struct s_options
 {
 	char			**env;
+	int				is_shell;
 	char			*pwd;
 	char			*line;
 	t_token			**tokens;
