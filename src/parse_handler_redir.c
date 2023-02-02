@@ -1,9 +1,10 @@
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <unistd.h>
 
 t_parse_cmd	*left_redir(t_token **tokens, int *in, int *out, int *i)
 {
-	*out = WRITE;
+	*out = STD_OUTPUT;
 	*i += 1;
 	*in = READ;
 	return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL));

@@ -227,15 +227,20 @@ void	executer(t_options *o)
 	int		in;
 	int		out;
 
+	i = 0;
 	in = get_in(o->tables);
 	out = get_out(o->tables);
-	i = 0;
+	if (out == -1)
+	{
+		perror(o->tables[i]->cmd->cmd);
+		exit(0);
+	}
 	g_in_executer = 1;
+	
 	if (o->pipes > 0)
 		execute_pipe(o, &i, in, out);
-	else if (o->tables[i]->out != WRITE)
+	else
 	{
-		ft_putnbr_fd(out, 2);
 		pid = execute_non_pipe(o, o->tables[i], in, out);
 		waitpid(pid, &o->last_status, 0);
 	}

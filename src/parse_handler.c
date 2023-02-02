@@ -3,19 +3,19 @@
 
 t_parse_cmd	*handle_io(t_token **tokens, int *in, int *out, int *i)
 {
-	if (!ft_strncmp(tokens[*i]->value, "<<", 2))
+	if (!ft_strncmp(tokens[*i]->value, "<<", 3))
 	{
 		if (!tokens[*i + 1])
 			return (panic_token(tokens[*i]->value), NULL);
 		return (here_doc(tokens, in, out, i));
 	}
-	else if (!ft_strncmp(tokens[*i]->value, "<", 1))
+	else if (!ft_strncmp(tokens[*i]->value, "<", 2))
 	{
 		if (!tokens[*i + 1] || tokens[*i + 1]->type != WORD)
 			return (panic_token(tokens[*i]->value), NULL);
 		return (left_redir(tokens, in, out, i));
 	}
-	else if (!ft_strncmp(tokens[*i]->value, ">", 1))
+	else if (!ft_strncmp(tokens[*i]->value, ">", 2))
 		return (right_redir(tokens, in, out, i));
 	return (NULL);
 }
@@ -40,24 +40,19 @@ t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 	{
 		if (!ft_strncmp(tokens[*i + 1]->value, ">", 1))
 		{
-			*out = WRITE;
 			new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL);
-			*i += 1;
 			return (new);
 		}
 		else if (!ft_strncmp(tokens[*i + 1]->value, ">>", 2))
 		{
-			*out = WRITE;
 			new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL,
 							ft_split(tokens[*i]->value, 0));
-			*i += 1;
 			return (new);
 		}
 		else
 		{
 			*in = READ;
 			new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL);
-			*i += 1;
 			return (new);
 		}
 	}
