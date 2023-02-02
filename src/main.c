@@ -8,11 +8,6 @@ int	g_in_executer;
 
 void	history(t_options *o)
 {
-	if (!o->is_shell)
-	{
-		free_options(o);
-		exit(0);
-	}
 	free_tokens(o->tokens);
 	free_table(o->tables);
 	o->tokens = NULL;
@@ -66,11 +61,11 @@ int	main(void)
 		// }
 		evaluator(o);
 		j = 0;
-		/* while (o->tables[j]) */
-		/* { */
-		/* 	ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd[CMD], o->tables[j]->cmd[OPT], o->tables[j]->cmd[OPT2], o->tables[j]->cmd[ARGS], o->tables[j]->in, o->tables[j]->out); */
-		/* 	j++; */
-		/* } */
+		// while (o->tables[j])
+		// {
+		// 	ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd[CMD], o->tables[j]->cmd[OPT], o->tables[j]->cmd[OPT2], o->tables[j]->cmd[ARGS], o->tables[j]->in, o->tables[j]->out);
+		// 	j++;
+		// }
 		executer(o);
 		history(o);
 	}
