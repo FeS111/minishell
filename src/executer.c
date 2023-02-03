@@ -21,7 +21,7 @@ char	*search_binary(t_options *o, char *cmd)
 	char	*absolute_path;
 	int		i;
 
-	if (access(cmd, F_OK) >= 0)
+	if (cmd[0] == '/' && access(cmd, X_OK) >= 0)
 		return (ft_strdup(cmd));
 	i = 0;
 	while (o->paths[i])
