@@ -12,7 +12,7 @@ t_parse_cmd	*here_doc(t_token **tokens, int *in, int *out, int *i)
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if (!ft_strncmp(line, tokens[*i + 1]->value,
+		if (!line || !ft_strncmp(line, tokens[*i + 1]->value,
 			ft_strlen(tokens[*i + 1]->value)))
 			break ;
 		if (line && *line)
