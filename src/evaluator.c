@@ -71,7 +71,7 @@ void	evaluator(t_options *o)
 			{
 				if (o->tables[i]->cmd->args[k][j] == '\'' && replace)
 					replace = 0;
-				if (o->tables[i]->cmd->args[k][j] == '\'' && !replace)
+				else if (o->tables[i]->cmd->args[k][j] == '\'' && !replace)
 					replace = 1;
 				if (!replace)
 					continue ;
@@ -87,7 +87,7 @@ void	evaluator(t_options *o)
 		{
 			if (o->tables[i]->cmd->cmd[k] == '\'' && replace)
 				replace = 0;
-			if (o->tables[i]->cmd->cmd[k] == '\'' && !replace)
+			else if (o->tables[i]->cmd->cmd[k] == '\'' && !replace)
 				replace = 1;
 			if (!replace)
 				continue ;

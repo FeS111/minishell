@@ -50,10 +50,10 @@ void	shell(t_options *o)
 		// 	}
 		// }
 		evaluator(o);
-		// j = 0;
+		j = 0;
 		// while (o->tables[j])
 		// {
-		// 	ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd[CMD], o->tables[j]->cmd[OPT], o->tables[j]->cmd[OPT2], o->tables[j]->cmd[ARGS], o->tables[j]->in, o->tables[j]->out);
+		// 		ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->in, o->tables[j]->out);
 		// 	j++;
 		// }
 		executer(o);
