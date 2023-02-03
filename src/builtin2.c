@@ -19,7 +19,6 @@ void	ft_env(t_options *o)
 	int				i;
 
 	i = -1;
-	ft_putendl_fd("super custom env", 1);
 	while (o->env[++i] != NULL)
 		ft_putendl_fd(o->env[i], 1);
 	o->last_status = 0;

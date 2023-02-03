@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdlib.h>
 #include <sys/fcntl.h>
 
 int	g_in_executer;
@@ -59,7 +60,9 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 {
 	char	*binary;
 	char	**args;
-	
+
+	if (try_builtin(o, cmd))
+		 panic(o, EXIT_SUCCESS);
 	binary = search_binary(o, cmd->cmd);
 	args = build_args(cmd);
 	execve(binary, args, o->env);
@@ -75,16 +78,6 @@ static int	run(t_options *o, int *i, int in, int out)
 
 	if (pipe(pipefd) == -1)
 		panic(o, 1);
-	if (try_builtin(o, o->tables[*i]->cmd))
-	{
-		if (o->pipes > 0)
-			dup2(pipefd[1], STDOUT_FILENO);
-		dup2(in, STDIN_FILENO);
-		close(in);
-		close(pipefd[1]);
-		o->pipes--;
-		return (pipefd[0]);
-	}
 	child = fork();
 	if (child < 0)
 		panic(o, 1);
@@ -236,7 +229,7 @@ void	executer(t_options *o)
 		exit(0);
 	}
 	g_in_executer = 1;
-	
+
 	if (o->pipes > 0)
 		execute_pipe(o, &i, in, out);
 	else

@@ -1,6 +1,4 @@
 Todos:
-	- pipe buildin
-	- atty
 	- command execute here_doc not working
 	- > change parse table or get a new statement for execution
 	- < doesnt work with options like wc -l < src/main.c or grep o < src/main.c. Parsing error
