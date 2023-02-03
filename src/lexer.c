@@ -29,14 +29,14 @@ t_token	*get_token(char *charset)
 	return (NULL);
 }
 
-void	lexer(t_options *o)
+int	lexer(t_options *o)
 {
 	t_token	**tokens;
 	int		i;
 	int		j;
 
-	if (!o->line)
-		return ;
+	if (!ft_strlen(o->line))
+		return (-1);
 	i = 0;
 	j = 0;
 	tokens = ft_calloc(sizeof(t_token *), 1024);
@@ -52,4 +52,5 @@ void	lexer(t_options *o)
 		i++;
 	}
 	o->tokens = tokens;
+	return (0);
 }
