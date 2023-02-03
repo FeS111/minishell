@@ -83,6 +83,8 @@ t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 			*i += 1;
 		}
 		new = new_cmd(word, tmp, tmp2 ,tmp3);
+		if (tokens[*i] && tokens[*i]->type == IO)
+			*i -= 1;
 		if (tokens[*i] && tokens[*i]->type == PIPE)
 			*out = PIPE_FD;
 		return (new);
