@@ -35,8 +35,8 @@ int	parser(t_options *o)
 	{
 		tables[j] = new_table(build_cmd(o->tokens, &in, &out, &i), in, out);
 		if (!tables[j])
-			return (-1) ;
- 		j++;
+			return (-1);
+		j++;
 		i++;
 	}
 	tables[j] = NULL;

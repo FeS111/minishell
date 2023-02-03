@@ -36,6 +36,8 @@ t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 
 	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == PIPE)
 		*in = PIPE_FD;
+	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == IO)
+		*out = WRITE;
 	if (tokens[*i + 1] && tokens[*i + 1]->type == IO)
 	{
 		if (!ft_strncmp(tokens[*i + 1]->value, ">", 1))
@@ -75,9 +77,7 @@ t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 				tmp2 = ft_strjoin_gnl(tmp2, tokens[*i]->value);
 			}
 			if (tokens[*i] && is_woo2(tokens[*i]->type))
-			{
 				tmp3[++j] = ft_strdup(tokens[*i]->value);
-			}
 			if (tokens[*i] && !is_woo2(tokens[*i]->type))
 				break;
 			*i += 1;
@@ -85,8 +85,6 @@ t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
 		new = new_cmd(word, tmp, tmp2 ,tmp3);
 		if (tokens[*i] && tokens[*i]->type == PIPE)
 			*out = PIPE_FD;
-		else
-			*out = STD_OUTPUT;
 		return (new);
 	}
 	return (NULL);
