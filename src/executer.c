@@ -66,6 +66,7 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	execve(binary, args, o->env);
 	free(binary);
 	split_free(args);
+	ft_putendl_fd("henlo", 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -224,7 +225,9 @@ void	executer(t_options *o)
 	if (out == -1)
 	{
 		perror(o->tables[i]->cmd->cmd);
-		exit(0);
+		close(in);
+		o->last_status = 1;
+		return ; 
 	}
 	g_in_executer = 1;
 
