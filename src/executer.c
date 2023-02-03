@@ -228,9 +228,9 @@ void	executer(t_options *o)
 	}
 	g_in_executer = 1;
 
-	if (o->pipes > 0)
+	if (o->pipes > 0 && o->tables[i]->out != WRITE)
 		execute_pipe(o, &i, in, out);
-	else
+	else if (o->tables[i]->out != WRITE)
 	{
 		pid = execute_non_pipe(o, o->tables[i], in, out);
 		waitpid(pid, &o->last_status, 0);
