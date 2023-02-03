@@ -92,9 +92,9 @@ static char	*get_current_branch(void)
 	if (fd < 2)
 		return (NULL);
 	line = get_next_line(fd);
+	close(fd);
 	if (!line)
 		return (NULL);
-	close(fd);
 	tmp = ft_split(line, '/');
 	free(line);
 	i = 0;
