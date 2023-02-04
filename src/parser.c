@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <stdlib.h>
 
 int	count_pipes(t_token **tokens)
 {

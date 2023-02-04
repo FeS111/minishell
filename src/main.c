@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
 
 int	g_in_executer;
 
