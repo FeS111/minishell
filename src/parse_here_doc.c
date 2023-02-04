@@ -16,40 +16,48 @@ static char	*evalulate(t_options *o, char *line)
 	return (line);
 }
 
+static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
+{
+	char	*line;
+
+	line = readline("heredoc> ");
+	if (!line || !ft_strncmp(line, deli,
+			ft_strlen(deli)))
+		return (free(line), 0);
+	if (line && *line)
+	{
+		if (replace)
+			line = evalulate(o, line);
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+		free(line);
+	}
+	return (1);
+}
+
 t_parse_cmd	*here_doc(t_options *o, int *in, int *out, int *i)
 {
 	int		fd;
-	char	*line;
 	int		replace;
+	int		run;
 	char	*deli;
 
 	replace = 1;
 	*in = READ;
 	*out = STDOUT_FILENO;
 	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-		deli = ft_strdup(o->tokens[*i + 1]->value);
+	deli = ft_strdup(o->tokens[*i + 1]->value);
 	if (ft_strchr("'\"", deli[0]) && ft_strchr("'\"", deli[ft_strlen(deli) - 1]))
 	{
 		replace = 0;
 		free(deli);
 		deli = ft_strtrim(o->tokens[*i + 1]->value, "'\"");
 	}
-	while (1)
+	run = 1;
+	while (run)
 	{
-		line = readline("heredoc> ");
-		if (!line || !ft_strncmp(line, deli,
-			ft_strlen(deli)))
-			break ;
-		if (line && *line)
-		{
-			if (replace)
-				line = evalulate(o, line);
-			write(fd, line, ft_strlen(line));
-			write(fd, "\n", 1);
-			free(line);
-		}
+		run = handle_heredoc(o, deli, replace, fd);
 	}
-	free(line);
 	free(deli);
 	close(fd);
 	*i += 1;
