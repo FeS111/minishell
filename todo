@@ -1,3 +1,4 @@
 Todos:
 	- append
 	- heredoc evaluator (with '')
+	- check why some processes never stop running like cat | cat | ls and cat /dev/urandom | head -5

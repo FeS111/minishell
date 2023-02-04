@@ -71,53 +71,56 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	exit(EXIT_FAILURE);
 }
 
-static int	run(t_options *o, int *i, int in, int out)
+static int	run(t_options *o, int *i, int *fd, pid_t *child)
 {
-	pid_t	child;
 	int		pipefd[2];
 
 	if (pipe(pipefd) == -1)
 		panic(o, 1);
-	child = fork();
-	if (child < 0)
+	*child = fork();
+	if (*child < 0)
 		panic(o, 1);
-	else if (child == 0)
+	else if (*child == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 		if (o->pipes > 0)
 			dup2(pipefd[1], STDOUT_FILENO);
-		if (o->pipes == 0 && out != STDOUT_FILENO)
-			dup2(out, STDOUT_FILENO);
+		if (o->pipes == 0 && fd[1] != STDOUT_FILENO)
+			dup2(fd[1], STDOUT_FILENO);
 		close(pipefd[1]);
-		dup2(in, STDIN_FILENO);
-		close(in);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
 		do_op(o, o->tables[*i]->cmd);
 	}
 	o->pipes--;
-	close(in);
+	close(fd[0]);
 	close(pipefd[1]);
+	if (fd[1] != STDOUT_FILENO)
+		close(fd[1]);
 	return (pipefd[0]);
 }
 
 
-static void	execute_pipe(t_options *o, int *i, int in, int out)
+static void	execute_pipe(t_options *o, int *i, int *fd)
 {
 	int	pipe;
+	pid_t child;
 
 	pipe = o->pipes;
 	while (o->tables[*i] && o->pipes >= 0)
 	{
-		in = run(o, i, in, out);
+		fd[0] = run(o, i, fd, &child);
 		*i += 1;
 	}
-	// TODO get last pid
-	// waitpid(0, &o->last_status, 0);
+	close(fd[0]);
 	while (pipe >= 0)
 	{
 		wait(NULL);
 		pipe--;
 	}
+	if(o->pipes == -1)
+		waitpid(child, &o->last_status, WNOHANG);
 }
 
 int	try_builtin(t_options *o, t_parse_cmd *cmd)
@@ -139,7 +142,7 @@ int	try_builtin(t_options *o, t_parse_cmd *cmd)
 	return (0);
 }
 
-static int execute_non_pipe(t_options *o, t_parse_table *cmd, int in, int out)
+static int execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 {
 	int		child;
 
@@ -152,18 +155,18 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd, int in, int out)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
-		if (out != STDOUT_FILENO)
+		if (fd[1] != STDOUT_FILENO)
 		{
-			dup2(out, STDOUT_FILENO);
-			close(out);
+			dup2(fd[1], STDOUT_FILENO);
+			close(fd[1]);
 		}
-		dup2(in, STDIN_FILENO);
-		close(in);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
 		do_op(o, cmd->cmd);
 	}
-	if (out != STDOUT_FILENO)
-		close(out);
-	close(in);
+	if (fd[0] != STDOUT_FILENO)
+		close(fd[0]);
+	close(fd[0]);
 	return (child);
 }
 
@@ -236,17 +239,16 @@ int	get_out(t_parse_table **tables)
 void	executer(t_options *o)
 {
 	int	    i;
-	int		pid;
-	int		in;
-	int		out;
+	pid_t	pid;
+	int		fd[2];
 
 	i = 0;
-	in = get_in(o->tables);
-	out = get_out(o->tables);
-	if (out == -1)
+	fd[0] = get_in(o->tables);
+	fd[1] = get_out(o->tables);
+	if (fd[1] == -1)
 	{
 		perror(o->tables[i]->cmd->cmd);
-		close(in);
+		close(fd[0]);
 		o->last_status = 1;
 		return ; 
 	}
@@ -254,14 +256,14 @@ void	executer(t_options *o)
 	if (o->tables[i])
 	{
 		if (o->pipes > 0 && o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
-			execute_pipe(o, &i, in, out);
+			execute_pipe(o, &i, fd);
 		else if (o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
 		{
-			pid = execute_non_pipe(o, o->tables[i], in, out);
+			pid = execute_non_pipe(o, o->tables[i], fd);
 			waitpid(pid, &o->last_status, 0);
 		}
-		close(in);
-		if (out != STDOUT_FILENO)
-			close(out);
+		close(fd[0]);
+		if (fd[1] != STDOUT_FILENO)
+			close(fd[1]);
 	}	
 }
