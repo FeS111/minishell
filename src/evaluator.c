@@ -31,7 +31,7 @@ static int	get_varlength(char *str)
 	int	i;
 
 	i = 0;
-	while (!is_whitespace(str[i]) && ! ft_strchr("\"\0", str[i]))
+	while (!is_whitespace(str[i]) && !ft_strchr("\"'\0", str[i]))
 		i++;
 	return (i);
 }
@@ -52,14 +52,32 @@ char	*replace_home(char *str, int start)
 	return (res);
 }
 
+static char	*remove_quotes(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
+			str = str_remove_char(str, str[i]);
+			break ;
+		}
+	}
+	return(str);
+}
+
 void	evaluator(t_options *o)
 {
 	int	i;
 	int	j;
 	int	k;
 	int	replace;
+	int	double_quotes;
 
 	replace = 1;
+	double_quotes = 0;
 	i = -1;
 	while (o->tables[++i])
 	{
@@ -69,9 +87,11 @@ void	evaluator(t_options *o)
 			j = -1;
 			while (o->tables[i]->cmd->args[k] && o->tables[i]->cmd->args[k][++j] != '\0')
 			{
-				if (o->tables[i]->cmd->args[k][j] == '\'' && replace)
+				if (o->tables[i]->cmd->args[k][j] == '"' && !double_quotes && replace)
+					double_quotes = 1;
+				else if (o->tables[i]->cmd->args[k][j] == '\'' && replace && !double_quotes)
 					replace = 0;
-				else if (o->tables[i]->cmd->args[k][j] == '\'' && !replace)
+				else if (o->tables[i]->cmd->args[k][j] == '\'' && !replace && !double_quotes)
 					replace = 1;
 				if (!replace)
 					continue ;
@@ -80,6 +100,7 @@ void	evaluator(t_options *o)
 				else if (o->tables[i]->cmd->args[k][j] == '~')
 					o->tables[i]->cmd->args[k] = replace_home(o->tables[i]->cmd->args[k], j);
 			}
+			o->tables[i]->cmd->args[k] = remove_quotes(o->tables[i]->cmd->args[k]);
 		}
 		k = -1;
 		replace = 1;
@@ -96,5 +117,6 @@ void	evaluator(t_options *o)
 			else if (o->tables[i]->cmd->cmd[k] == '~')
 				o->tables[i]->cmd->cmd = replace_home(o->tables[i]->cmd->cmd, k);
 		}
+		o->tables[i]->cmd->cmd = remove_quotes(o->tables[i]->cmd->cmd);
 	}
 }

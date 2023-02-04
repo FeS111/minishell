@@ -29,7 +29,7 @@ char		*str_replace(t_replace_options o)
 	return (res);
 }
 
-char	*str_replace_char(char *str, char c)
+char	*str_remove_char(char *str, char c)
 {
 	int		i;
 	int		j;

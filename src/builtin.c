@@ -40,6 +40,7 @@ char *ft_getenv(t_options *o, char *name)
 	char	*res;
 	char	**tmp;
 	char	*tmp2;
+	int		length;
 
 	i = -1;
 	res = NULL;
@@ -47,7 +48,11 @@ char *ft_getenv(t_options *o, char *name)
 	{
 		tmp = ft_split(o->env[i], '=');
 		tmp2 = tmp[0];
-		if (ft_strncmp(tmp2, name, ft_strlen(tmp2)) == 0)
+		if (ft_strlen(tmp2) > ft_strlen(name))
+			length = ft_strlen(tmp2);
+		else
+			length = ft_strlen(name);
+		if (ft_strncmp(tmp2, name, length) == 0)
 		{
 			res = ft_strdup(tmp[1]);
 			split_free(tmp);

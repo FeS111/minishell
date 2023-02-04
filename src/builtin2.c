@@ -60,15 +60,6 @@ void	ft_echo(t_options *o, t_parse_cmd *cmd)
 	while (cmd->args[l])
 		l++;
 	tmp = strjoinn(cmd->args, " ", 0, l);
-	l = -1;
-	while (tmp[++l])
-	{
-		if (tmp[l] == '"' || tmp[l] == '\'')
-		{
-			tmp = str_replace_char(tmp, tmp[l]);
-			break ;
-		}
-	}
 	if (cmd->opt && ft_strncmp(cmd->opt, "-n", 2) == 0)
 		ft_putstr_fd(tmp, 1);
 	else

@@ -19,7 +19,7 @@ t_token *get_quoted(char *str)
 		return (NULL);
 	while (!is_whitespace(str[end]) && str[end])
 		end++;
-	return (new_token(ft_substr(str, 0, end + 1), WORD));
+	return (new_token(ft_substr(str, 0, end), WORD));
 }
 
 t_token	*get_option(char *str)
