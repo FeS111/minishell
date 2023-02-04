@@ -20,14 +20,13 @@ t_parse_cmd	*handle_io(t_token **tokens, int *in, int *out, int *i)
 	return (NULL);
 }
 
-t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
-{
-	t_parse_cmd	*new;
-	char	*word;
-	char	*tmp;
-	char	*tmp2;
-	char	**tmp3;
-	int		j;
+t_parse_cmd *handle_word(t_token **tokens, int *in, int *out, int *i) {
+  t_parse_cmd *new;
+  char *word;
+  char *tmp;
+  char *tmp2;
+  char **tmp3;
+  int j;
 
 	tmp = NULL;
 	tmp2 = NULL;
