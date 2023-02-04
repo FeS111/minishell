@@ -1,4 +1,6 @@
 #include "../include/minishell.h"
+#include <signal.h>
+#include <sys/wait.h>
 
 int	g_in_executer;
 
@@ -81,6 +83,8 @@ static int	run(t_options *o, int *i, int in, int out)
 		panic(o, 1);
 	else if (child == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		if (o->pipes > 0)
 			dup2(pipefd[1], STDOUT_FILENO);
 		if (o->pipes == 0 && out != STDOUT_FILENO)
@@ -91,6 +95,7 @@ static int	run(t_options *o, int *i, int in, int out)
 		do_op(o, o->tables[*i]->cmd);
 	}
 	o->pipes--;
+	close(in);
 	close(pipefd[1]);
 	return (pipefd[0]);
 }
@@ -98,11 +103,20 @@ static int	run(t_options *o, int *i, int in, int out)
 
 static void	execute_pipe(t_options *o, int *i, int in, int out)
 {
+	int	pipe;
+
+	pipe = o->pipes;
 	while (o->tables[*i] && o->pipes >= 0)
 	{
 		in = run(o, i, in, out);
 		*i += 1;
-		waitpid(0, &o->last_status, 0);
+	}
+	// TODO get last pid
+	// waitpid(0, &o->last_status, 0);
+	while (pipe >= 0)
+	{
+		wait(NULL);
+		pipe--;
 	}
 }
 
@@ -136,6 +150,8 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd, int in, int out)
 		panic(o, 1);
 	if (child == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		if (out != STDOUT_FILENO)
 		{
 			dup2(out, STDOUT_FILENO);
@@ -235,15 +251,17 @@ void	executer(t_options *o)
 		return ; 
 	}
 	g_in_executer = 1;
-
-	if (o->pipes > 0 && o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
-		execute_pipe(o, &i, in, out);
-	else if (o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+	if (o->tables[i])
 	{
-		pid = execute_non_pipe(o, o->tables[i], in, out);
-		waitpid(pid, &o->last_status, 0);
-	}
-	close(in);
-	if (out != STDOUT_FILENO)
-		close(out);
+		if (o->pipes > 0 && o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+			execute_pipe(o, &i, in, out);
+		else if (o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+		{
+			pid = execute_non_pipe(o, o->tables[i], in, out);
+			waitpid(pid, &o->last_status, 0);
+		}
+		close(in);
+		if (out != STDOUT_FILENO)
+			close(out);
+	}	
 }
