@@ -84,7 +84,7 @@ static int	run(t_options *o, int *i, int in, int out)
 		if (o->pipes > 0)
 			dup2(pipefd[1], STDOUT_FILENO);
 		if (o->pipes == 0 && out != STDOUT_FILENO)
-			dup2(pipefd[1], out);
+			dup2(out, STDOUT_FILENO);
 		close(pipefd[1]);
 		dup2(in, STDIN_FILENO);
 		close(in);
@@ -98,7 +98,7 @@ static int	run(t_options *o, int *i, int in, int out)
 
 static void	execute_pipe(t_options *o, int *i, int in, int out)
 {
-	while (o->tables[*i])
+	while (o->tables[*i] && o->pipes >= 0)
 	{
 		in = run(o, i, in, out);
 		*i += 1;
@@ -204,8 +204,14 @@ int	get_out(t_parse_table **tables)
 	while (i >= 0)
 	{
 		if (tables[i]->out == WRITE)
+		{
+			if (tables[i]->cmd->args 
+					&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
+				return (open(tables[i]->cmd->cmd, 
+							O_APPEND | O_WRONLY, 0644));
 			return (open(tables[i]->cmd->cmd,
-						O_CREAT| O_TRUNC | O_WRONLY, 0644));
+						O_CREAT | O_TRUNC | O_WRONLY, 0644));
+		}
 		i--;
 	}
 	return (STDOUT_FILENO);
