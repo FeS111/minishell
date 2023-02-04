@@ -49,8 +49,8 @@ int	lexer(t_options *o)
 			j++;
 			continue;
 		}
-		else
-			return (free_tokens(tokens), -1);
+		// else
+		// 	return (free_tokens(tokens), -1);
 		i++;
 	}
 	o->tokens = tokens;

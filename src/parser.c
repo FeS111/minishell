@@ -32,7 +32,7 @@ int	parser(t_options *o)
 	o->pipes = count_pipes(o->tokens);
 	while (o->tokens[i])
 	{
-		tables[j] = new_table(build_cmd(o->tokens, &in, &out, &i), in, out);
+		tables[j] = new_table(build_cmd(o, &in, &out, &i), in, out);
 		if (!tables[j])
 			return (-1);
 		j++;

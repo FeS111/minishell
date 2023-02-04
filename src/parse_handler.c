@@ -1,22 +1,22 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 
-t_parse_cmd	*handle_io(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*handle_io(t_options *o, int *in, int *out, int *i)
 {
-	if (!ft_strncmp(tokens[*i]->value, "<<", 3))
+	if (!ft_strncmp(o->tokens[*i]->value, "<<", 3))
 	{
-		if (!tokens[*i + 1])
-			return (panic_token(tokens[*i]->value), NULL);
-		return (here_doc(tokens, in, out, i));
+		if (!o->tokens[*i + 1])
+			return (panic_token(o->tokens[*i]->value), NULL);
+		return (here_doc(o, in, out, i));
 	}
-	else if (!ft_strncmp(tokens[*i]->value, "<", 2))
+	else if (!ft_strncmp(o->tokens[*i]->value, "<", 2))
 	{
-		if (!tokens[*i + 1] || tokens[*i + 1]->type != WORD)
-			return (panic_token(tokens[*i]->value), NULL);
-		return (left_redir(tokens, in, out, i));
+		if (!o->tokens[*i + 1] || o->tokens[*i + 1]->type != WORD)
+			return (panic_token(o->tokens[*i]->value), NULL);
+		return (left_redir(o->tokens, in, out, i));
 	}
-	else if (!ft_strncmp(tokens[*i]->value, ">", 1))
-		return (right_redir(tokens, in, out, i));
+	else if (!ft_strncmp(o->tokens[*i]->value, ">", 1))
+		return (right_redir(o->tokens, in, out, i));
 	return (NULL);
 }
 

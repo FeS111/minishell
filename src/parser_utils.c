@@ -1,14 +1,12 @@
 #include "../include/minishell.h"
 #include <stdlib.h>
 
-t_parse_cmd	*build_cmd(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*build_cmd(t_options *o, int *in, int *out, int *i)
 {
-	if (tokens[*i]->type == IO)
-	{
-		return (handle_io(tokens, in, out, i));
-	}
-	else if (tokens[*i]->type == WORD)
-		return (handle_word(tokens, in, out, i));
+	if (o->tokens[*i]->type == IO)
+		return (handle_io(o, in, out, i));
+	else if (o->tokens[*i]->type == WORD)
+		return (handle_word(o->tokens, in, out, i));
 	return (NULL);
 }
 

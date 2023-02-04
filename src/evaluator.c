@@ -26,7 +26,7 @@ char	*replace_variable(t_options *go, char *str, int start, int end)
 	return (str_replace(o));
 }
 
-static int	get_varlength(char *str)
+int	get_varlength(char *str)
 {
 	int	i;
 
