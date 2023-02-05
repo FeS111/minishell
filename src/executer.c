@@ -71,29 +71,39 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	exit(EXIT_FAILURE);
 }
 
-static int	run(t_options *o, int *i, int *fd, pid_t *child)
+void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 {
-	int		pipefd[2];
-
-	if (pipe(pipefd) == -1)
-		panic(o, 1);
-	*child = fork();
-	if (*child < 0)
-		panic(o, 1);
-	else if (*child == 0)
-	{
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
+		close(pipefd[0]);
 		if (o->pipes > 0)
 			dup2(pipefd[1], STDOUT_FILENO);
 		if (o->pipes == 0 && fd[1] != STDOUT_FILENO)
+		{
 			dup2(fd[1], STDOUT_FILENO);
+			close(fd[1]);
+		}
 		close(pipefd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		do_op(o, o->tables[*i]->cmd);
-	}
+		do_op(o, cmd);
+}
+
+static int	run(t_options *o, int *i, int *fd, pid_t *last_child)
+{
+	int		pipefd[2];
+	pid_t	child;
+
+	if (pipe(pipefd) == -1)
+		panic(o, 1);
+	child = fork();
+	if (child < 0)
+		panic(o, 1);
+	else if (child == 0)
+		execute_child(o, o->tables[*i]->cmd, fd, pipefd);
 	o->pipes--;
+	if (o->pipes < 0)
+		*last_child = child;
 	close(fd[0]);
 	close(pipefd[1]);
 	if (fd[1] != STDOUT_FILENO)
@@ -104,23 +114,24 @@ static int	run(t_options *o, int *i, int *fd, pid_t *child)
 
 static void	execute_pipe(t_options *o, int *i, int *fd)
 {
+	pid_t last_child;
 	int	pipe;
-	pid_t child;
 
 	pipe = o->pipes;
 	while (o->tables[*i] && o->pipes >= 0)
 	{
-		fd[0] = run(o, i, fd, &child);
+		fd[0] = run(o, i, fd, &last_child);
 		*i += 1;
 	}
-	close(fd[0]);
-	while (pipe >= 0)
+	waitpid(last_child, &o->last_status, 0);
+	while (pipe) 
 	{
-		wait(NULL);
 		pipe--;
+		wait(NULL);
 	}
-	if(o->pipes == -1)
-		waitpid(child, &o->last_status, WNOHANG);
+	close(fd[0]);
+	if (fd[1] != STDOUT_FILENO)
+		close(fd[1]);
 }
 
 int	try_builtin(t_options *o, t_parse_cmd *cmd)
