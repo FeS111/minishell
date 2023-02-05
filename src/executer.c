@@ -120,6 +120,8 @@ static void	execute_pipe(t_options *o, int *i, int *fd)
 	pipe = o->pipes;
 	while (o->tables[*i] && o->pipes >= 0)
 	{
+		if (!ft_strncmp(o->tables[*i]->cmd->cmd, "here_doc", 9))
+			*i += 1;
 		fd[0] = run(o, i, fd, &last_child);
 		*i += 1;
 	}

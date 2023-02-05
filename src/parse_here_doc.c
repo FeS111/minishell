@@ -45,6 +45,8 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *out, int *i)
 	replace = 1;
 	*in = READ;
 	*out = STDOUT_FILENO;
+	if (o->tokens[*i + 2] && o->tokens[*i + 2]->type == PIPE)
+		*out = PIPE_FD;
 	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	deli = ft_strdup(o->tokens[*i + 1]->value);
 	if (ft_strchr("'\"", deli[0]) && ft_strchr("'\"", deli[ft_strlen(deli) - 1]))
@@ -60,6 +62,7 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *out, int *i)
 	}
 	free(deli);
 	close(fd);
-	*i += 1;
+	*i += 2;
+	// ft_putendl_fd(o->tokens[*i]->value, 2);
 	return (new_cmd(ft_strdup("here_doc"), NULL, NULL, NULL));
 }
