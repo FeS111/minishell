@@ -1,62 +1,8 @@
-#include "../include/minishell.h"
-#include <signal.h>
-#include <sys/wait.h>
+#include "../include/executer.h"
 
 int	g_in_executer;
 
-char		**get_paths(void)
-{
-	char	*path;
-	char	**res;
-
-	path = getenv("PATH");
-	if (!path)
-		return (NULL);
-	res = ft_split(path, ':');
-	return (res);
-}
-
-char	*search_binary(t_options *o, char *cmd)
-{
-	char	*absolute_path;
-	int		i;
-
-	if (cmd[0] == '/' && access(cmd, X_OK) >= 0)
-		return (ft_strdup(cmd));
-	i = 0;
-	while (o->paths[i])
-	{
-		absolute_path = ft_strjoin(o->paths[i], "/");
-		absolute_path = ft_strjoin_gnl(absolute_path, cmd);
-		if (access(absolute_path, F_OK) >= 0)
-			return (absolute_path);
-		free(absolute_path);
-		i++;
-	}
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
-	return (NULL);
-}
-
-static char	**build_args(t_parse_cmd *cmd)
-{
-	char	**args;
-	int		i;
-	int		l;
-
-	l = 0;
-	while (cmd->args && cmd->args[l])
-		l++;
-	args = ft_calloc(sizeof(char *), l + 2);
-	i = 0;
-	args[0] = ft_strdup(cmd->cmd);
-	l = -1;
-	while (cmd->args && cmd->args[++l])
-		args[++i] = ft_strdup(cmd->args[l]);
-	return (args);
-}
-
-static void	do_op(t_options *o, t_parse_cmd *cmd)
+void	do_op(t_options *o, t_parse_cmd *cmd)
 {
 	char	*binary;
 	char	**args;
@@ -69,71 +15,6 @@ static void	do_op(t_options *o, t_parse_cmd *cmd)
 	free(binary);
 	split_free(args);
 	exit(EXIT_FAILURE);
-}
-
-void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
-{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		close(pipefd[0]);
-		if (o->pipes > 0)
-			dup2(pipefd[1], STDOUT_FILENO);
-		if (o->pipes == 0 && fd[1] != STDOUT_FILENO)
-		{
-			dup2(fd[1], STDOUT_FILENO);
-			close(fd[1]);
-		}
-		close(pipefd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		do_op(o, cmd);
-}
-
-static int	run(t_options *o, int *i, int *fd, pid_t *last_child)
-{
-	int		pipefd[2];
-	pid_t	child;
-
-	if (pipe(pipefd) == -1)
-		panic(o, 1);
-	child = fork();
-	if (child < 0)
-		panic(o, 1);
-	else if (child == 0)
-		execute_child(o, o->tables[*i]->cmd, fd, pipefd);
-	o->pipes--;
-	if (o->pipes < 0)
-		*last_child = child;
-	close(fd[0]);
-	close(pipefd[1]);
-	if (fd[1] != STDOUT_FILENO)
-		close(fd[1]);
-	return (pipefd[0]);
-}
-
-
-static void	execute_pipe(t_options *o, int *i, int *fd)
-{
-	pid_t last_child;
-	int	pipe;
-
-	pipe = o->pipes;
-	while (o->tables[*i] && o->pipes >= 0)
-	{
-		if (!ft_strncmp(o->tables[*i]->cmd->cmd, "here_doc", 9))
-			*i += 1;
-		fd[0] = run(o, i, fd, &last_child);
-		*i += 1;
-	}
-	waitpid(last_child, &o->last_status, 0);
-	while (pipe) 
-	{
-		pipe--;
-		wait(NULL);
-	}
-	close(fd[0]);
-	if (fd[1] != STDOUT_FILENO)
-		close(fd[1]);
 }
 
 int	try_builtin(t_options *o, t_parse_cmd *cmd)
@@ -201,52 +82,6 @@ char	*read_fd(int in)
 		line = get_next_line(in);
 	}
 	return (content);
-}
-
-int	get_in(t_parse_table **tables)
-{
-	int	i;
-
-	i = 0;
-	while (tables[i])
-		i++;
-	i -= 1;
-	while (i >= 0)
-	{
-		if (tables[i]->in == READ)
-		{
-			if (!ft_strncmp(tables[i]->cmd->cmd, "here_doc", 9))
-				return (open("here_doc", O_RDONLY));
-			else
-				return (open(tables[i]->cmd->cmd, O_RDONLY));
-		}
-		i--;
-	}
-	return (dup(STDIN_FILENO));
-}
-
-int	get_out(t_parse_table **tables)
-{
-	int	i;
-
-	i = 0;
-	while (tables[i])
-		i++;
-	i -= 1;
-	while (i >= 0)
-	{
-		if (tables[i]->out == WRITE)
-		{
-			if (tables[i]->cmd->args 
-					&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
-				return (open(tables[i]->cmd->cmd, 
-							O_APPEND | O_WRONLY, 0644));
-			return (open(tables[i]->cmd->cmd,
-						O_CREAT | O_TRUNC | O_WRONLY, 0644));
-		}
-		i--;
-	}
-	return (STDOUT_FILENO);
 }
 
 void	executer(t_options *o)
