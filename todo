@@ -1,2 +1,2 @@
 Todos:
-	- heredoc evaluator (with '')
+	- segfault export $FOO=bar

@@ -68,11 +68,11 @@ void	execute_cmd(t_options *o, int i, int *fd)
 {
 	pid_t	pid;
 
-	if (o->pipes > 0 && o->tables[i]->out != WRITE
+	if (o->pipes > 0 && o->tables[i]->out != WRITE && o->tables[i]->in != READ
 		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
 		execute_pipe(o, &i, fd);
-	else if (o->tables[i]->out != WRITE
-		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+	else if (o->tables[i]->out != WRITE && o->tables[i]->in != READ
+			&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
 	{
 		pid = execute_non_pipe(o, o->tables[i], fd);
 		waitpid(pid, &o->last_status, 0);
@@ -99,6 +99,8 @@ void	executer(t_options *o)
 	g_in_executer = 1;
 	if (o->tables[i])
 	{
+		if(o->tables[i]->in == READ && o->tables[i + 1])
+			i++;
 		execute_cmd(o, i, fd);
 		i++;
 	}

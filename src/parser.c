@@ -16,6 +16,12 @@ int	count_pipes(t_token **tokens)
 	return (count);
 }
 
+void	set_fd(int *fd)
+{
+	fd[0] = 0;
+	fd[1] = 1;
+}
+
 int	parser(t_options *o)
 {
 	int				i;
@@ -25,8 +31,7 @@ int	parser(t_options *o)
 
 	i = 0;
 	j = 0;
-	fd[0] = 0;
-	fd[1] = 1;
+	set_fd(fd);
 	tables = ft_calloc(sizeof(t_parse_table *), token_size(o->tokens) + 1);
 	o->pipes = count_pipes(o->tokens);
 	while (o->tokens[i])
@@ -37,6 +42,7 @@ int	parser(t_options *o)
 			o->tables = tables;
 			return (-1);
 		}
+		set_fd(fd);
 		j++;
 		i++;
 	}
