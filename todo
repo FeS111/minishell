@@ -1,2 +1,3 @@
 Todos:
 	- segfault export $FOO=bar
+	- redirect of echo output?
