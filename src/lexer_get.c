@@ -1,17 +1,17 @@
 #include "../include/minishell.h"
 
-t_token *get_quoted(char *str)
+t_token	*get_quoted(char *str)
 {
 	int		end;
 
 	end = 1;
 	if (str[0] == '\'')
 		while (str[end] && (str[end] != '\'' || (str[end] == '\''
-						&& str[end - 1] == '\\')))
+					&& str[end - 1] == '\\')))
 			end++;
 	else if (str[0] == '\"')
 		while (str[end] && (str[end] != '\"' || (str[end] == '\"'
-						&& str[end - 1] == '\\')))
+					&& str[end - 1] == '\\')))
 			end++;
 	else
 		return (NULL);
