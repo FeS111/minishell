@@ -6,3 +6,4 @@ readline_out/
 minishell.dSYM/Contents
 .ccls-cache
 file
+tests/

@@ -64,10 +64,10 @@ int	main(void)
 	t_options		*o;
 
 	o = create_options();
-	if (o->is_shell)
-		ft_printf("\e[1;1H\e[2J");
-	else
-		return (ft_putendl_fd("Use a shell, dude!", 1), panic(o, 1), 0);
+	// if (o->is_shell)
+	// 	ft_printf("\e[1;1H\e[2J");
+	// else
+	// 	return (ft_putendl_fd("Use a shell, dude!", 2), panic(o, 1), 0);
 	signal(SIGINT, ctrl_c_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)

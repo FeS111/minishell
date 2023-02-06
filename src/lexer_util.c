@@ -14,7 +14,7 @@ int	is_word(char *str, int end)
 			++i;
 			continue ;
 		}
-		if (ft_isalnum(str[i]) || ft_strchr("$-.{}[]~/!@=?+-", str[i]))
+		if (ft_isalnum(str[i]) || ft_strchr("_$.{}[]~/!@=?+-", str[i]))
 			continue ;
 		return (0);
 	}

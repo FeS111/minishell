@@ -16,7 +16,7 @@ void	ft_cd(t_options *o, t_parse_cmd *cmd)
 	add_env(o, "OLDPWD", o->pwd);
 	if (chdir(cmd->args[0]) != 0)
 	{
-		ft_printf("cd: No such file or directory\n");
+		ft_putendl_fd("cd: No such file or directory", 2);
 		o->last_status = 1;
 		return ;
 	}

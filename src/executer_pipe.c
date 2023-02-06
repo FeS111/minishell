@@ -1,4 +1,5 @@
 #include "../include/executer.h"
+#include <sys/wait.h>
 
 void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 {
@@ -54,6 +55,7 @@ void	execute_pipe(t_options *o, int *i, int *fd)
 		*i += 1;
 	}
 	waitpid(last_child, &o->last_status, 0);
+	o->last_status = WEXITSTATUS(o->last_status);
 	while (pipe) 
 	{
 		pipe--;

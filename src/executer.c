@@ -14,7 +14,7 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	execve(binary, args, o->env);
 	free(binary);
 	split_free(args);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
 
 int	try_builtin(t_options *o, t_parse_cmd *cmd)
@@ -109,6 +109,7 @@ void	executer(t_options *o)
 		{
 			pid = execute_non_pipe(o, o->tables[i], fd);
 			waitpid(pid, &o->last_status, 0);
+			o->last_status = WEXITSTATUS(o->last_status);
 		}
 		close(fd[0]);
 		if (fd[1] != STDOUT_FILENO)
