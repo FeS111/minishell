@@ -1,9 +1,10 @@
 #include "../include/minishell.h"
 
-void add_env(t_options *o, char *name, char *value) {
-	int i;
-	int size;
-	char **env;
+void	add_env(t_options *o, char *name, char *value)
+{
+	int		i;
+	int		size;
+	char	**env;
 
 	size = 0;
 	while (o->env[size] != NULL)
@@ -19,11 +20,12 @@ void add_env(t_options *o, char *name, char *value) {
 	o->env = env;
 }
 
-void remove_env(t_options *o, char *name) {
-	int i;
-	int j;
-	int size;
-	char **env;
+void	remove_env(t_options *o, char *name)
+{
+	int		i;
+	int		j;
+	int		size;
+	char	**env;
 
 	size = 0;
 	while (o->env[size] != NULL)
@@ -31,8 +33,10 @@ void remove_env(t_options *o, char *name) {
 	env = malloc(sizeof(char *) * (size + 1));
 	i = -1;
 	j = 0;
-	while (o->env[++i] != NULL) {
-		if (!ft_strnstr(o->env[i], name, ft_strlen(name))) {
+	while (o->env[++i] != NULL)
+	{
+		if (!ft_strnstr(o->env[i], name, ft_strlen(name)))
+		{
 			env[j] = ft_strdup(o->env[i]);
 			j++;
 		}
