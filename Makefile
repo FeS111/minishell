@@ -11,6 +11,7 @@ LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft
 NAME	= minishell
 SRC		= $(addprefix $(VPATH), main.c \
 								builtin2.c \
+								builtin3.c \
 								builtin.c \
 								lexer.c \
 								lexer_util.c \
