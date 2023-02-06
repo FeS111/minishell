@@ -2,16 +2,21 @@
 
 static char	*handle_arg(t_options *o, t_eval eval)
 {
-	if (eval.arg[eval.j] == '"' && !*(eval.double_quotes) && *(eval.replace))
+	if (eval.arg[eval.j] == '"'
+		&& !*(eval.double_quotes) && *(eval.replace))
 		*(eval.double_quotes) = 1;
-	else if (eval.arg[eval.j] == '\'' && *(eval.replace) && !*(eval.double_quotes))
+	else if (eval.arg[eval.j] == '\''
+		&& *(eval.replace) && !*(eval.double_quotes))
 		*(eval.replace) = 0;
-	else if (eval.arg[eval.j] == '\'' && !*(eval.replace) && !*(eval.double_quotes))
+	else if (eval.arg[eval.j] == '\''
+		&& !*(eval.replace) && !*(eval.double_quotes))
 		*(eval.replace) = 1;
 	if (!*(eval.replace))
 		return (eval.arg);
 	if (eval.arg[eval.j] == '$')
-		eval.arg = replace_variable(o, eval.arg, eval.j, get_varlength(&eval.arg[eval.j]));
+		eval.arg
+			= replace_variable(o, eval.arg, eval.j,
+				get_varlength(&eval.arg[eval.j]));
 	else if (eval.arg[eval.j] == '~')
 		eval.arg = replace_home(eval.arg, eval.j);
 	return (eval.arg);
@@ -23,7 +28,7 @@ void	evaluator_args(t_options *o, int i)
 	int		j;
 	int		replace;
 	int		double_quotes;
-	t_eval eval;
+	t_eval	eval;
 
 	replace = 1;
 	double_quotes = 0;
@@ -34,13 +39,12 @@ void	evaluator_args(t_options *o, int i)
 	{
 		j = -1;
 		while (o->tables[i]->cmd->args[k]
-				&& o->tables[i]->cmd->args[k][++j] != '\0')
+			&& o->tables[i]->cmd->args[k][++j] != '\0')
 		{
 			eval.j = j;
 			eval.arg = o->tables[i]->cmd->args[k];
 			o->tables[i]->cmd->args[k]
 				= handle_arg(o, eval);
-
 		}
 		o->tables[i]->cmd->args[k]
 			= remove_quotes(o->tables[i]->cmd->args[k]);
@@ -52,7 +56,7 @@ void	evaluator_cmd(t_options *o, int i)
 	int		j;
 	int		replace;
 	int		double_quotes;
-	t_eval eval;
+	t_eval	eval;
 
 	replace = 1;
 	double_quotes = 0;
