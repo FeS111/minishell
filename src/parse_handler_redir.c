@@ -1,6 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <unistd.h>
 
 t_parse_cmd	*left_redir(t_token **tokens, int *in, int *out, int *i)
 {
