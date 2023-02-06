@@ -60,7 +60,7 @@ t_options	*create_options(void)
 	o->pwd = get_pwd();
 	o->line = NULL;
 	o->tokens = NULL;
-	o->paths = get_paths();
+	o->paths = get_paths(o);
 	o->is_shell = isatty(0);
 	return (o);
 }

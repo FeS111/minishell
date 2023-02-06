@@ -3,7 +3,7 @@
 
 #include "minishell.h"
 
-char	**get_paths(void);
+char	**get_paths(t_options *o);
 int		get_in(t_parse_table **tables);
 int		get_out(t_parse_table **tables);
 char	*search_binary(t_options *o, char *cmd);

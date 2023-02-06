@@ -34,9 +34,9 @@ int	get_out(t_parse_table **tables)
 	{
 		if (tables[i]->out == WRITE)
 		{
-			if (tables[i]->cmd->args 
+			if (tables[i]->cmd->args
 					&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
-				return (open(tables[i]->cmd->cmd, 
+				return (open(tables[i]->cmd->cmd,
 							O_APPEND | O_WRONLY, 0644));
 			return (open(tables[i]->cmd->cmd,
 						O_CREAT | O_TRUNC | O_WRONLY, 0644));
@@ -46,12 +46,12 @@ int	get_out(t_parse_table **tables)
 	return (STDOUT_FILENO);
 }
 
-char		**get_paths(void)
+char		**get_paths(t_options *o)
 {
 	char	*path;
 	char	**res;
 
-	path = getenv("PATH");
+	path = ft_getenv(o, "PATH");
 	if (!path)
 		return (NULL);
 	res = ft_split(path, ':');
@@ -66,7 +66,7 @@ char	*search_binary(t_options *o, char *cmd)
 	if (cmd[0] == '/' && access(cmd, X_OK) >= 0)
 		return (ft_strdup(cmd));
 	i = 0;
-	while (o->paths[i])
+	while (o->paths && o->paths[i])
 	{
 		absolute_path = ft_strjoin(o->paths[i], "/");
 		absolute_path = ft_strjoin_gnl(absolute_path, cmd);

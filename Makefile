@@ -29,6 +29,7 @@ SRC		= $(addprefix $(VPATH), main.c \
 								parse_handler_redir.c \
 								parse_here_doc.c \
 								evaluator.c \
+								env.c	\
 			)
 
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))

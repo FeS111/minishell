@@ -76,5 +76,7 @@ char		*replace_join(char *one, char *two);
 char		*str_remove_char(char *str, char c);
 char		*ft_getenv(t_options *o, char *name);
 char		*get_current_folder(t_options *o);
+void		add_env(t_options *o, char *name, char *value);
+void		remove_env(t_options *o, char *name);
 
 #endif

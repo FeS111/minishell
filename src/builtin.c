@@ -2,27 +2,18 @@
 
 void	ft_export(t_options *o, t_parse_cmd *cmd)
 {
-	int		i;
-	int		size;
-	char	**env;
+	char	**tmp;
 
-	size = 0;
-	while (o->env[size] != NULL)
-		size++;
-	env = malloc(sizeof(char *) * (size + 2));
-	i = -1;
-	while (o->env[++i] != NULL)
-		env[i] = o->env[i];
-	size = 0;
-	env[i] = ft_strdup(cmd->args[0]);
-	env[i + 1] = NULL;
-	free(o->env);
-	o->env = env;
+	tmp = ft_split(cmd->args[0], '=');
+	remove_env(o, tmp[0]);
+	add_env(o, tmp[0], tmp[1]);
+	split_free(tmp);
 	o->last_status = 0;
 }
 
 void	ft_cd(t_options *o, t_parse_cmd *cmd)
 {
+	add_env(o, "OLDPWD", o->pwd);
 	if (chdir(cmd->args[0]) != 0)
 	{
 		ft_printf("cd: No such file or directory\n");
@@ -31,6 +22,7 @@ void	ft_cd(t_options *o, t_parse_cmd *cmd)
 	}
 	free(o->pwd);
 	o->pwd = get_pwd();
+	add_env(o, "PWD", o->pwd);
 	o->last_status = 0;
 }
 

@@ -26,28 +26,7 @@ void	ft_env(t_options *o)
 
 void	ft_unset(t_options *o, t_parse_cmd *cmd)
 {
-	int		i;
-	int		j;
-	int		size;
-	char	**env;
-
-	size = 0;
-	while (o->env[size] != NULL)
-		size++;
-	env = malloc(sizeof(char *) * (size + 1));
-	i = -1;
-	j = 0;
-	while (o->env[++i] != NULL)
-	{
-		if (!ft_strnstr(o->env[i], cmd->args[0], ft_strlen(cmd->args[0])))
-		{
-			env[j] = o->env[i];
-			j++;
-		}
-	}
-	env[j] = NULL;
-	free(o->env);
-	o->env = env;
+	remove_env(o, cmd->args[0]);
 	o->last_status = 0;
 }
 void	ft_echo(t_options *o, t_parse_cmd *cmd)
