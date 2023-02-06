@@ -4,7 +4,7 @@ void	panic(t_options *o, int code)
 {
 	ft_putendl_fd("exit", 1);
 	free_options(o);
-	// system("leaks minishell");
+	system("leaks minishell");
 	exit(code);
 }
 
@@ -29,6 +29,7 @@ void	ft_unset(t_options *o, t_parse_cmd *cmd)
 	remove_env(o, cmd->args[0]);
 	o->last_status = 0;
 }
+
 void	ft_echo(t_options *o, t_parse_cmd *cmd)
 {
 	int		l;
