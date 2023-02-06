@@ -33,6 +33,8 @@ void	free_options(t_options *o)
 	free(o->line);
 	if (o->tokens)
 		free_tokens(o->tokens);
+	if (o->tables)
+		free_table(o->tables);
 	split_free(o->env);
 	split_free(o->paths);
 	free(o);
