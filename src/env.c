@@ -7,6 +7,8 @@ void	add_env(t_options *o, char *name, char *value)
 	char	**env;
 
 	size = 0;
+	if (!value)
+		return ;
 	while (o->env[size] != NULL)
 		size++;
 	env = malloc(sizeof(char *) * (size + 2));
