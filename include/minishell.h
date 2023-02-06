@@ -47,6 +47,8 @@ typedef struct s_replace_options
 
 extern int g_in_executer;
 
+void		close_fd(int *fd);
+
 int			lexer(t_options *o);
 
 char		**split_join(char **str);

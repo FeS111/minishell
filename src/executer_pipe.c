@@ -1,22 +1,21 @@
 #include "../include/executer.h"
-#include <sys/wait.h>
 
 void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 {
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		close(pipefd[0]);
-		if (o->pipes > 0)
-			dup2(pipefd[1], STDOUT_FILENO);
-		if (o->pipes == 0 && fd[1] != STDOUT_FILENO)
-		{
-			dup2(fd[1], STDOUT_FILENO);
-			close(fd[1]);
-		}
-		close(pipefd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		do_op(o, cmd);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	close(pipefd[0]);
+	if (o->pipes > 0)
+		dup2(pipefd[1], STDOUT_FILENO);
+	if (o->pipes == 0 && fd[1] != STDOUT_FILENO)
+	{
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
+	}
+	close(pipefd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	do_op(o, cmd);
 }
 
 int	run_pipe(t_options *o, int *i, int *fd, pid_t *last_child)
@@ -43,8 +42,8 @@ int	run_pipe(t_options *o, int *i, int *fd, pid_t *last_child)
 
 void	execute_pipe(t_options *o, int *i, int *fd)
 {
-	pid_t last_child;
-	int	pipe;
+	pid_t	last_child;
+	int		pipe;
 
 	pipe = o->pipes;
 	while (o->tables[*i] && o->pipes >= 0)
@@ -56,7 +55,7 @@ void	execute_pipe(t_options *o, int *i, int *fd)
 	}
 	waitpid(last_child, &o->last_status, 0);
 	o->last_status = WEXITSTATUS(o->last_status);
-	while (pipe) 
+	while (pipe)
 	{
 		pipe--;
 		wait(NULL);

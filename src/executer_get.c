@@ -35,18 +35,18 @@ int	get_out(t_parse_table **tables)
 		if (tables[i]->out == WRITE)
 		{
 			if (tables[i]->cmd->args
-					&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
+				&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
 				return (open(tables[i]->cmd->cmd,
-							O_APPEND | O_WRONLY, 0644));
+						O_APPEND | O_WRONLY, 0644));
 			return (open(tables[i]->cmd->cmd,
-						O_CREAT | O_TRUNC | O_WRONLY, 0644));
+					O_CREAT | O_TRUNC | O_WRONLY, 0644));
 		}
 		i--;
 	}
 	return (STDOUT_FILENO);
 }
 
-char		**get_paths(t_options *o)
+char	**get_paths(t_options *o)
 {
 	char	*path;
 	char	**res;
