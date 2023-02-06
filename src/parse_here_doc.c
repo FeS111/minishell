@@ -21,7 +21,7 @@ static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 
 	line = readline("heredoc> ");
 	if (!line || !ft_strncmp(line, deli,
-			ft_strlen(deli)))
+			ft_strlen(line)))
 		return (free(line), 0);
 	if (line && *line)
 	{
