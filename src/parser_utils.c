@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <stdlib.h>
 
 t_parse_cmd	*build_cmd(t_options *o, int *in, int *out, int *i)
 {
@@ -10,9 +9,9 @@ t_parse_cmd	*build_cmd(t_options *o, int *in, int *out, int *i)
 	return (NULL);
 }
 
-t_parse_table *new_table(t_parse_cmd *cmd, int in, int out)
+t_parse_table	*new_table(t_parse_cmd *cmd, int in, int out)
 {
-	t_parse_table *new;
+	t_parse_table	*new;
 
 	if (!cmd)
 		return (NULL);
@@ -35,7 +34,7 @@ void	free_cmd(t_parse_cmd *cmd)
 void	free_table(t_parse_table **table)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	if (!table)

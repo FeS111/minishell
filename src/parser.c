@@ -18,7 +18,7 @@ int	count_pipes(t_token **tokens)
 
 int	parser(t_options *o)
 {
-	int 			i;
+	int				i;
 	int				j;
 	t_parse_table	**tables;
 	int				in;

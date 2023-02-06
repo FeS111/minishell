@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <unistd.h>
 
 static char	*evalulate(t_options *o, char *line)
 {
@@ -57,12 +56,9 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *out, int *i)
 	}
 	run = 1;
 	while (run)
-	{
 		run = handle_heredoc(o, deli, replace, fd);
-	}
 	free(deli);
 	close(fd);
 	*i += 2;
-	// ft_putendl_fd(o->tokens[*i]->value, 2);
 	return (new_cmd(ft_strdup("here_doc"), NULL, NULL, NULL));
 }
