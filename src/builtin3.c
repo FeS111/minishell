@@ -2,13 +2,19 @@
 
 void	ft_cd(t_options *o, t_parse_cmd *cmd)
 {
+	char	*path;
+
+	path = cmd->args[0];
+	if (!path)
+		path = ft_getenv(o, "HOME");
 	add_env(o, "OLDPWD", o->pwd);
-	if (chdir(cmd->args[0]) != 0)
+	if (chdir(path) != 0)
 	{
 		ft_putendl_fd("cd: No such file or directory", 2);
 		o->last_status = 1;
 		return ;
 	}
+	free(path);
 	free(o->pwd);
 	o->pwd = get_pwd();
 	add_env(o, "PWD", o->pwd);
