@@ -1,12 +1,12 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "builtin.h"
-#include "minishell.h"
+# include "builtin.h"
+# include "minishell.h"
 
-#include <stdlib.h>
-#include <sys/fcntl.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <sys/fcntl.h>
+# include <unistd.h>
 
 typedef enum e_table_types
 {
@@ -14,7 +14,7 @@ typedef enum e_table_types
 	OPT,
 	OPT2,
 	ARGS,
-} t_table_types;
+}	t_table_types;
 
 typedef enum e_fd
 {
@@ -23,7 +23,7 @@ typedef enum e_fd
 	PIPE_FD,
 	WRITE,
 	READ,
-} t_fd;
+}	t_fd;
 
 typedef struct s_parse_cmd
 {
@@ -40,8 +40,8 @@ typedef struct s_parse_table
 	int			out;
 }			t_parse_table;
 
-typedef struct s_options t_options;
-typedef struct s_token t_token;
+typedef struct s_options	t_options;
+typedef struct s_token		t_token;
 
 int				parser(t_options *o);
 

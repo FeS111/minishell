@@ -32,6 +32,7 @@ SRC		= $(addprefix $(VPATH), main.c \
 								parse_handler_redir.c \
 								parse_here_doc.c \
 								evaluator.c \
+								evaluator2.c \
 								env.c	\
 			)
 
