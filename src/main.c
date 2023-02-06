@@ -26,7 +26,7 @@ void	shell(t_options *o)
 		g_in_executer = 0;
 		folder = get_current_folder(o);
 		o->line = readline(folder);
-		if (!o->line || !ft_strncmp(o->line, "exit", 4))
+		if (!o->line)
 			panic(o, 0);
 		free(folder);
 		if (lexer(o) == -1)

@@ -32,7 +32,7 @@ int	try_builtin(t_options *o, t_parse_cmd *cmd)
 	if (ft_strncmp(cmd->cmd, "env\0", 4) == 0)
 		return (ft_env(o), 1);
 	if (ft_strncmp(cmd->cmd, "exit\0", 5) == 0)
-		return (panic(o, 0), 1);
+		return (ft_exit(o, cmd), 1);
 	return (0);
 }
 
@@ -101,5 +101,5 @@ void	executer(t_options *o)
 	{
 		execute_cmd(o, i, fd);
 		i++;
-	}	
+	}
 }

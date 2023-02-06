@@ -63,3 +63,21 @@ char	*show_status(t_options *o)
 	res = ft_strjoin(color, "➜\033[0m ");
 	return (res);
 }
+
+void	ft_exit(t_options *o, t_parse_cmd *cmd)
+{
+	int	code;
+	int	i;
+
+	code = 0;
+	if (cmd->args && cmd->args[0])
+	{
+		i = -1;
+		while (cmd->args[++i])
+			if (!ft_isdigit(cmd->args[0][i]))
+				panic(o, 1);
+		code = ft_atoi(cmd->args[0]);
+	}
+	panic(o, code);
+}
+
