@@ -40,9 +40,15 @@ void	ft_echo(t_options *o, t_parse_cmd *cmd)
 		l++;
 	tmp = strjoinn(cmd->args, " ", 0, l);
 	if (cmd->opt && ft_strncmp(cmd->opt, "-n", 2) == 0)
+	{
+		tmp = strjoinn(cmd->args, " ", 1, l);
 		ft_putstr_fd(tmp, 1);
+	}
 	else
+	{
+		tmp = strjoinn(cmd->args, " ", 0, l);
 		ft_putendl_fd(tmp, 1);
+	}
 	free(tmp);
 	o->last_status = 0;
 }
