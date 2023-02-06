@@ -67,6 +67,8 @@ char	*search_binary(t_options *o, char *cmd)
 	if (cmd[0] == '/' && access(cmd, X_OK) >= 0)
 		return (ft_strdup(cmd));
 	i = 0;
+	split_free(o->paths);
+	o->paths = get_paths(o);
 	while (o->paths && o->paths[i])
 	{
 		absolute_path = ft_strjoin(o->paths[i], "/");
