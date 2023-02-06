@@ -8,7 +8,7 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	**args;
 
 	if (try_builtin(o, cmd))
-		 panic(o, EXIT_SUCCESS);
+		panic(o, EXIT_SUCCESS);
 	binary = search_binary(o, cmd->cmd);
 	args = build_args(cmd);
 	execve(binary, args, o->env);
@@ -36,7 +36,7 @@ int	try_builtin(t_options *o, t_parse_cmd *cmd)
 	return (0);
 }
 
-static int execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
+static int	execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 {
 	int		child;
 
@@ -64,30 +64,26 @@ static int execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 	return (child);
 }
 
-char	*read_fd(int in)
+void	execute_cmd(t_options *o, int i, int *fd)
 {
-	char	*tmp;
-	char	*content;
-	char	*line;
+	pid_t	pid;
 
-	line = get_next_line(in);
-	content = ft_strdup("");
-	while (line)
+	if (o->pipes > 0 && o->tables[i]->out != WRITE
+		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+		execute_pipe(o, &i, fd);
+	else if (o->tables[i]->out != WRITE
+		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
 	{
-		tmp = ft_strjoin(content, line);
-		free(content);
-		content = ft_strdup(tmp);
-		free(tmp);
-		free(line);
-		line = get_next_line(in);
+		pid = execute_non_pipe(o, o->tables[i], fd);
+		waitpid(pid, &o->last_status, 0);
+		o->last_status = WEXITSTATUS(o->last_status);
 	}
-	return (content);
+	close_fd(fd);
 }
 
 void	executer(t_options *o)
 {
-	int	    i;
-	pid_t	pid;
+	int		i;
 	int		fd[2];
 
 	i = 0;
@@ -96,23 +92,14 @@ void	executer(t_options *o)
 	if (fd[1] == -1)
 	{
 		perror(o->tables[i]->cmd->cmd);
-		close(fd[0]);
+		close_fd(fd);
 		o->last_status = 1;
-		return ; 
+		return ;
 	}
 	g_in_executer = 1;
 	if (o->tables[i])
 	{
-		if (o->pipes > 0 && o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
-			execute_pipe(o, &i, fd);
-		else if (o->tables[i]->out != WRITE && ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
-		{
-			pid = execute_non_pipe(o, o->tables[i], fd);
-			waitpid(pid, &o->last_status, 0);
-			o->last_status = WEXITSTATUS(o->last_status);
-		}
-		close(fd[0]);
-		if (fd[1] != STDOUT_FILENO)
-			close(fd[1]);
+		execute_cmd(o, i, fd);
+		i++;
 	}	
 }

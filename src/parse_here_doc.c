@@ -18,7 +18,6 @@ static char	*evalulate(t_options *o, char *line)
 static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 {
 	char	*line;
-	int		replace;
 
 	line = readline("heredoc> ");
 	if (!line || !ft_strncmp(line, deli,

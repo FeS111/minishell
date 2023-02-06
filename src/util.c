@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <unistd.h>
 
 t_options	*create_options(void)
 {
@@ -35,4 +36,11 @@ void	free_options(t_options *o)
 	split_free(o->env);
 	split_free(o->paths);
 	free(o);
+}
+
+void	close_fd(int *fd)
+{
+	close(fd[0]);
+	if (fd[1] != STDOUT_FILENO)
+		close (fd[1]);
 }
