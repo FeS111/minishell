@@ -55,6 +55,7 @@ char	**get_paths(t_options *o)
 	if (!path)
 		return (NULL);
 	res = ft_split(path, ':');
+	free(path);
 	return (res);
 }
 

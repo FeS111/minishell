@@ -18,8 +18,8 @@ t_parse_cmd	*right_redir(t_token **tokens, int *in, int *out, int *i)
 		*out = WRITE;
 		*in = STD_INPUT;
 		if (!ft_strncmp(tokens[*i - 1]->value, ">>", 3))
-			return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, 
-						ft_split(tokens[*i - 1]->value, 0)));
+			return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL,
+					ft_split(tokens[*i - 1]->value, 0)));
 		return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL));
 	}
 	else

@@ -35,11 +35,9 @@ void	ft_echo(t_options *o, t_parse_cmd *cmd)
 	int		l;
 	char	*tmp;
 
-	(void)o;
 	l = 0;
 	while (cmd->args[l])
 		l++;
-	tmp = strjoinn(cmd->args, " ", 0, l);
 	if (cmd->opt && ft_strncmp(cmd->opt, "-n", 2) == 0)
 	{
 		tmp = strjoinn(cmd->args, " ", 1, l);

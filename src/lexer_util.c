@@ -1,5 +1,4 @@
-
-# include "../include/minishell.h"
+#include "../include/minishell.h"
 
 int	is_word(char *str, int end)
 {

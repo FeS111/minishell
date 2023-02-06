@@ -1,6 +1,4 @@
-
 #include "../include/minishell.h"
-#include <stdio.h>
 
 t_token	*get_token(char *charset)
 {
@@ -47,10 +45,8 @@ int	lexer(t_options *o)
 		{
 			i += ft_strlen(tokens[j]->value);
 			j++;
-			continue;
+			continue ;
 		}
-		// else
-		// 	return (free_tokens(tokens), -1);
 		i++;
 	}
 	o->tokens = tokens;

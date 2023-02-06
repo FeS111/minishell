@@ -62,7 +62,6 @@ char	*get_current_folder(t_options *o)
 {
 	char	**tmp;
 	char	*res;
-	char	*color;
 	int		i;
 	char	*branch;
 
