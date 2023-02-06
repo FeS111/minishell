@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
 
 void	split_free(char **str)
 {
@@ -7,7 +6,7 @@ void	split_free(char **str)
 
 	i = -1;
 	if (!str)
-		return;
+		return ;
 	while (str[++i])
 		free(str[i]);
 	free(str);

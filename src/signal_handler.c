@@ -2,7 +2,7 @@
 
 int	g_in_executer;
 
-void  ctrl_c_handler(int sig)
+void	ctrl_c_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -15,3 +15,4 @@ void  ctrl_c_handler(int sig)
 		}
 	}
 }
+

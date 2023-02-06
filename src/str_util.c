@@ -10,7 +10,7 @@ char	*replace_join(char *one, char *two)
 	return (res);
 }
 
-char		*str_replace(t_replace_options o)
+char	*str_replace(t_replace_options o)
 {
 	int		i;
 	char	*res;
@@ -22,7 +22,8 @@ char		*str_replace(t_replace_options o)
 			continue ;
 		res = ft_substr(o.str, 0, i);
 		res = ft_strjoin_gnl(res, o.newValue);
-		res = replace_join(res, ft_substr(o.str, o.end, ft_strlen(o.str) - o.end));
+		res = replace_join(res,
+				ft_substr(o.str, o.end, ft_strlen(o.str) - o.end));
 	}
 	free(o.str);
 	free(o.newValue);

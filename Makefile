@@ -15,7 +15,9 @@ SRC		= $(addprefix $(VPATH), main.c \
 								lexer.c \
 								lexer_util.c \
 								split_utils.c \
-								tokens.c util.c \
+								tokens.c \
+								util.c \
+								util2.c \
 								lexer_get.c \
 								signal_handler.c \
 								executer.c \
