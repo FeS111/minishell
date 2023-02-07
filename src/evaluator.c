@@ -31,7 +31,7 @@ int	get_varlength(char *str)
 	int	i;
 
 	i = 0;
-	while (!is_whitespace(str[i]) && !ft_strchr("\"'\0", str[i]))
+	while (!is_whitespace(str[i]) && !ft_strchr("\"='\0", str[i]))
 		i++;
 	return (i);
 }

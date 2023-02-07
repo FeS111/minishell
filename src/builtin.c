@@ -1,10 +1,19 @@
 #include "../include/minishell.h"
 
-void	ft_export(t_options *o, t_parse_cmd *cmd)
+static int	validate_export(t_options *o, t_parse_cmd *cmd)
 {
 	char	**tmp;
 	char	*err;
 
+	if (cmd->args[0][0] == '=')
+	{
+		err = ft_strjoin("export: '", cmd->args[0]);
+		err = ft_strjoin_gnl(err, "': not a valid identifier");
+		ft_putendl_fd(err, 2);
+		free(err);
+		o->last_status = 1;
+		return (0);
+	}
 	tmp = ft_split(cmd->args[0], '=');
 	if (ft_isdigit(tmp[0][0]))
 	{
@@ -14,8 +23,19 @@ void	ft_export(t_options *o, t_parse_cmd *cmd)
 		free(err);
 		o->last_status = 1;
 		split_free(tmp);
-		return ;
+		return (0);
 	}
+	split_free(tmp);
+	return (1);
+}
+
+void	ft_export(t_options *o, t_parse_cmd *cmd)
+{
+	char	**tmp;
+
+	if (!validate_export(o, cmd))
+		return ;
+	tmp = split_first(cmd->args[0], '=');
 	remove_env(o, tmp[0]);
 	add_env(o, tmp[0], tmp[1]);
 	split_free(tmp);
