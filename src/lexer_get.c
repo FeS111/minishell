@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:48 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:49 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/07 14:00:56 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ t_token	*get_pipe(char *str)
 		return (new_token(ft_substr(str, 0, 1), PIPE));
 	return (NULL);
 }
-

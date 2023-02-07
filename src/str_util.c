@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:28 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:56:30 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/07 14:01:37 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**split_first(char *str, char c)
 	pos = ft_strchr(str, c) - str;
 	res[0] = ft_substr(str, 0, pos);
 	res[1] = ft_substr(str, pos + 1, ft_strlen(str) - 1);
-	return  (res);
+	return (res);
 }
 
 char	*str_remove_char(char *str, char c)

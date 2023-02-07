@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:36 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:38 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/07 14:02:21 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,3 @@ void	evaluator_cmd(t_options *o, int i)
 	}
 	o->tables[i]->cmd->cmd = remove_quotes(o->tables[i]->cmd->cmd);
 }
-

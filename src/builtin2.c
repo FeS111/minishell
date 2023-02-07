@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:18 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:20 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/07 13:58:31 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,3 @@ void	ft_echo(t_options *o, t_parse_cmd *cmd)
 	free(tmp);
 	o->last_status = 0;
 }
-

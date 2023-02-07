@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:21 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:23 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/07 13:58:43 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,3 @@ void	ft_exit(t_options *o, t_parse_cmd *cmd)
 	}
 	panic(o, code);
 }
-
