@@ -1,5 +1,6 @@
-#ifndef BUILDIN_H
-# define BUILDIN_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
+
 typedef struct s_options		t_options;
 typedef struct s_parse_table	t_parse_table;
 typedef struct s_parse_cmd		t_parse_cmd;

@@ -1,7 +1,11 @@
 #ifndef EXECUTER_H
 # define EXECUTER_H
 
-#include "minishell.h"
+# include <unistd.h>
+
+typedef struct s_options		t_options;
+typedef struct s_parse_table	t_parse_table;
+typedef struct s_parse_cmd		t_parse_cmd;
 
 char	**get_paths(t_options *o);
 int		get_in(t_parse_table **tables);
