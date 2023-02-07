@@ -11,7 +11,7 @@ static int	validate_export(t_options *o, t_parse_cmd *cmd)
 		err = ft_strjoin_gnl(err, "': not a valid identifier");
 		ft_putendl_fd(err, 2);
 		free(err);
-		o->last_status = 1;
+		o->last_status = 256;
 		return (0);
 	}
 	tmp = ft_split(cmd->args[0], '=');
@@ -21,7 +21,7 @@ static int	validate_export(t_options *o, t_parse_cmd *cmd)
 		err = ft_strjoin_gnl(err, "': not a valid identifier");
 		ft_putendl_fd(err, 2);
 		free(err);
-		o->last_status = 1;
+		o->last_status = 256;
 		split_free(tmp);
 		return (0);
 	}

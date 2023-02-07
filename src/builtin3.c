@@ -12,7 +12,8 @@ void	ft_cd(t_options *o, t_parse_cmd *cmd)
 	if (chdir(path) != 0)
 	{
 		ft_putendl_fd("cd: No such file or directory", 2);
-		o->last_status = 1;
+		o->last_status = 256;
+		free(path);
 		return ;
 	}
 	free(path);
