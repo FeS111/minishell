@@ -1,7 +1,7 @@
 #ifndef EVALUATOR_H
 
-typedef struct s_parse_table t_parse_table;
-typedef struct s_options t_options;
+typedef struct s_parse_table	t_parse_table;
+typedef struct s_options		t_options;
 
 typedef struct s_eval
 {

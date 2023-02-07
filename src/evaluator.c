@@ -18,7 +18,7 @@ char	*replace_variable(t_options *go, char *str, int start, int end)
 	o.start = start;
 	o.end = start + end;
 	o.old = ft_substr(str, start, end);
-	o.newValue = new_value;
+	o.new_value = new_value;
 	free(str);
 	free(o.old);
 	return (str_replace(o));
