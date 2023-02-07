@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
 
 t_parse_cmd	*handle_io(t_options *o, int *in, int *out, int *i)
 {
