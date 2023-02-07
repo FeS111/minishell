@@ -4,9 +4,10 @@ void	ft_cd(t_options *o, t_parse_cmd *cmd)
 {
 	char	*path;
 
-	path = cmd->args[0];
+	path = ft_strdup(cmd->args[0]);
 	if (!path)
 		path = ft_getenv(o, "HOME");
+	remove_env(o, "OLDPWD");
 	add_env(o, "OLDPWD", o->pwd);
 	if (chdir(path) != 0)
 	{

@@ -80,5 +80,6 @@ char		*ft_getenv(t_options *o, char *name);
 char		*get_current_folder(t_options *o);
 void		add_env(t_options *o, char *name, char *value);
 void		remove_env(t_options *o, char *name);
+char		**split_first(char *str, char c);
 
 #endif
