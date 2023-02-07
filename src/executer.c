@@ -1,6 +1,4 @@
-#include "../include/executer.h"
-#include <stdlib.h>
-#include <unistd.h>
+#include "../include/minishell.h"
 
 int	g_in_executer;
 

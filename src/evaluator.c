@@ -1,6 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 char	*replace_variable(t_options *go, char *str, int start, int end)
 {
