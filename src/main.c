@@ -21,7 +21,6 @@ void	history(t_options *o)
 void	shell(t_options *o)
 {
 	char	*folder;
-	int		j;
 
 	g_in_executer = 0;
 	folder = get_current_folder(o);
@@ -31,30 +30,9 @@ void	shell(t_options *o)
 	free(folder);
 	if (lexer(o) == -1)
 		return (history(o));
-	j = 0;
-	// while (o->tokens[j])
-	// {
-	// 	ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
-	// 	j++;
-	// }
 	if (parser(o) == -1)
 		return (history(o));
-	// if (o->tables)
-	// {
-	// 	j = 0;
-	// 	while (o->tables[j])
-	// 	{
-	// 		ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->in, o->tables[j]->out);
-	// 		j++;
-	// 	}
-	// }
 	evaluator(o);
-	j = 0;
-	// while (o->tables[j])
-	// {
-	// 		ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->in, o->tables[j]->out);
-	// 	j++;
-	// }
 	executer(o);
 	history(o);
 }

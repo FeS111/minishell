@@ -39,6 +39,7 @@ int	quote_count(char *str)
 	}
 	return (count);
 }
+
 int	is_word(char *str, int end)
 {
 	int	i;
