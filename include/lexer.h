@@ -31,5 +31,6 @@ t_token		*get_io(char *str);
 t_token		*get_pipe(char *str);
 
 int			is_word(char *str, int end);
+int			quote_len(char *str);
 
 #endif

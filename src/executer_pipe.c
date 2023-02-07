@@ -1,5 +1,16 @@
 #include "../include/executer.h"
 
+int	fork_builtin(t_options *o, t_parse_cmd *cmd)
+{
+	if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
+		return (ft_echo(o, cmd), 1);
+	if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
+		return (ft_pwd(o), 1);
+	if (ft_strncmp(cmd->cmd, "env\0", 4) == 0)
+		return (ft_env(o), 1);
+	return (0);
+}
+
 void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 {
 	signal(SIGQUIT, SIG_DFL);

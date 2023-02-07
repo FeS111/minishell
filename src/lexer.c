@@ -6,7 +6,7 @@ t_token	*get_token(char *charset)
 
 	i = 0;
 	if (charset[0] == ' ')
-		i++;
+		return (NULL);
 	if (ft_strchr("\n\0", charset[0]))
 		return (NULL);
 	else if (charset[0] == '\'' || charset[0] == '\"')
@@ -20,9 +20,12 @@ t_token	*get_token(char *charset)
 	else
 	{
 		while (!is_whitespace(charset[i]) && !ft_strchr("|<>#", charset[i]))
+		{
+			if (charset[i] == '\'' || charset[i] == '\"')
+				i += quote_len(&charset[i]);
 			i++;
-		if (is_word(charset, i))
-			return (new_token(ft_substr(charset, 0, i), WORD));
+		}
+		return (new_token(ft_substr(charset, 0, i), WORD));
 	}
 	return (NULL);
 }

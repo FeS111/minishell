@@ -16,5 +16,6 @@ void	execute_pipe(t_options *o, int *i, int *fd);
 void	executer(t_options *o);
 int		try_builtin(t_options *o, t_parse_cmd *cmd);
 void	do_op(t_options *o, t_parse_cmd *cmd);
+int		fork_builtin(t_options *o, t_parse_cmd *cmd);
 
 #endif

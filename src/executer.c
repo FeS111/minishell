@@ -1,4 +1,6 @@
 #include "../include/executer.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 int	g_in_executer;
 
@@ -7,8 +9,8 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	*binary;
 	char	**args;
 
-	if (try_builtin(o, cmd))
-		panic(o, EXIT_SUCCESS);
+	if (fork_builtin(o, cmd))
+		exit(EXIT_SUCCESS);
 	binary = search_binary(o, cmd->cmd);
 	args = build_args(cmd);
 	execve(binary, args, o->env);
@@ -21,16 +23,10 @@ int	try_builtin(t_options *o, t_parse_cmd *cmd)
 {
 	if (ft_strncmp(cmd->cmd, "cd\0", 3) == 0)
 		return (ft_cd(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
-		return (ft_echo(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
-		return (ft_pwd(o), 1);
 	if (ft_strncmp(cmd->cmd, "export\0", 7) == 0)
 		return (ft_export(o, cmd), 1);
 	if (ft_strncmp(cmd->cmd, "unset\0", 6) == 0)
 		return (ft_unset(o, cmd), 1);
-	if (ft_strncmp(cmd->cmd, "env\0", 4) == 0)
-		return (ft_env(o), 1);
 	if (ft_strncmp(cmd->cmd, "exit\0", 5) == 0)
 		return (ft_exit(o, cmd), 1);
 	return (0);
@@ -58,8 +54,8 @@ static int	execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 		close(fd[0]);
 		do_op(o, cmd->cmd);
 	}
-	if (fd[0] != STDOUT_FILENO)
-		close(fd[0]);
+	if (fd[1] != STDOUT_FILENO)
+		close(fd[1]);
 	close(fd[0]);
 	return (child);
 }
@@ -72,7 +68,7 @@ void	execute_cmd(t_options *o, int i, int *fd)
 		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
 		execute_pipe(o, &i, fd);
 	else if (o->tables[i]->out != WRITE && o->tables[i]->in != READ
-			&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
 	{
 		pid = execute_non_pipe(o, o->tables[i], fd);
 		waitpid(pid, &o->last_status, 0);
@@ -99,7 +95,7 @@ void	executer(t_options *o)
 	g_in_executer = 1;
 	if (o->tables[i])
 	{
-		if(o->tables[i]->in == READ && o->tables[i + 1])
+		if (o->tables[i]->in == READ && o->tables[i + 1])
 			i++;
 		execute_cmd(o, i, fd);
 		i++;

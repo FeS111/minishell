@@ -1,3 +1,4 @@
 Todos:
 	- segfault export $FOO=bar
 	- redirect of echo output?
+	- export COMMAND="ls -la"
