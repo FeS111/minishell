@@ -12,11 +12,22 @@
 
 #include "../include/minishell.h"
 
-t_token	*get_token(char *charset)
+t_token	*get_word(char *charset)
 {
 	int	i;
 
 	i = 0;
+	while (!is_whitespace(charset[i]) && !ft_strchr("|<>#", charset[i]))
+	{
+		if (charset[i] == '\'' || charset[i] == '\"')
+			i += quote_len(&charset[i]);
+		i++;
+	}
+	return (new_token(ft_substr(charset, 0, i), WORD));
+}
+
+t_token	*get_token(char *charset)
+{
 	if (charset[0] == ' ')
 		return (NULL);
 	if (ft_strchr("\n\0", charset[0]))
@@ -30,15 +41,7 @@ t_token	*get_token(char *charset)
 	else if (charset[0] == '|')
 		return (get_pipe(charset));
 	else
-	{
-		while (!is_whitespace(charset[i]) && !ft_strchr("|<>#", charset[i]))
-		{
-			if (charset[i] == '\'' || charset[i] == '\"')
-				i += quote_len(&charset[i]);
-			i++;
-		}
-		return (new_token(ft_substr(charset, 0, i), WORD));
-	}
+		return (get_word(charset));
 	return (NULL);
 }
 
