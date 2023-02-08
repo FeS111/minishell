@@ -23,6 +23,8 @@ t_token	*get_word(char *charset)
 			i += quote_len(&charset[i]);
 		i++;
 	}
+	if (i == 0)
+		return (NULL);
 	return (new_token(ft_substr(charset, 0, i), WORD));
 }
 
