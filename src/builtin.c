@@ -113,7 +113,10 @@ char	*get_current_folder(t_options *o)
 	while (tmp[i])
 		i++;
 	res = show_status(o);
-	res = ft_strjoin_gnl(res, tmp[i - 1]);
+	if (i == 0)
+		res = ft_strjoin_gnl(res, "/");
+	else
+		res = ft_strjoin_gnl(res, tmp[i - 1]);
 	split_free(tmp);
 	branch = get_current_branch();
 	if (branch)

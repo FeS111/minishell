@@ -34,7 +34,6 @@ void	ft_cd(t_options *o, t_parse_cmd *cmd)
 	free(path);
 	free(o->pwd);
 	o->pwd = get_pwd();
-	add_env(o, "PWD", o->pwd);
 	o->last_status = 0;
 }
 
