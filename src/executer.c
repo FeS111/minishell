@@ -23,7 +23,10 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 		exit(EXIT_SUCCESS);
 	binary = search_binary(o, cmd->cmd);
 	if (!binary)
+	{
+		free_options(o);
 		exit(127);
+	}
 	args = build_args(cmd);
 	execve(binary, args, o->env);
 	perror(args[0]);
