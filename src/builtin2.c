@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:18 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:58:31 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/08 10:20:20 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	panic(t_options *o, int code)
 {
 	ft_putendl_fd("exit", 1);
 	free_options(o);
-	system("leaks minishell");
 	exit(code);
 }
 

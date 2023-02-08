@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/08 09:20:36 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:20:56 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int	get_out(t_parse_table **tables)
 		{
 			if (tables[i]->cmd->args && tables[i]->cmd->args[0]
 				&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
-					return (open(tables[i]->cmd->cmd,
+				return (open(tables[i]->cmd->cmd,
 						O_APPEND | O_WRONLY, 0644));
 			return (open(tables[i]->cmd->cmd,
-						O_CREAT | O_TRUNC | O_WRONLY, 0644));
+					O_CREAT | O_TRUNC | O_WRONLY, 0644));
 		}
 		i--;
 	}
@@ -77,6 +77,8 @@ char	*search_binary(t_options *o, char *cmd)
 	int		i;
 
 	if (cmd[0] == '/' && access(cmd, X_OK) >= 0)
+		return (ft_strdup(cmd));
+	if (!strncmp(cmd, "./", 2))
 		return (ft_strdup(cmd));
 	i = 0;
 	split_free(o->paths);
