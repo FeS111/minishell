@@ -16,9 +16,12 @@ void	ft_cd(t_options *o, t_parse_cmd *cmd)
 {
 	char	*path;
 
-	path = ft_strdup(cmd->args[0]);
-	if (!path)
+	if (!cmd->args)
+		return ;
+	if (!cmd->args[0])
 		path = ft_getenv(o, "HOME");
+	else
+		path = ft_strdup(cmd->args[0]);
 	remove_env(o, "OLDPWD");
 	add_env(o, "OLDPWD", o->pwd);
 	if (chdir(path) != 0)
