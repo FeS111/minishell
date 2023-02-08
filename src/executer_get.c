@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 20:41:28 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/08 09:20:36 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ char	*search_binary(t_options *o, char *cmd)
 		absolute_path = ft_strjoin(o->paths[i], "/");
 		absolute_path = ft_strjoin_gnl(absolute_path, cmd);
 		if (access(absolute_path, F_OK) >= 0)
-		{
-			ft_putendl_fd(absolute_path, 2);
 			return (absolute_path);
-		}
 		free(absolute_path);
 		i++;
 	}
