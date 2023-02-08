@@ -39,6 +39,19 @@ SRC		= $(addprefix $(VPATH), main.c \
 OBJ		= $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 LIBFT	= ./libft/libft.a
 
+ifeq ($(OS),Windows_NT)
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+#		LINK_FLAGS += -ltinfo
+		LSANLFLAGS := -rdynamic -LLeakSanitizer -llsan -ldl -lstdc++
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		LSANLFLAGS := -LLeakSanitizer -llsan -lc++
+	endif
+endif
+
+
 all: $(NAME)
 
 $(NAME): $(SRC) $(LIBFT) $(DOWNLOADFOLDER)
@@ -58,6 +71,19 @@ $(DOWNLOADFOLDER):
 
 run: $(NAME)
 	./$(NAME)
+
+LSAN = LeakSanitizer
+LSANLIB = /LeakSanitizer/liblsan.a
+lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
+lsan: LINK += $(LSANLFLAGS)
+lsan: fclean $(LSANLIB)
+lsan: all
+
+$(LSAN):
+	git clone https://github.com/mhahnFr/LeakSanitizer.git
+
+$(LSANLIB): $(LSAN)
+	$(MAKE) -C LeakSanitizer
 
 re: fclean all
 

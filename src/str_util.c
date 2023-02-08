@@ -74,3 +74,20 @@ char	*str_remove_char(char *str, char c)
 	free(str);
 	return (res);
 }
+
+char	*read_first_line(int fd)
+{
+	char	*line;
+	char	*tmp;
+
+	tmp = get_next_line(fd);
+	if (!tmp)
+		return (NULL);
+	line = ft_strdup(tmp);
+	while (tmp)
+	{
+		free(tmp);
+		tmp = get_next_line(fd);
+	}
+	return (line);
+}

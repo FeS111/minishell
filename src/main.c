@@ -37,9 +37,9 @@ void	shell(t_options *o)
 	g_in_executer = 0;
 	folder = get_current_folder(o);
 	o->line = readline(folder);
+	free(folder);
 	if (!o->line)
 		panic(o, 0);
-	free(folder);
 	if (lexer(o) == -1)
 		return (history(o));
 	if (parser(o) == -1)

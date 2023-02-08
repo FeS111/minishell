@@ -87,7 +87,7 @@ static char	*get_current_branch(void)
 	fd = find_git();
 	if (fd < 2)
 		return (NULL);
-	line = get_next_line(fd);
+	line = read_first_line(fd);
 	close(fd);
 	if (!line)
 		return (NULL);
@@ -115,8 +115,7 @@ char	*get_current_folder(t_options *o)
 	res = show_status(o);
 	if (i == 0)
 		res = ft_strjoin_gnl(res, "/");
-	else
-		res = ft_strjoin_gnl(res, tmp[i - 1]);
+	res = ft_strjoin_gnl(res, tmp[i - 1]);
 	split_free(tmp);
 	branch = get_current_branch();
 	if (branch)
