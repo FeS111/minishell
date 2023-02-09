@@ -6,11 +6,12 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/08 10:19:07 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:40:31 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stdlib.h>
 
 int	g_in_executer;
 
@@ -20,13 +21,10 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	**args;
 
 	if (fork_builtin(o, cmd))
-		exit(EXIT_SUCCESS);
+		panic(o, EXIT_SUCCESS);
 	binary = search_binary(o, cmd->cmd);
 	if (!binary)
-	{
-		free_options(o);
-		exit(127);
-	}
+		panic(o, 127);
 	args = build_args(cmd);
 	execve(binary, args, o->env);
 	perror(args[0]);

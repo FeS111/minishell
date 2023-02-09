@@ -7,3 +7,4 @@ minishell.dSYM/Contents
 .ccls-cache
 file
 tests/
+LeakSanitizer/
