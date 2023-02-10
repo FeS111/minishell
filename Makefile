@@ -25,6 +25,7 @@ SRC		= $(addprefix $(VPATH), main.c \
 								executer_get.c \
 								executer_pipe.c \
 								str_util.c \
+								str_util2.c \
 								parser.c \
 								parser_utils.c \
 								parse_handler.c \
