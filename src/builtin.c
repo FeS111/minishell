@@ -17,7 +17,7 @@ static int	validate_export(t_options *o, t_parse_cmd *cmd)
 	char	**tmp;
 	char	*err;
 
-	if (cmd->args[0][0] == '=')
+	if (ft_strchr("+=-*&^%$#!{}[]@", cmd->args[0][0]))
 	{
 		err = ft_strjoin("export: '", cmd->args[0]);
 		err = ft_strjoin_gnl(err, "': not a valid identifier");

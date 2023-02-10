@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 15:12:25 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:27:59 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	}
 	binary = search_binary(o, cmd->cmd);
 	if (!binary)
-	{
-		free_options(o);
-		exit(127);
-	}
+		return (free_options(o), exit(127));
 	args = build_args(cmd);
 	execve(binary, args, o->env);
 	perror(args[0]);
