@@ -25,7 +25,7 @@ static char	*handle_arg(t_options *o, t_eval eval)
 		*(eval.replace) = 1;
 	if (!*(eval.replace))
 		return (eval.arg);
-	if (eval.arg[eval.j] == '$')
+	if (eval.arg[eval.j] == '$' && eval.arg[eval.j + 1] != '\0')
 		eval.arg
 			= replace_variable(o, eval.arg, eval.j,
 				get_varlength(&eval.arg[eval.j]));
