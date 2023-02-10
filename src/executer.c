@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/09 19:40:31 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:24:18 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	perror(args[0]);
 	free(binary);
 	split_free(args);
-	exit(127);
+	panic(o, 127);
 }
 
 int	try_builtin(t_options *o, t_parse_cmd *cmd)
