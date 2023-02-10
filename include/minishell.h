@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:05 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:53:06 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:25:12 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_replace_options
 
 extern int	g_in_executer;
 
+int			get_out_fd(t_parse_table **tables, int i);
 void		close_fd(int *fd);
 char		*read_first_line(int fd);
 int			lexer(t_options *o);

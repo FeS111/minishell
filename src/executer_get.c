@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/08 10:20:56 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:26:47 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,26 @@ int	get_in(t_parse_table **tables)
 int	get_out(t_parse_table **tables)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	while (tables[i])
-		i++;
-	i -= 1;
-	while (i >= 0)
 	{
 		if (tables[i]->out == WRITE && tables[i]->cmd->cmd)
 		{
 			if (tables[i]->cmd->args && tables[i]->cmd->args[0]
 				&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
-				return (open(tables[i]->cmd->cmd,
-						O_APPEND | O_WRONLY, 0644));
-			return (open(tables[i]->cmd->cmd,
-					O_CREAT | O_TRUNC | O_WRONLY, 0644));
+			{
+				fd = open(tables[i]->cmd->cmd, O_APPEND | O_WRONLY, 0644);
+				close (fd);
+			}
+			fd = open(tables[i]->cmd->cmd, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+			close(fd);
 		}
-		i--;
+		i++;
 	}
-	return (STDOUT_FILENO);
+	i -= 1;
+	return (get_out_fd(tables, i));
 }
 
 char	**get_paths(t_options *o)

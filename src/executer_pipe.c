@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:42 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:11:09 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ int	run_pipe(t_options *o, int *i, int *fd, pid_t *last_child)
 		*last_child = child;
 	close(fd[0]);
 	close(pipefd[1]);
-	if (fd[1] != STDOUT_FILENO)
-		close(fd[1]);
 	return (pipefd[0]);
 }
 

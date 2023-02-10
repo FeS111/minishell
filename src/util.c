@@ -6,12 +6,30 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:35 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:56:38 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:24:37 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <unistd.h>
+
+int	get_out_fd(t_parse_table **tables, int i)
+{
+	while (i >= 0)
+	{
+		if (tables[i]->out == WRITE && tables[i]->cmd->cmd)
+		{
+			if (tables[i]->cmd->args && tables[i]->cmd->args[0]
+				&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
+				return (open(tables[i]->cmd->cmd,
+						O_APPEND | O_WRONLY, 0644));
+			return (open(tables[i]->cmd->cmd,
+					O_CREAT | O_TRUNC | O_WRONLY, 0644));
+		}
+		i--;
+	}
+	return (STD_OUTPUT);
+}
 
 t_options	*create_options(void)
 {
