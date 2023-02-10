@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:09 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:12 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/10 18:07:30 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	validate_export(t_options *o, t_parse_cmd *cmd)
 		return (0);
 	}
 	tmp = ft_split(cmd->args[0], '=');
-	if (ft_isdigit(tmp[0][0]))
+	if (tmp[0][0] && ft_isdigit(tmp[0][0]))
 	{
 		err = ft_strjoin("export: '", cmd->args[0]);
 		err = ft_strjoin_gnl(err, "': not a valid identifier");
@@ -50,10 +50,13 @@ void	ft_export(t_options *o, t_parse_cmd *cmd)
 	if (!validate_export(o, cmd))
 		return ;
 	tmp = split_first(cmd->args[0], '=');
-	remove_env(o, tmp[0]);
-	add_env(o, tmp[0], tmp[1]);
-	split_free(tmp);
-	o->last_status = 0;
+	if (tmp && tmp[0])
+	{
+		remove_env(o, tmp[0]);
+		add_env(o, tmp[0], tmp[1]);
+		split_free(tmp);
+		o->last_status = 0;
+	}
 }
 
 static int	find_git(void)

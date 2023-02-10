@@ -1,4 +1,2 @@
 Todos:
-	- segfault export $FOO=bar
-	- redirect of echo output?
-	- export COMMAND="ls -la"
+	-heredoc better inputcheck and >> append mode
