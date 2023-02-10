@@ -48,20 +48,26 @@ void	ft_echo(t_options *o, t_parse_cmd *cmd)
 {
 	int		l;
 	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
 
 	l = 0;
 	while (cmd->args[l])
 		l++;
-	if (cmd->opt && ft_strncmp(cmd->opt, "-n", 2) == 0)
+	tmp = strjoinn(cmd->args, " ", 0, l);
+	if (cmd->opt)
 	{
-		tmp = strjoinn(cmd->args, " ", 1, l);
-		ft_putstr_fd(tmp, 1);
+		tmp3 = ft_strjoin(" ", cmd->opt);
+		tmp2 = ft_strtrim(tmp, tmp3);
+		free(tmp3);
 	}
 	else
-	{
-		tmp = strjoinn(cmd->args, " ", 0, l);
-		ft_putendl_fd(tmp, 1);
-	}
+		tmp2 = ft_strtrim(tmp, " ");
 	free(tmp);
+	if (cmd->opt && ft_strncmp(cmd->opt, "-n", 2) == 0)
+		ft_putstr_fd(tmp2, 1);
+	else
+		ft_putendl_fd(tmp2, 1);
+	free(tmp2);
 	o->last_status = 0;
 }

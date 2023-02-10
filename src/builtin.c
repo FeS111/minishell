@@ -46,7 +46,7 @@ void	ft_export(t_options *o, t_parse_cmd *cmd)
 	char	**tmp;
 
 	if (!cmd->args || !cmd->args[0])
-		return (print_export_shit(o));
+		return (print_export_error(o));
 	if (!validate_export(o, cmd))
 		return ;
 	tmp = split_first(cmd->args[0], '=');

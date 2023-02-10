@@ -97,7 +97,7 @@ void	ft_exit(t_options *o, t_parse_cmd *cmd)
 	panic(o, code);
 }
 
-void	print_export_shit(t_options *o)
+void	print_export_error(t_options *o)
 {
 	int		i;
 	char	**tmp;
