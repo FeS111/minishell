@@ -38,6 +38,8 @@ void	ft_env(t_options *o)
 
 void	ft_unset(t_options *o, t_parse_cmd *cmd)
 {
+	if (!cmd->args || !cmd->args[0])
+		return ;
 	remove_env(o, cmd->args[0]);
 	o->last_status = 0;
 }

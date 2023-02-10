@@ -49,7 +49,8 @@ void	remove_env(t_options *o, char *name)
 	j = 0;
 	while (o->env[++i] != NULL)
 	{
-		if (!ft_strnstr(o->env[i], name, ft_strlen(name)))
+		if (!ft_strnstr(o->env[i], name,
+				ft_strchr(o->env[i], '=') - o->env[i]) + 1)
 		{
 			env[j] = ft_strdup(o->env[i]);
 			j++;

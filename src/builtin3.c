@@ -96,3 +96,17 @@ void	ft_exit(t_options *o, t_parse_cmd *cmd)
 	}
 	panic(o, code);
 }
+
+void	print_export_shit(t_options *o)
+{
+	int		i;
+	char	**tmp;
+
+	i = -1;
+	while (o->env[++i])
+	{
+		tmp = ft_split(o->env[i], '=');
+		ft_printf("declare -x %s=\"%s\"\n", tmp[0], tmp[1]);
+		split_free(tmp);
+	}
+}

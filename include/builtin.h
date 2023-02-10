@@ -26,4 +26,5 @@ void	ft_unset(t_options *o, t_parse_cmd *cmd);
 void	ft_cd(t_options *o, t_parse_cmd *cmd);
 void	ft_echo(t_options *o, t_parse_cmd *cmd);
 char	*show_status(t_options *o);
+void	print_export_shit(t_options *o);
 #endif
