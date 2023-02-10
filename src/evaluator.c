@@ -46,12 +46,14 @@ int	get_varlength(char *str)
 	return (i);
 }
 
-char	*replace_home(char *str, int start)
+char	*replace_home(t_options *o, char *str, int start)
 {
 	char	*home;
 	char	*res;
 
-	home = getenv("HOME");
+	home = ft_getenv(o, "HOME");
+	if (!home)
+		return (str);
 	if (start > 0)
 		res = ft_substr(str, 0, start);
 	else
@@ -59,6 +61,7 @@ char	*replace_home(char *str, int start)
 	res = ft_strjoin_gnl(res, home);
 	res = replace_join(res, ft_substr(str, start + 1, ft_strlen(str) - start));
 	free(str);
+	free(home);
 	return (res);
 }
 
