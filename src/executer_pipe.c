@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 15:11:09 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:39:23 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ int	fork_builtin(t_options *o, t_parse_cmd *cmd)
 		return (ft_pwd(o), 1);
 	if (ft_strncmp(cmd->cmd, "env\0", 4) == 0)
 		return (ft_env(o), 1);
+	if (ft_strncmp(cmd->cmd, "cd\0", 3) == 0)
+		return (1);
+	if (ft_strncmp(cmd->cmd, "export\0", 7) == 0)
+		return (1);
+	if (ft_strncmp(cmd->cmd, "unset\0", 6) == 0)
+		return (1);
+	if (ft_strncmp(cmd->cmd, "exit\0", 5) == 0)
+		return (ft_exit(o, cmd), 1);
 	return (0);
 }
 

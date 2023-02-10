@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 17:05:36 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:39:08 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ int	get_out(t_parse_table **tables)
 				fd = open(tables[i]->cmd->cmd, O_APPEND | O_WRONLY, 0644);
 				close (fd);
 			}
-			else 
+			else
 			{
-				fd = open(tables[i]->cmd->cmd, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+				fd = open(tables[i]->cmd->cmd,
+						O_CREAT | O_TRUNC | O_WRONLY, 0644);
 				close(fd);
 			}
 		}
