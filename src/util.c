@@ -6,12 +6,11 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:35 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 15:24:37 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:06:32 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <unistd.h>
 
 int	get_out_fd(t_parse_table **tables, int i)
 {
