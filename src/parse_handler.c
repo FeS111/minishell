@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 13:13:33 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:04:30 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,28 +70,38 @@ t_parse_cmd	*handle_token(t_token **tokens, int *in, int *out, int *i)
 {
 	t_parse_cmd	*new;
 	char		*word;
+	char		*infile;
+	char		*outfile;
 
 	word = NULL;
+	new = NULL;
+	infile = NULL;
+	outfile = NULL;
 	*out = STD_OUTPUT;
 	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == PIPE)
 		*in = PIPE_FD;
-	if (tokens[*i]->type != IO)
+	if (tokens[*i]->type == IO)
+	{
+		infile = get_infile(tokens, i, in);
+		outfile = get_outfile(tokens, i, out);
+		*i += 2;
+	}
+	if (tokens[*i])
 	{
 		word = ft_strdup(tokens[*i]->value);
-		*i += 1;
-	}
-	new = join_args(tokens, i, word);
-	if (tokens[*i] && tokens[*i]->type == PIPE)
-		*out = PIPE_FD;
-	if (tokens[*i] && tokens[*i]->type == IO)
-	{
-		new->infile = get_infile(tokens, i, in);
-		if (!new->infile)
-			*in = STD_INPUT;
-		new->outfile = get_outfile(tokens, i, out);
-		if (!new->outfile)
-			*out = STD_OUTPUT;
-		*i += 1;
+		new = join_args(tokens, i, word);
+		if (tokens[*i] && tokens[*i]->type == PIPE)
+			*out = PIPE_FD;
+		if (tokens[*i] && tokens[*i]->type == IO)
+		{
+			new->infile = get_infile(tokens, i, in);
+			new->outfile = get_outfile(tokens, i, out);
+			*i += 1;
+		}
+		if (infile)
+			new->infile = infile;
+		if (outfile)
+			new->outfile = outfile;
 	}
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:15 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 13:13:23 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:17:38 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 t_parse_cmd	*build_cmd(t_options *o, int *in, int *out, int *i)
 {
-	if (o->tokens[0]->type == PIPE)
-		return (panic_token("`|'"), NULL);
+	if (o->tokens[*i]->type == PIPE)
+	{
+		if (*i == 0)
+			return (panic_token("`|'"), NULL);
+		else
+			*i += 1;
+	}
 	else if (o->tokens[0]->type == IO && !o->tokens[1])
 		return (panic_token("`newline'"), NULL);
 	else if (o->tokens[0]->type == IO && o->tokens[1]->type != WORD)

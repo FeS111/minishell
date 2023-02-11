@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:01 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 12:49:00 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:52:19 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 char	*get_infile(t_token **tokens, int *i, int *in)
 {
+	if (!tokens[*i])
+		return (NULL);
 	if (!ft_strncmp(tokens[*i]->value, "<", 2))
 	{
 		*in = READ;
 		return (tokens[*i + 1]->value);
 	}
-	if (!ft_strncmp(tokens[*i]->value, "<<", 3))
+	else if (!ft_strncmp(tokens[*i]->value, "<<", 3))
 	{
 		*in = HEREDOC;
 		return (tokens[*i + 1]->value);
@@ -29,19 +31,27 @@ char	*get_infile(t_token **tokens, int *i, int *in)
 
 char	*get_outfile(t_token **tokens, int *i, int *out)
 {
+	int	fd;
 
+	if (!tokens[*i])
+		return (NULL);
 	if (!ft_strncmp(tokens[*i]->value, ">", 2))
 	{
 		*out = WRITE;
+		fd = open(tokens[*i + 1]->value, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		close(fd);
 		return (tokens[*i + 1]->value);
 	}
-	if (!ft_strncmp(tokens[*i]->value, ">>", 3))
+	else if (!ft_strncmp(tokens[*i]->value, ">>", 3))
 	{
 		*out = APPEND;
+		fd = open(tokens[*i + 1]->value, O_CREAT | O_WRONLY, 0644);
+		close(fd);
 		return (tokens[*i + 1]->value);
 	}
 	return (NULL);
 }
+
 t_parse_cmd	*left_redir(t_token **tokens, int *in, int *out, int *i)
 {
 	*out = STD_OUTPUT;
