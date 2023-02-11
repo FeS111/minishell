@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:15 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 11:00:51 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:13:23 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 t_parse_cmd	*build_cmd(t_options *o, int *in, int *out, int *i)
 {
-	if (o->tokens[*i]->type == IO)
-		return (handle_io(o, in, out, i));
-	else if (o->tokens[*i]->type == WORD)
-		return (handle_word(o->tokens, in, out, i));
-	else if (o->tokens[*i]->type == PIPE)
-	{
-		*i += 1;
-		if (o->tokens[*i])
-			return (handle_word(o->tokens, in, out, i));
-	}
-	return (NULL);
+	if (o->tokens[0]->type == PIPE)
+		return (panic_token("`|'"), NULL);
+	else if (o->tokens[0]->type == IO && !o->tokens[1])
+		return (panic_token("`newline'"), NULL);
+	else if (o->tokens[0]->type == IO && o->tokens[1]->type != WORD)
+		return (panic_token(o->tokens[*i + 1]->value), NULL);
+	return (handle_token(o->tokens, in, out, i));
 }
 
 t_parse_table	*new_table(t_parse_cmd *cmd, int in, int out)

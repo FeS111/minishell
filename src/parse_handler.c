@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 10:39:56 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:13:33 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,32 @@ t_parse_cmd	*join_args(t_token **tokens, int *i, char *word)
 	return (new_cmd(word, tmp, NULL, tmp3));
 }
 
-t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*handle_token(t_token **tokens, int *in, int *out, int *i)
 {
 	t_parse_cmd	*new;
 	char		*word;
 
+	word = NULL;
 	*out = STD_OUTPUT;
 	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == PIPE)
 		*in = PIPE_FD;
-	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == IO)
-		*out = WRITE;
-	word = ft_strdup(tokens[*i]->value);
-	*i += 1;
+	if (tokens[*i]->type != IO)
+	{
+		word = ft_strdup(tokens[*i]->value);
+		*i += 1;
+	}
 	new = join_args(tokens, i, word);
 	if (tokens[*i] && tokens[*i]->type == PIPE)
 		*out = PIPE_FD;
 	if (tokens[*i] && tokens[*i]->type == IO)
-		*i -= 1;
+	{
+		new->infile = get_infile(tokens, i, in);
+		if (!new->infile)
+			*in = STD_INPUT;
+		new->outfile = get_outfile(tokens, i, out);
+		if (!new->outfile)
+			*out = STD_OUTPUT;
+		*i += 1;
+	}
 	return (new);
 }
