@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:56 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 15:01:37 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:36:25 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	debug_shell(t_options *o)
 		ft_printf("%s %d\n", o->tokens[j]->value, o->tokens[j]->type);
 		j++;
 	}
+	int par = parser(o);
 	ft_putendl_fd("==================================", 1);
 	ft_putendl_fd("parser done", 1);
 	ft_putendl_fd("==================================", 1);
-	int par = parser(o);
 	ft_putnbr_fd(par, 1);
 	ft_putchar_fd('\n', 1);
 	if (par == -1)

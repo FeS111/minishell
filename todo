@@ -1,4 +1,6 @@
 Todos:
-	-heredoc better inputcheck and >> append mode
+	-redir rewrite
+	-dobule redir not working for <
+	-segfault cat << EOF > out in parser
+	-get executer and expander working after that
 	-export same variabel name should replace old variabel
-	-redirection with options after redir and pipe redir 

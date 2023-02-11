@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 15:04:30 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:12:21 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,15 @@ t_parse_cmd	*handle_token(t_token **tokens, int *in, int *out, int *i)
 		outfile = get_outfile(tokens, i, out);
 		*i += 2;
 	}
-	if (tokens[*i])
+	if (tokens[*i] && tokens[*i]->type == PIPE)
+	{
+		*out = PIPE;
+		new = new_cmd(NULL, NULL, NULL, NULL);
+		new->infile = infile;
+		new->outfile = outfile;
+		return (new);
+	}
+	else
 	{
 		word = ft_strdup(tokens[*i]->value);
 		new = join_args(tokens, i, word);
@@ -98,10 +106,13 @@ t_parse_cmd	*handle_token(t_token **tokens, int *in, int *out, int *i)
 			new->outfile = get_outfile(tokens, i, out);
 			*i += 1;
 		}
-		if (infile)
-			new->infile = infile;
-		if (outfile)
-			new->outfile = outfile;
+		else
+		{
+			if (infile)
+				new->infile = infile;
+			if (outfile)
+				new->outfile = outfile;
+		}
 	}
 	return (new);
 }
