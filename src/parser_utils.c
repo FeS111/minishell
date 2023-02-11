@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:15 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:58:19 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/11 11:00:51 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ t_parse_cmd	*build_cmd(t_options *o, int *in, int *out, int *i)
 		return (handle_io(o, in, out, i));
 	else if (o->tokens[*i]->type == WORD)
 		return (handle_word(o->tokens, in, out, i));
+	else if (o->tokens[*i]->type == PIPE)
+	{
+		*i += 1;
+		if (o->tokens[*i])
+			return (handle_word(o->tokens, in, out, i));
+	}
 	return (NULL);
 }
 

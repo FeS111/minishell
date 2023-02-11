@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:07 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:53:09 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/11 11:03:42 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_parse_cmd
 	char	*opt;
 	char	*opt2;
 	char	**args;
+	char	*infile;
+	char	*outfile;
 }			t_parse_cmd;
 
 typedef struct s_parse_table

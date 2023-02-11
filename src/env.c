@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:24 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:26 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/10 20:25:08 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	remove_env(t_options *o, char *name)
 	j = 0;
 	while (o->env[++i] != NULL)
 	{
-		if (!ft_strnstr(o->env[i], name,
-				ft_strchr(o->env[i], '=') - o->env[i]) + 1)
+		if (!ft_strnstr(o->env[i], name, ft_strlen(name)))
+				// ft_strchr(o->env[i], '=') - o->env[i]) + 1)
 		{
 			env[j] = ft_strdup(o->env[i]);
 			j++;

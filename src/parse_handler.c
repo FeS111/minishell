@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 19:40:31 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/11 10:39:56 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_parse_cmd	*handle_io(t_options *o, int *in, int *out, int *i)
 		return (left_redir(o->tokens, in, out, i));
 	}
 	else if (!ft_strncmp(o->tokens[*i]->value, ">", 1))
-		return (redir_panic(o, i), NULL);
+		return (right_redir(o->tokens, in, out, i));
 	return (NULL);
 }
 
