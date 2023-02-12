@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 11:07:40 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 11:46:46 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_parse_cmd	*handle_token(t_token **tokens, int *in, int *out, int *i)
 	{
 		 new = new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL);
 		 new->args = ft_calloc(sizeof(char *), token_size(tokens) + 1);
+		 *i += 1;
 	}
 	while (tokens[*i] && tokens[*i]->type != PIPE)
 	{

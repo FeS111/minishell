@@ -1,6 +1,4 @@
 Todos:
 	-redir rewrite
-	-dobule redir not working for <
-	-segfault cat << EOF > out in parser
-	-get executer and expander working after that
+	-get redirection in executer for pipes
 	-export same variabel name should replace old variabel

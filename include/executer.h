@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:10 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:53:13 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/12 11:42:15 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef struct s_parse_table	t_parse_table;
 typedef struct s_parse_cmd		t_parse_cmd;
 
 char	**get_paths(t_options *o);
-int		get_in(t_parse_table **tables);
-int		get_out(t_parse_table **tables);
+int		get_in(t_parse_table *table);
+int		get_out(t_parse_table *table);
 char	*search_binary(t_options *o, char *cmd);
 char	**build_args(t_parse_cmd *cmd);
 

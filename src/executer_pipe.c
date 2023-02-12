@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 19:39:23 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 12:05:07 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void	execute_pipe(t_options *o, int *i, int *fd)
 	pipe = o->pipes;
 	while (o->tables[*i] && o->pipes >= 0)
 	{
-		if (!ft_strncmp(o->tables[*i]->cmd->cmd, "here_doc", 9))
-			*i += 1;
 		fd[0] = run_pipe(o, i, fd, &last_child);
 		*i += 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 17:16:05 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 11:59:08 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ void	execute_cmd(t_options *o, int i, int *fd)
 {
 	pid_t	pid;
 
-	if (o->pipes > 0 && o->tables[i]->out != WRITE && o->tables[i]->in != READ
-		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+	if (o->pipes > 0)
 		execute_pipe(o, &i, fd);
-	else if (o->tables[i]->out != WRITE && o->tables[i]->in != READ
-		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+	else	
 	{
 		pid = execute_non_pipe(o, o->tables[i], fd);
 		waitpid(pid, &o->last_status, 0);
@@ -101,8 +99,8 @@ void	executer(t_options *o)
 	int		fd[2];
 
 	i = 0;
-	fd[0] = get_in(o->tables);
-	fd[1] = get_out(o->tables);
+	fd[0] = get_in(o->tables[i]);
+	fd[1] = get_out(o->tables[i]);
 	if (fd[1] == -1)
 	{
 		perror(o->tables[i]->cmd->cmd);
@@ -113,8 +111,6 @@ void	executer(t_options *o)
 	g_in_executer = 1;
 	if (o->tables[i])
 	{
-		if (o->tables[i]->in == READ && o->tables[i + 1])
-			i++;
 		execute_cmd(o, i, fd);
 		i++;
 	}
