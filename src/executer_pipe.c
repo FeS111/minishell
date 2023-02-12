@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 12:05:07 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:27:41 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	fork_builtin(t_options *o, t_parse_cmd *cmd)
 {
+	if (!cmd->cmd)
+		return (0);
 	if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
 		return (ft_echo(o, cmd), 1);
 	if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
@@ -54,6 +56,16 @@ int	run_pipe(t_options *o, int *i, int *fd, pid_t *last_child)
 	int		pipefd[2];
 	pid_t	child;
 
+	// if (o->tables[*i]->in != PIPE)
+	// {
+	// 	close(fd[0]);
+	// 	fd[0] = get_in(o->tables[*i]);
+	// }
+	// fd[1] = get_out(o->tables[*i]);
+	ft_putnbr_fd(fd[0], 2);
+	ft_putchar_fd('\n', 2);
+	ft_putnbr_fd(fd[1], 2);
+	ft_putchar_fd('\n', 2);
 	if (pipe(pipefd) == -1)
 		panic(o, 1);
 	child = fork();

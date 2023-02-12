@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 11:59:08 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:28:46 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	*binary;
 	char	**args;
 
+	if (!cmd->cmd)
+		return (free_options(o), exit(0));
 	if (fork_builtin(o, cmd))
-	{
-		free_options(o);
-		exit(0);
-	}
+		return (free_options(o), exit(0));
 	binary = search_binary(o, cmd->cmd);
 	if (!binary)
 		return (free_options(o), exit(127));
@@ -39,6 +38,8 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 
 int	try_builtin(t_options *o, t_parse_cmd *cmd)
 {
+	if (!cmd->cmd)
+		return (0);
 	if (ft_strncmp(cmd->cmd, "cd\0", 3) == 0)
 		return (ft_cd(o, cmd), 1);
 	if (ft_strncmp(cmd->cmd, "export\0", 7) == 0)

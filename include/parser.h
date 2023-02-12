@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:07 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 13:13:47 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 12:52:08 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ t_parse_cmd		*build_cmd(t_options *o, int *in, int *out, int *i);
 t_parse_table	*new_table(t_parse_cmd *cmd, int in, int out);
 
 t_parse_cmd		*handle_io(t_options *o, int *in, int *out, int *i);
-t_parse_cmd		*handle_token(t_token **tokens, int *in, int *out, int *i);
+t_parse_cmd		*handle_token(t_options *o, int *in, int *out, int *i);
 
-char			*get_infile(t_token **tokens, int *i, int *in);
-char			*get_outfile(t_token **tokens, int *i, int *out);
+char			*get_infile(t_options *o, int *i, int *in);
+char			*get_outfile(t_options *o, int *i, int *out);
 t_parse_cmd		*left_redir(t_token **tokens, int *in, int *out, int *i);
 t_parse_cmd		*right_redir(t_token **tokens, int *in, int *out, int *i);
 
@@ -77,5 +77,5 @@ t_parse_cmd		*new_cmd(char *cmd, char *opt, char *opt2, char **args);
 void			free_table(t_parse_table **table);
 int				is_woo2(int type);
 
-t_parse_cmd		*here_doc(t_options *o, int *in, int *out, int *i);
+t_parse_cmd		*here_doc(t_options *o, int *in, int *i);
 #endif
