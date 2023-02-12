@@ -6,12 +6,11 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 14:15:00 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:14:14 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stdlib.h>
 
 int	g_in_executer;
 
@@ -59,7 +58,7 @@ static int	execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 		return (-1);
 	child = fork();
 	if (child < 0)
-		panic(o, 1);
+		panic(o, EXIT_FAILURE);
 	if (child == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
@@ -104,6 +103,12 @@ void	executer(t_options *o)
 	fd[1] = get_out(o->tables[i]);
 	if (fd[1] == -1)
 	{
+		if (!o->tables[i]->cmd->cmd)
+		{
+			o->last_status = 0;
+			close_fd(fd);
+			return ;
+		}
 		perror(o->tables[i]->cmd->cmd);
 		close_fd(fd);
 		o->last_status = 1;

@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 14:51:02 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:27:18 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ t_parse_cmd	*check_io(t_options *o, int *i, int *fd)
 	if (o->tokens[*i] && o->tokens[*i]->type == PIPE)
 		fd[1] = PIPE;
 	if (o->tokens[*i] && o->tokens[*i]->type == IO)
+	{
+		free(new);
 		check_io(o, i, fd);
+	}
 	new->infile = infile;
 	new->outfile = outfile;
 	return (new);
@@ -57,7 +60,7 @@ void	get_args(t_options *o, t_parse_cmd *new, int *i, int *fd)
 			new->infile = get_infile(o, i, fd, new->infile);
 			new->outfile = get_outfile(o, i, fd, new->outfile);
 			*i += 2;
-			return ;
+			continue ;
 		}
 		if (o->tokens[*i] && o->tokens[*i]->type == OPTION)
 		{

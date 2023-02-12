@@ -1,6 +1,3 @@
 Todos:
-	-redir rewrite
-	-get redirection > and >> for executer in individual pipes
-	-handle multiple infile redirections
 	-export same variabel name should replace old variabel
 	
