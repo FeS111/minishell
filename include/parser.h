@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:07 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 12:52:08 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:43:09 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,13 @@ typedef struct s_token		t_token;
 
 int				parser(t_options *o);
 
-t_parse_cmd		*build_cmd(t_options *o, int *in, int *out, int *i);
+t_parse_cmd		*build_cmd(t_options *o, int *fd, int *i);
 t_parse_table	*new_table(t_parse_cmd *cmd, int in, int out);
 
-t_parse_cmd		*handle_io(t_options *o, int *in, int *out, int *i);
-t_parse_cmd		*handle_token(t_options *o, int *in, int *out, int *i);
+t_parse_cmd		*handle_token(t_options *o, int *fd, int *i);
 
-char			*get_infile(t_options *o, int *i, int *in);
-char			*get_outfile(t_options *o, int *i, int *out);
+char			*get_infile(t_options *o, int *i, int *in, char *infile);
+char			*get_outfile(t_options *o, int *i, int *out, char *outfile);
 t_parse_cmd		*left_redir(t_token **tokens, int *in, int *out, int *i);
 t_parse_cmd		*right_redir(t_token **tokens, int *in, int *out, int *i);
 

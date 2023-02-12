@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 13:07:16 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:49:34 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 	char	*deli;
 
 	replace = 1;
-	*in = HEREDOC;
+	in[0] = HEREDOC;
 	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	deli = ft_strdup(o->tokens[*i + 1]->value);
 	if (ft_strchr("'\"", deli[0]) && ft_strchr("'\"", deli[ft_strlen(deli) - 1]))

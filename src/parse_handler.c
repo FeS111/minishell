@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 13:15:24 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:51:02 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	redir_panic(t_options *o, int *i)
 		panic_token(o->tokens[*i + 1]->value);
 }
 
-t_parse_cmd	*check_first_io(t_options *o, int *i, int *in, int *out)
+t_parse_cmd	*check_io(t_options *o, int *i, int *fd)
 {
-	t_parse_cmd *new;
+	t_parse_cmd	*new;
 	char		*infile;
 	char		*outfile;
 
@@ -32,45 +32,32 @@ t_parse_cmd	*check_first_io(t_options *o, int *i, int *in, int *out)
 	outfile = NULL;
 	if (o->tokens[*i]->type == IO)
 	{
-		infile = get_infile(o, i, in);
-		outfile = get_outfile(o, i, out);
+		infile = get_infile(o, i, fd, infile);
+		outfile = get_outfile(o, i, fd, outfile);
 		*i += 2;
 	}
 	if (o->tokens[*i] && o->tokens[*i]->type == PIPE)
-		*out = PIPE;
+		fd[1] = PIPE;
+	if (o->tokens[*i] && o->tokens[*i]->type == IO)
+		check_io(o, i, fd);
 	new->infile = infile;
 	new->outfile = outfile;
 	return (new);
 }
 
-t_parse_cmd	*handle_token(t_options *o, int *in, int *out, int *i)
+void	get_args(t_options *o, t_parse_cmd *new, int *i, int *fd)
 {
-	t_parse_cmd	*new;
-	int			j;
+	int	j;
 
 	j = -1;
-	new = NULL;
-	*out = STD_OUTPUT;
-	if (*i > 0 && o->tokens[*i]->value && o->tokens[*i - 1]->type == PIPE)
-		*in = PIPE_FD;
-	new = check_first_io(o, i, in, out);
-	if (o->tokens[*i] && o->tokens[*i]->type == PIPE)
-		return (new);
-	if (o->tokens[*i])
-	{
-		 ft_putendl_fd("here", 1);
-		 new->cmd = ft_strdup(o->tokens[*i]->value);
-		 new->args = ft_calloc(sizeof(char *), token_size(o->tokens) + 1);
-		 *i += 1;
-	}
 	while (o->tokens[*i] && o->tokens[*i]->type != PIPE)
 	{
 		if (o->tokens[*i]->type == IO)
 		{
-			new->infile = get_infile(o, i, in);
-			new->outfile = get_outfile(o, i, out);
+			new->infile = get_infile(o, i, fd, new->infile);
+			new->outfile = get_outfile(o, i, fd, new->outfile);
 			*i += 2;
-			continue ;
+			return ;
 		}
 		if (o->tokens[*i] && o->tokens[*i]->type == OPTION)
 		{
@@ -82,5 +69,25 @@ t_parse_cmd	*handle_token(t_options *o, int *in, int *out, int *i)
 			new->args[++j] = ft_strdup(o->tokens[*i]->value);
 		*i += 1;
 	}
+}
+
+t_parse_cmd	*handle_token(t_options *o, int *fd, int *i)
+{
+	t_parse_cmd	*new;
+
+	new = NULL;
+	fd[1] = STD_OUTPUT;
+	if (*i > 0 && o->tokens[*i]->value && o->tokens[*i - 1]->type == PIPE)
+		fd[0] = PIPE_FD;
+	new = check_io(o, i, fd);
+	if (o->tokens[*i] && o->tokens[*i]->type == PIPE)
+		return (new);
+	if (o->tokens[*i])
+	{
+		new->cmd = ft_strdup(o->tokens[*i]->value);
+		new->args = ft_calloc(sizeof(char *), token_size(o->tokens) + 1);
+		*i += 1;
+	}
+	get_args(o, new, i, fd);
 	return (new);
 }

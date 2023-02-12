@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 13:28:46 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:15:00 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	execute_cmd(t_options *o, int i, int *fd)
 
 	if (o->pipes > 0)
 		execute_pipe(o, &i, fd);
-	else	
+	else
 	{
 		pid = execute_non_pipe(o, o->tables[i], fd);
 		waitpid(pid, &o->last_status, 0);

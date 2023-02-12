@@ -6,48 +6,49 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:01 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 12:57:39 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:50:38 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*get_infile(t_options *o, int *i, int *in)
+char	*get_infile(t_options *o, int *i, int *fd, char *infile)
 {
 	if (!o->tokens[*i])
-		return (NULL);
+		return (infile);
 	if (!ft_strncmp(o->tokens[*i]->value, "<", 2))
 	{
-		*in = READ;
+		fd[0] = READ;
 		return (o->tokens[*i + 1]->value);
 	}
 	else if (!ft_strncmp(o->tokens[*i]->value, "<<", 3))
 	{
-		here_doc(o, in, i);
+		here_doc(o, fd, i);
 		return ("here_doc");
 	}
-	return (NULL);
+	return (infile);
 }
 
-char	*get_outfile(t_options *o, int *i, int *out)
+char	*get_outfile(t_options *o, int *i, int *fd, char *outfile)
 {
-	int	fd;
+	int	outfd;
 
 	if (!o->tokens[*i])
-		return (NULL);
+		return (outfile);
 	if (!ft_strncmp(o->tokens[*i]->value, ">", 2))
 	{
-		*out = WRITE;
-		fd = open(o->tokens[*i + 1]->value, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-		close(fd);
+		fd[1] = WRITE;
+		outfd = open(o->tokens[*i + 1]->value,
+				O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		close(outfd);
 		return (o->tokens[*i + 1]->value);
 	}
 	else if (!ft_strncmp(o->tokens[*i]->value, ">>", 3))
 	{
-		*out = APPEND;
-		fd = open(o->tokens[*i + 1]->value, O_CREAT | O_WRONLY, 0644);
-		close(fd);
+		fd[1] = APPEND;
+		outfd = open(o->tokens[*i + 1]->value, O_CREAT | O_WRONLY, 0644);
+		close(outfd);
 		return (o->tokens[*i + 1]->value);
 	}
-	return (NULL);
+	return (outfile);
 }

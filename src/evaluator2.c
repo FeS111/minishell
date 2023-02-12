@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:36 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 11:15:41 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:14:19 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	evaluator_cmd(t_options *o, int i)
 		eval.arg = o->tables[i]->cmd->cmd;
 		o->tables[i]->cmd->cmd = handle_arg(o, eval);
 	}
-	if(o->tables[i]->cmd->cmd)
+	if (o->tables[i]->cmd->cmd)
 		o->tables[i]->cmd->cmd = remove_quotes(o->tables[i]->cmd->cmd);
 }

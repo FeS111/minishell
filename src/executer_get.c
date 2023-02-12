@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 11:42:06 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:15:46 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_in(t_parse_table *table)
 	if (table->in == READ)
 		return (open(table->cmd->infile, O_RDONLY));
 	else if (table->in == HEREDOC)
-		return (open("here_doc", O_RDONLY));	
+		return (open("here_doc", O_RDONLY));
 	return (dup(STDIN_FILENO));
 }
 
