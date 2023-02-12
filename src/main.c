@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:56 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 16:36:25 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 11:11:02 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,16 @@ void	debug_shell(t_options *o)
 			j++;
 		}
 	}
-	// evaluator(o);
-	// ft_putendl_fd("==================================", 1);
-	// ft_putendl_fd("evaluator done", 1);
-	// ft_putendl_fd("==================================", 1);
-	// j = 0;
-	// while (o->tables[j])
-	// {
-	// 		ft_printf("%s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->in, o->tables[j]->out);
-	// 	j++;
-	// }
+	evaluator(o);
+	ft_putendl_fd("==================================", 1);
+	ft_putendl_fd("evaluator done", 1);
+	ft_putendl_fd("==================================", 1);
+	j = 0;
+	while (o->tables[j])
+	{
+		ft_printf("%s, %s, %s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->cmd->infile, o->tables[j]->cmd->outfile, o->tables[j]->in, o->tables[j]->out);
+		j++;
+	}
 	// executer(o);
 	// ft_putendl_fd("==================================", 1);
 	// ft_putendl_fd("executer done", 1);
