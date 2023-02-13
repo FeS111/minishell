@@ -21,8 +21,6 @@ static char	*evalulate(t_options *o, char *line)
 	{
 		if (line[i] == '$')
 			line = replace_variable(o, line, i, get_varlength(&line[i]));
-		else if (line[i] == '~')
-			line = replace_home(o, line, i);
 	}
 	return (line);
 }

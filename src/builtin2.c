@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+extern t_global	g_global;
+
 void	panic(t_options *o, int code)
 {
 	ft_putendl_fd("exit", 1);
@@ -22,7 +24,7 @@ void	panic(t_options *o, int code)
 void	ft_pwd(t_options *o)
 {
 	ft_putendl_fd(o->pwd, 1);
-	o->last_status = 0;
+	g_global.status = 0;
 }
 
 void	ft_env(t_options *o)
@@ -32,7 +34,7 @@ void	ft_env(t_options *o)
 	i = -1;
 	while (o->env[++i] != NULL)
 		ft_putendl_fd(o->env[i], 1);
-	o->last_status = 0;
+	g_global.status = 0;
 }
 
 void	ft_unset(t_options *o, t_parse_cmd *cmd)
@@ -40,10 +42,10 @@ void	ft_unset(t_options *o, t_parse_cmd *cmd)
 	if (!cmd->args || !cmd->args[0])
 		return ;
 	remove_env(o, cmd->args[0]);
-	o->last_status = 0;
+	g_global.status = 0;
 }
 
-void	ft_echo(t_options *o, t_parse_cmd *cmd)
+void	ft_echo(t_parse_cmd *cmd)
 {
 	int		l;
 	char	*tmp;
@@ -68,5 +70,5 @@ void	ft_echo(t_options *o, t_parse_cmd *cmd)
 	else
 		ft_putendl_fd(tmp2, 1);
 	free(tmp2);
-	o->last_status = 0;
+	g_global.status = 0;
 }

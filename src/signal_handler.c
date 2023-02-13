@@ -12,14 +12,14 @@
 
 #include "../include/minishell.h"
 
-int	g_in_executer;
+extern t_global g_global;
 
 void	ctrl_c_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
 		ft_putchar_fd('\n', 1);
-		if (!g_in_executer)
+		if (!g_global.in_executer)
 		{
 			rl_on_new_line();
 			rl_replace_line("", 0);
@@ -28,17 +28,19 @@ void	ctrl_c_handler(int sig)
 	}
 }
 
-void	set_status(t_options *o, pid_t last_child)
+void	set_status(pid_t last_child)
 {
-	waitpid(last_child, &o->last_status, 0);
-	if (WIFSIGNALED(o->last_status))
+	int	status;
+
+	waitpid(last_child, &status, 0);
+	if (WIFSIGNALED(status))
 	{
-		o->last_status = WTERMSIG(o->last_status);
-		if (o->last_status == 2)
-			o->last_status = 130;
+		g_global.status = WTERMSIG(status);
+		if (g_global.status == 2)
+			g_global.status = 130;
 		else
-			o->last_status = 131;
+			g_global.status = 131;
 	}
 	else
-		o->last_status = WEXITSTATUS(o->last_status);
+		g_global.status = WEXITSTATUS(status);
 }

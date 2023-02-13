@@ -40,7 +40,6 @@ typedef struct s_options
 	char			*pwd;
 	char			*line;
 	t_token			**tokens;
-	int				last_status;
 	t_parse_table	**tables;
 	char			**paths;
 	int				pipes;
@@ -55,7 +54,12 @@ typedef struct s_replace_options
 	int		end;
 }	t_replace_options;
 
-extern int	g_in_executer;
+typedef struct s_global
+{
+	int		in_executer;
+	int		status;
+	char	*folder;
+}	t_global;
 
 void		set_fd(int *fd);
 void		close_fd(int *fd);
@@ -76,11 +80,11 @@ char		*str_replace(t_replace_options options);
 char		*replace_join(char *one, char *two);
 char		*str_remove_char(char *str, char c);
 char		*ft_getenv(t_options *o, char *name);
-char		*get_current_folder(t_options *o);
+char		*get_current_folder(void);
 void		add_env(t_options *o, char *name, char *value);
 void		remove_env(t_options *o, char *name);
 char		**split_first(char *str, char c);
 char		*strtrim_front(char *str, char *set);
 int			split_size(char **split);
-void		set_status(t_options *o, pid_t last_child);
+void		set_status(pid_t last_child);
 #endif

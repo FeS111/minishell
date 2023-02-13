@@ -18,7 +18,7 @@ int	fork_builtin(t_options *o, t_parse_cmd *cmd)
 	if (!cmd->cmd)
 		return (0);
 	if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
-		return (ft_echo(o, cmd), 1);
+		return (ft_echo(cmd), 1);
 	if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
 		return (ft_pwd(o), 1);
 	if (ft_strncmp(cmd->cmd, "env\0", 4) == 0)
@@ -102,7 +102,7 @@ void	execute_pipe(t_options *o, int *i, int *fd)
 		fd[0] = run_pipe(o, i, fd, &last_child);
 		*i += 1;
 	}
-	set_status(o, last_child);
+	set_status(last_child);
 	while (pipe)
 	{
 		pipe--;

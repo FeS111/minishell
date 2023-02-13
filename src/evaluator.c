@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+extern t_global	g_global;
+
 char	*replace_variable(t_options *go, char *str, int start, int end)
 {
 	t_replace_options	o;
@@ -20,7 +22,7 @@ char	*replace_variable(t_options *go, char *str, int start, int end)
 
 	tmp = ft_substr(str, start + 1, end - 1);
 	if (str[start + 1] == '?')
-		new_value = ft_itoa(go->last_status);
+		new_value = ft_itoa(g_global.status);
 	else
 		new_value = ft_getenv(go, tmp);
 	free(tmp);
@@ -44,25 +46,6 @@ int	get_varlength(char *str)
 	while (!is_whitespace(str[i]) && !ft_strchr("\"='\0", str[i]))
 		i++;
 	return (i);
-}
-
-char	*replace_home(t_options *o, char *str, int start)
-{
-	char	*home;
-	char	*res;
-
-	home = ft_getenv(o, "HOME");
-	if (!home)
-		return (str);
-	if (start > 0)
-		res = ft_substr(str, 0, start);
-	else
-		res = ft_strdup("");
-	res = ft_strjoin_gnl(res, home);
-	res = replace_join(res, ft_substr(str, start + 1, ft_strlen(str) - start));
-	free(str);
-	free(home);
-	return (res);
 }
 
 char	*remove_quotes(char *str)

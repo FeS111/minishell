@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	g_in_executer;
+t_global	g_global;
 
 void	history(t_options *o)
 {
@@ -32,12 +32,10 @@ void	history(t_options *o)
 
 void	shell(t_options *o)
 {
-	char	*folder;
-
-	g_in_executer = 0;
-	folder = get_current_folder(o);
-	o->line = readline(folder);
-	free(folder);
+	g_global.in_executer = 0;
+	g_global.folder = get_current_folder();
+	o->line = readline(g_global.folder);
+	free(g_global.folder);
 	if (!o->line)
 		panic(o, 0);
 	if (lexer(o) == -1)
@@ -118,6 +116,8 @@ int	main(void)
 {
 	t_options		*o;
 
+	g_global.in_executer = 0;
+	g_global.status = 0;
 	o = create_options();
 	if (o->is_shell)
 		ft_printf("\e[1;1H\e[2J");

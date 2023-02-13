@@ -12,9 +12,11 @@
 
 #include "../include/minishell.h"
 
+extern t_global	g_global;
+
 void	redir_panic(t_options *o, int *i)
 {
-	o->last_status = 258;
+	g_global.status = 258;
 	if (!o->tokens[*i + 1])
 		panic_token("`newline'");
 	else

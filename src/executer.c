@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	g_in_executer;
+extern t_global g_global;
 
 void	do_op(t_options *o, t_parse_cmd *cmd)
 {
@@ -87,7 +87,7 @@ void	execute_cmd(t_options *o, int i, int *fd)
 	else
 	{
 		pid = execute_non_pipe(o, o->tables[i], fd);
-		set_status(o, pid);
+		set_status(pid);
 	}
 	close_fd(fd);
 }
@@ -104,16 +104,16 @@ void	executer(t_options *o)
 	{
 		if (!o->tables[i]->cmd->cmd)
 		{
-			o->last_status = 0;
+			g_global.status = 0;
 			close_fd(fd);
 			return ;
 		}
 		perror(o->tables[i]->cmd->cmd);
 		close_fd(fd);
-		o->last_status = 1;
+		g_global.status = 1;
 		return ;
 	}
-	g_in_executer = 1;
+	g_global.in_executer = 1;
 	if (o->tables[i])
 	{
 		execute_cmd(o, i, fd);

@@ -24,7 +24,7 @@ void	ft_env(t_options *o);
 void	ft_export(t_options *o, t_parse_cmd *cmd);
 void	ft_unset(t_options *o, t_parse_cmd *cmd);
 void	ft_cd(t_options *o, t_parse_cmd *cmd);
-void	ft_echo(t_options *o, t_parse_cmd *cmd);
-char	*show_status(t_options *o);
+void	ft_echo(t_parse_cmd *cmd);
+char	*show_status(void);
 void	print_export_error(t_options *o);
 #endif

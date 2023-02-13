@@ -29,8 +29,6 @@ static char	*handle_arg(t_options *o, t_eval eval)
 		eval.arg
 			= replace_variable(o, eval.arg, eval.j,
 				get_varlength(&eval.arg[eval.j]));
-	else if (eval.arg[eval.j] == '~')
-		eval.arg = replace_home(o, eval.arg, eval.j);
 	return (eval.arg);
 }
 

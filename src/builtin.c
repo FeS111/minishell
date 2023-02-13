@@ -12,7 +12,9 @@
 
 #include "../include/minishell.h"
 
-static int	validate_export(t_options *o, t_parse_cmd *cmd)
+extern t_global	g_global;
+
+static int	validate_export(t_parse_cmd *cmd)
 {
 	char	**tmp;
 	char	*err;
@@ -23,7 +25,7 @@ static int	validate_export(t_options *o, t_parse_cmd *cmd)
 		err = ft_strjoin_gnl(err, "': not a valid identifier");
 		ft_putendl_fd(err, 2);
 		free(err);
-		o->last_status = 256;
+		g_global.status = 256;
 		return (0);
 	}
 	tmp = ft_split(cmd->args[0], '=');
@@ -33,7 +35,7 @@ static int	validate_export(t_options *o, t_parse_cmd *cmd)
 		err = ft_strjoin_gnl(err, "': not a valid identifier");
 		ft_putendl_fd(err, 2);
 		free(err);
-		o->last_status = 256;
+		g_global.status = 256;
 		split_free(tmp);
 		return (0);
 	}
@@ -47,7 +49,7 @@ void	ft_export(t_options *o, t_parse_cmd *cmd)
 
 	if (!cmd->args || !cmd->args[0])
 		return (print_export_error(o));
-	if (!validate_export(o, cmd))
+	if (!validate_export(cmd))
 		return ;
 	tmp = split_first(cmd->args[0], '=');
 	if (tmp && tmp[0])
@@ -55,7 +57,7 @@ void	ft_export(t_options *o, t_parse_cmd *cmd)
 		remove_env(o, tmp[0]);
 		add_env(o, tmp[0], tmp[1]);
 		split_free(tmp);
-		o->last_status = 0;
+		g_global.status = 0;
 	}
 }
 
@@ -106,18 +108,21 @@ static char	*get_current_branch(void)
 	return (res);
 }
 
-char	*get_current_folder(t_options *o)
+char	*get_current_folder(void)
 {
 	char	**tmp;
+	char	*pwd;
 	char	*res;
 	int		i;
 	char	*branch;
 
-	tmp = ft_split(o->pwd, '/');
+	pwd = get_pwd();
+	tmp = ft_split(pwd, '/');
+	free(pwd);
 	i = 0;
 	while (tmp[i])
 		i++;
-	res = show_status(o);
+	res = show_status();
 	if (i == 0)
 		res = ft_strjoin_gnl(res, "/");
 	else

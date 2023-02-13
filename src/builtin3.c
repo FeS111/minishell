@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+extern t_global	g_global;
+
 void	ft_cd(t_options *o, t_parse_cmd *cmd)
 {
 	char	*path;
@@ -27,14 +29,14 @@ void	ft_cd(t_options *o, t_parse_cmd *cmd)
 	if (chdir(path) != 0)
 	{
 		ft_putendl_fd("cd: No such file or directory", 2);
-		o->last_status = 256;
+		g_global.status = 256;
 		free(path);
 		return ;
 	}
 	free(path);
 	free(o->pwd);
 	o->pwd = get_pwd();
-	o->last_status = 0;
+	g_global.status = 0;
 }
 
 char	*ft_getenv(t_options *o, char *name)
@@ -66,13 +68,13 @@ char	*ft_getenv(t_options *o, char *name)
 	return (res);
 }
 
-char	*show_status(t_options *o)
+char	*show_status(void)
 {
 	char	*color;
 	char	*res;
 
 	res = "";
-	if (o->last_status == 0)
+	if (g_global.status == 0)
 		color = "\033[32m";
 	else
 		color = "\033[31m";
@@ -91,7 +93,7 @@ void	ft_exit(t_options *o, t_parse_cmd *cmd)
 		i = -1;
 		while (cmd->args[++i])
 			if (!ft_isdigit(cmd->args[0][i]))
-				panic(o, 1);
+				panic(o, 255);
 		code = ft_atoi(cmd->args[0]);
 	}
 	panic(o, code);
