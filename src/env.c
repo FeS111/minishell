@@ -15,19 +15,14 @@
 void	add_env(t_options *o, char *name, char *value)
 {
 	int		i;
-	int		size;
 	char	**env;
 
-	size = 0;
 	if (!value)
 		return ;
-	while (o->env[size] != NULL)
-		size++;
-	env = malloc(sizeof(char *) * (size + 2));
+	env = malloc(sizeof(char *) * (split_size(o->env) + 2));
 	i = -1;
 	while (o->env[++i] != NULL)
 		env[i] = ft_strdup(o->env[i]);
-	size = 0;
 	env[i] = ft_strjoin_gnl(ft_strjoin(name, "="), value);
 	env[i + 1] = NULL;
 	split_free(o->env);
@@ -39,11 +34,9 @@ void	remove_env(t_options *o, char *name)
 	int		i;
 	int		j;
 	size_t	l;
-	int		size;
 	char	**env;
 
-	size = split_size(o->env);
-	env = malloc(sizeof(char *) * (size + 1));
+	env = malloc(sizeof(char *) * (split_size(o->env) + 1));
 	i = -1;
 	j = 0;
 	while (o->env[++i] != NULL)
