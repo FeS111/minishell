@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:15 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 14:42:22 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:14:59 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,17 @@ t_parse_table	*new_table(t_parse_cmd *cmd, int in, int out)
 
 void	free_cmd(t_parse_cmd *cmd)
 {
-	free(cmd->cmd);
-	free(cmd->opt);
-	free(cmd->opt2);
-	split_free(cmd->args);
+	if (!cmd)
+		return ;
+	if (cmd->cmd != NULL)
+		free(cmd->cmd);
+	ft_putendl_fd("free_cmd", 2);
+	if (cmd->opt)
+		free(cmd->opt);
+	if (cmd->opt2)
+		free(cmd->opt2);
+	if (cmd->args)
+		split_free(cmd->args);
 	free(cmd);
 }
 

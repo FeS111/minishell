@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:56 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 16:55:39 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:22:44 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ void	shell(t_options *o)
 // 		j = 0;
 // 		while (o->tables[j])
 // 		{
-// 			ft_printf("%s, %s, %s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->cmd->infile, o->tables[j]->cmd->outfile, o->tables[j]->in, o->tables[j]->out);
+// 			ft_printf("%s, %s, %s, %s, %s, %s, %i, %i\n",
+// 			o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt,
+// 			o->tables[j]->cmd->opt2,
+// 			o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL,
+// 			o->tables[j]->cmd->infile, o->tables[j]->cmd->outfile,
+// 			o->tables[j]->in, o->tables[j]->out);
 // 			j++;
 // 		}
 // 	}
@@ -93,7 +98,11 @@ void	shell(t_options *o)
 // 	j = 0;
 // 	while (o->tables[j])
 // 	{
-// 		ft_printf("%s, %s, %s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd, o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2, o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL, o->tables[j]->cmd->infile, o->tables[j]->cmd->outfile, o->tables[j]->in, o->tables[j]->out);
+// 		ft_printf("%s, %s, %s, %s, %s, %s, %i, %i\n", o->tables[j]->cmd->cmd,
+// 		o->tables[j]->cmd->opt, o->tables[j]->cmd->opt2,
+// 		o->tables[j]->cmd->args ? o->tables[j]->cmd->args[0] : NULL,
+// 		o->tables[j]->cmd->infile, o->tables[j]->cmd->outfile,
+// 		o->tables[j]->in, o->tables[j]->out);
 // 		j++;
 // 	}
 // 	ft_putendl_fd("==================================", 1);
@@ -118,6 +127,5 @@ int	main(void)
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 		shell(o);
-		// debug_shell(o);
 	panic(o, 0);
 }
