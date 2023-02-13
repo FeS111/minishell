@@ -47,7 +47,6 @@ void	free_cmd(t_parse_cmd *cmd)
 		return ;
 	if (cmd->cmd != NULL)
 		free(cmd->cmd);
-	ft_putendl_fd("free_cmd", 2);
 	if (cmd->opt)
 		free(cmd->opt);
 	if (cmd->opt2)
