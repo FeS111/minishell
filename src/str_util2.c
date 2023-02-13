@@ -31,3 +31,13 @@ char	*strtrim_front(char *str, char *set)
 	free(tmp);
 	return (res);
 }
+
+int	split_size(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split && split[i])
+		i++;
+	return (i);
+}

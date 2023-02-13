@@ -38,23 +38,23 @@ void	remove_env(t_options *o, char *name)
 {
 	int		i;
 	int		j;
+	size_t	l;
 	int		size;
 	char	**env;
 
-	size = 0;
-	while (o->env[size] != NULL)
-		size++;
+	size = split_size(o->env);
 	env = malloc(sizeof(char *) * (size + 1));
 	i = -1;
 	j = 0;
 	while (o->env[++i] != NULL)
 	{
-		if (!ft_strnstr(o->env[i], name,
-				ft_strchr(o->env[i], '=') - o->env[i]) + 1)
-		{
-			env[j] = ft_strdup(o->env[i]);
-			j++;
-		}
+		l = ft_strchr(o->env[i], '=') - o->env[i];
+		if (ft_strlen(name) > l)
+			l = ft_strlen(name);
+		if (ft_strncmp(o->env[i], name, l) == 0)
+			continue ;
+		env[j] = ft_strdup(o->env[i]);
+		j++;
 	}
 	env[j] = NULL;
 	split_free(o->env);
