@@ -27,3 +27,18 @@ void	ctrl_c_handler(int sig)
 		}
 	}
 }
+
+void	set_status(t_options *o, pid_t last_child)
+{
+	waitpid(last_child, &o->last_status, 0);
+	if (WIFSIGNALED(o->last_status))
+	{
+		o->last_status = WTERMSIG(o->last_status);
+		if (o->last_status == 2)
+			o->last_status = 130;
+		else
+			o->last_status = 131;
+	}
+	else
+		o->last_status = WEXITSTATUS(o->last_status);
+}

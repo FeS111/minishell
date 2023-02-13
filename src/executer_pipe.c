@@ -99,8 +99,7 @@ void	execute_pipe(t_options *o, int *i, int *fd)
 		fd[0] = run_pipe(o, i, fd, &last_child);
 		*i += 1;
 	}
-	waitpid(last_child, &o->last_status, 0);
-	o->last_status = WEXITSTATUS(o->last_status);
+	set_status(o, last_child);
 	while (pipe)
 	{
 		pipe--;

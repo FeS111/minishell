@@ -82,4 +82,5 @@ void		remove_env(t_options *o, char *name);
 char		**split_first(char *str, char c);
 char		*strtrim_front(char *str, char *set);
 int			split_size(char **split);
+void		set_status(t_options *o, pid_t last_child);
 #endif

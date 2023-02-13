@@ -87,8 +87,7 @@ void	execute_cmd(t_options *o, int i, int *fd)
 	else
 	{
 		pid = execute_non_pipe(o, o->tables[i], fd);
-		waitpid(pid, &o->last_status, 0);
-		o->last_status = WEXITSTATUS(o->last_status);
+		set_status(o, pid);
 	}
 	close_fd(fd);
 }
