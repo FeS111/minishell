@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 13:52:29 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:56:16 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 
 int	get_in_pipe(t_parse_table **table, int oldfd, int i)
 {
-	if (oldfd > 2 && table[i]->in != PIPE && table[i + 1])
+	if (oldfd > 2 && table[i]->in != PIPE_FD && table[i + 1])
 	{
 		close(oldfd);
 		return (open(table[i]->cmd->infile, O_RDONLY));
