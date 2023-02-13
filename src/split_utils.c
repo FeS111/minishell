@@ -38,7 +38,7 @@ char	*strjoinn(char **arr, char *c, int start, int end)
 		free(res);
 		res = ft_strdup(tmp);
 		free(tmp);
-		if (i < end)
+		if (i < end && arr[i + 1])
 		{
 			tmp = ft_strjoin(res, c);
 			free(res);
