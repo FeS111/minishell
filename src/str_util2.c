@@ -20,7 +20,7 @@ char	*strtrim_front(char *str, char *set)
 	char	*tmp;
 
 	i = 0;
-	tmp = ft_calloc(sizeof(char), ft_strlen(str));
+	tmp = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	while (str[i] != '\0' && ft_strchr(set, str[i]))
 		++i;
 	i -= 1;
