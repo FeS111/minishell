@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 16:02:32 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:52:29 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	run_pipe(t_options *o, int *i, int *fd, pid_t *last_child)
 	pid_t	child;
 
 	fd[0] = get_in_pipe(o->tables, fd[0], *i);
-	if (fd[1] != STDOUT_FILENO)
+	if (o->tables[*i]->out == WRITE)
 	{
-		close(fd[1]);
+		if (fd[1] != STDOUT_FILENO)
+			close(fd[1]);
 		fd[1] = get_out(o->tables[*i]);
 	}
 	if (pipe(pipefd) == -1)
@@ -84,6 +85,8 @@ int	run_pipe(t_options *o, int *i, int *fd, pid_t *last_child)
 	if (o->pipes < 0)
 		*last_child = child;
 	close(fd[0]);
+	if (fd[1] != STDOUT_FILENO)
+		close(fd[1]);
 	close(pipefd[1]);
 	return (pipefd[0]);
 }
