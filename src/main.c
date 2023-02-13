@@ -36,7 +36,7 @@ void	shell(t_options *o)
 	g_global.in_executer = 0;
 	folder = get_current_folder(o->pwd);
 	o->line = readline(folder);
-	free(g_global.folder);
+	free(folder);
 	if (!o->line)
 		panic(o, 0);
 	if (lexer(o) == -1)
