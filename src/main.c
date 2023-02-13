@@ -32,9 +32,10 @@ void	history(t_options *o)
 
 void	shell(t_options *o)
 {
+	char	*folder;
 	g_global.in_executer = 0;
-	g_global.folder = get_current_folder(o->pwd);
-	o->line = readline(g_global.folder);
+	folder = get_current_folder(o->pwd);
+	o->line = readline(folder);
 	free(g_global.folder);
 	if (!o->line)
 		panic(o, 0);
