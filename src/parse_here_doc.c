@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 14:49:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:21:16 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 	char	*line;
 
 	line = readline("heredoc> ");
-	if (!line || !ft_strncmp(line, deli,
-			ft_strlen(line)))
+	if (!ft_strncmp(line, deli,
+			ft_strlen(deli)))
 		return (free(line), 0);
 	if (line && *line)
 	{
@@ -50,6 +50,7 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 	int		replace;
 	int		run;
 	char	*deli;
+	pid_t	child;
 
 	replace = 1;
 	in[0] = HEREDOC;
@@ -62,9 +63,15 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 		deli = ft_strtrim(o->tokens[*i + 1]->value, "'\"");
 	}
 	run = 1;
-	while (run)
-		run = handle_heredoc(o, deli, replace, fd);
-	free(deli);
-	close(fd);
-	return (NULL);
+	child = fork();
+	if (child == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		while (run)
+			run = handle_heredoc(o, deli, replace, fd);
+		wait(NULL);
+		exit(0);
+	}	
+	return (waitpid(child, NULL, 0), free(deli), close(fd), NULL);
 }
