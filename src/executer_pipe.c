@@ -6,14 +6,17 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 19:39:23 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:02:32 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <unistd.h>
 
 int	fork_builtin(t_options *o, t_parse_cmd *cmd)
 {
+	if (!cmd->cmd)
+		return (0);
 	if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
 		return (ft_echo(o, cmd), 1);
 	if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
@@ -38,7 +41,7 @@ void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 	close(pipefd[0]);
 	if (o->pipes > 0)
 		dup2(pipefd[1], STDOUT_FILENO);
-	if (o->pipes == 0 && fd[1] != STDOUT_FILENO)
+	if (fd[1] != STDOUT_FILENO)
 	{
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
@@ -49,11 +52,27 @@ void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 	do_op(o, cmd);
 }
 
+int	get_in_pipe(t_parse_table **table, int oldfd, int i)
+{
+	if (oldfd > 2 && table[i]->in != PIPE && table[i + 1])
+	{
+		close(oldfd);
+		return (open(table[i]->cmd->infile, O_RDONLY));
+	}
+	return (oldfd);
+}
+
 int	run_pipe(t_options *o, int *i, int *fd, pid_t *last_child)
 {
 	int		pipefd[2];
 	pid_t	child;
 
+	fd[0] = get_in_pipe(o->tables, fd[0], *i);
+	if (fd[1] != STDOUT_FILENO)
+	{
+		close(fd[1]);
+		fd[1] = get_out(o->tables[*i]);
+	}
 	if (pipe(pipefd) == -1)
 		panic(o, 1);
 	child = fork();
@@ -77,8 +96,6 @@ void	execute_pipe(t_options *o, int *i, int *fd)
 	pipe = o->pipes;
 	while (o->tables[*i] && o->pipes >= 0)
 	{
-		if (!ft_strncmp(o->tables[*i]->cmd->cmd, "here_doc", 9))
-			*i += 1;
 		fd[0] = run_pipe(o, i, fd, &last_child);
 		*i += 1;
 	}

@@ -6,12 +6,11 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:18 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/08 10:20:20 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:11:24 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stdlib.h>
 
 void	panic(t_options *o, int code)
 {

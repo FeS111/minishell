@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:53 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:55 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/12 16:57:10 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,27 @@ t_token	*get_token(char *charset)
 	return (NULL);
 }
 
+int	is_only_whitespace(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!is_whitespace(line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	lexer(t_options *o)
 {
 	t_token	**tokens;
 	int		i;
 	int		j;
 
-	if (!ft_strlen(o->line))
+	if (!ft_strlen(o->line) || is_only_whitespace(o->line))
 		return (-1);
 	i = 0;
 	j = 0;

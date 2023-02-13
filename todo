@@ -1,2 +1,3 @@
 Todos:
-	-heredoc better inputcheck and >> append mode
+	-export same variabel name should replace old variabel
+	

@@ -6,12 +6,11 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 17:16:05 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:14:14 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stdlib.h>
 
 int	g_in_executer;
 
@@ -20,11 +19,10 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 	char	*binary;
 	char	**args;
 
+	if (!cmd->cmd)
+		return (free_options(o), exit(0));
 	if (fork_builtin(o, cmd))
-	{
-		free_options(o);
-		exit(0);
-	}
+		return (free_options(o), exit(0));
 	binary = search_binary(o, cmd->cmd);
 	if (!binary)
 		return (free_options(o), exit(127));
@@ -39,6 +37,8 @@ void	do_op(t_options *o, t_parse_cmd *cmd)
 
 int	try_builtin(t_options *o, t_parse_cmd *cmd)
 {
+	if (!cmd->cmd)
+		return (0);
 	if (ft_strncmp(cmd->cmd, "cd\0", 3) == 0)
 		return (ft_cd(o, cmd), 1);
 	if (ft_strncmp(cmd->cmd, "export\0", 7) == 0)
@@ -58,7 +58,7 @@ static int	execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 		return (-1);
 	child = fork();
 	if (child < 0)
-		panic(o, 1);
+		panic(o, EXIT_FAILURE);
 	if (child == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
@@ -82,11 +82,9 @@ void	execute_cmd(t_options *o, int i, int *fd)
 {
 	pid_t	pid;
 
-	if (o->pipes > 0 && o->tables[i]->out != WRITE && o->tables[i]->in != READ
-		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+	if (o->pipes > 0)
 		execute_pipe(o, &i, fd);
-	else if (o->tables[i]->out != WRITE && o->tables[i]->in != READ
-		&& ft_strncmp(o->tables[i]->cmd->cmd, "here_doc", 9))
+	else
 	{
 		pid = execute_non_pipe(o, o->tables[i], fd);
 		waitpid(pid, &o->last_status, 0);
@@ -101,10 +99,16 @@ void	executer(t_options *o)
 	int		fd[2];
 
 	i = 0;
-	fd[0] = get_in(o->tables);
-	fd[1] = get_out(o->tables);
+	fd[0] = get_in(o->tables[i]);
+	fd[1] = get_out(o->tables[i]);
 	if (fd[1] == -1)
 	{
+		if (!o->tables[i]->cmd->cmd)
+		{
+			o->last_status = 0;
+			close_fd(fd);
+			return ;
+		}
 		perror(o->tables[i]->cmd->cmd);
 		close_fd(fd);
 		o->last_status = 1;
@@ -113,8 +117,6 @@ void	executer(t_options *o)
 	g_in_executer = 1;
 	if (o->tables[i])
 	{
-		if (o->tables[i]->in == READ && o->tables[i + 1])
-			i++;
 		execute_cmd(o, i, fd);
 		i++;
 	}

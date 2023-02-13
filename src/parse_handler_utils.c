@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:05 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:56:07 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/12 11:06:42 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_parse_cmd	*new_cmd(char *cmd, char *opt, char *opt2, char **args)
 	new_cmd->opt = opt;
 	new_cmd->opt2 = opt2;
 	new_cmd->args = args;
+	new_cmd->infile = NULL;
+	new_cmd->outfile = NULL;
 	return (new_cmd);
 }
 

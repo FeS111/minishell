@@ -6,33 +6,49 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:01 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 11:07:33 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:50:38 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_parse_cmd	*left_redir(t_token **tokens, int *in, int *out, int *i)
+char	*get_infile(t_options *o, int *i, int *fd, char *infile)
 {
-	*out = STD_OUTPUT;
-	*i += 1;
-	*in = READ;
-	return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL));
+	if (!o->tokens[*i])
+		return (infile);
+	if (!ft_strncmp(o->tokens[*i]->value, "<", 2))
+	{
+		fd[0] = READ;
+		return (o->tokens[*i + 1]->value);
+	}
+	else if (!ft_strncmp(o->tokens[*i]->value, "<<", 3))
+	{
+		here_doc(o, fd, i);
+		return ("here_doc");
+	}
+	return (infile);
 }
 
-t_parse_cmd	*right_redir(t_token **tokens, int *in, int *out, int *i)
+char	*get_outfile(t_options *o, int *i, int *fd, char *outfile)
 {
-	if (tokens[*i + 1])
+	int	outfd;
+
+	if (!o->tokens[*i])
+		return (outfile);
+	if (!ft_strncmp(o->tokens[*i]->value, ">", 2))
 	{
-		*i += 1;
-		*out = WRITE;
-		*in = STD_INPUT;
-		if (!ft_strncmp(tokens[*i - 1]->value, ">>", 3))
-			return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL,
-					ft_split(tokens[*i - 1]->value, 0)));
-		return (new_cmd(ft_strdup(tokens[*i]->value), NULL, NULL, NULL));
+		fd[1] = WRITE;
+		outfd = open(o->tokens[*i + 1]->value,
+				O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		close(outfd);
+		return (o->tokens[*i + 1]->value);
 	}
-	else
-		return (panic_token("`newline'"), NULL);
-	return (NULL);
+	else if (!ft_strncmp(o->tokens[*i]->value, ">>", 3))
+	{
+		fd[1] = APPEND;
+		outfd = open(o->tokens[*i + 1]->value, O_CREAT | O_WRONLY, 0644);
+		close(outfd);
+		return (o->tokens[*i + 1]->value);
+	}
+	return (outfile);
 }

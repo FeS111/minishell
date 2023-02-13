@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/11 11:07:49 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:18:27 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,67 +21,73 @@ void	redir_panic(t_options *o, int *i)
 		panic_token(o->tokens[*i + 1]->value);
 }
 
-t_parse_cmd	*handle_io(t_options *o, int *in, int *out, int *i)
-{
-	if (!ft_strncmp(o->tokens[*i]->value, "<<", 3))
-	{
-		if (!o->tokens[*i + 1] || o->tokens[*i + 1]->type == IO)
-			return (redir_panic(o, i), NULL);
-		return (here_doc(o, in, out, i));
-	}
-	else if (!ft_strncmp(o->tokens[*i]->value, "<", 2))
-	{
-		if (!o->tokens[*i + 1] || o->tokens[*i + 1]->type != WORD)
-			return (redir_panic(o, i), NULL);
-		return (left_redir(o->tokens, in, out, i));
-	}
-	else if (!ft_strncmp(o->tokens[*i]->value, ">", 1))
-		return (right_redir(o->tokens, in, out, i));
-	return (NULL);
-}
-
-t_parse_cmd	*join_args(t_token **tokens, int *i, char *word)
-{
-	char		*tmp;
-	char		**tmp3;
-	int			j;
-
-	tmp = NULL;
-	tmp3 = ft_calloc(sizeof(char *), token_size(tokens) + 1);
-	j = -1;
-	while (tokens[*i])
-	{
-		if (tokens[*i] && tokens[*i]->type == OPTION)
-		{
-			if (tmp)
-				tmp = ft_strjoin_gnl(tmp, " ");
-			tmp = ft_strjoin_gnl(tmp, tokens[*i]->value);
-		}
-		if (tokens[*i] && is_woo2(tokens[*i]->type))
-			tmp3[++j] = ft_strdup(tokens[*i]->value);
-		if (tokens[*i] && !is_woo2(tokens[*i]->type))
-			break ;
-		*i += 1;
-	}
-	return (new_cmd(word, tmp, NULL, tmp3));
-}
-
-t_parse_cmd	*handle_word(t_token **tokens, int *in, int *out, int *i)
+t_parse_cmd	*check_io(t_options *o, int *i, int *fd)
 {
 	t_parse_cmd	*new;
-	char		*word;
+	char		*infile;
+	char		*outfile;
 
-	*out = STD_OUTPUT;
-	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == PIPE)
-		*in = PIPE_FD;
-	if (*i > 0 && tokens[*i]->value && tokens[*i - 1]->type == IO)
-		*out = WRITE;
-	word = ft_strdup(tokens[*i]->value);
-	*i += 1;
-	new = join_args(tokens, i, word);
-	if (tokens[*i] && tokens[*i]->type == PIPE)
-		*out = PIPE_FD;
-	if (tokens[*i] && tokens[*i]->type == IO)
-		*i -= 1;
+	new = new_cmd(NULL, NULL, NULL, NULL);
+	infile = NULL;
+	outfile = NULL;
+	if (o->tokens[*i]->type == IO)
+	{
+		infile = get_infile(o, i, fd, infile);
+		outfile = get_outfile(o, i, fd, outfile);
+		*i += 2;
+	}
+	if (o->tokens[*i] && o->tokens[*i]->type == PIPE)
+		fd[1] = PIPE;
+	if (o->tokens[*i] && o->tokens[*i]->type == IO)
+		check_io(o, i, fd);
+	new->infile = infile;
+	new->outfile = outfile;
+	return (new);
+}
+
+void	get_args(t_options *o, t_parse_cmd *new, int *i, int *fd)
+{
+	int	j;
+
+	j = -1;
+	while (o->tokens[*i] && o->tokens[*i]->type != PIPE)
+	{
+		if (o->tokens[*i]->type == IO)
+		{
+			new->infile = get_infile(o, i, fd, new->infile);
+			new->outfile = get_outfile(o, i, fd, new->outfile);
+			*i += 2;
+			continue ;
+		}
+		if (o->tokens[*i] && o->tokens[*i]->type == OPTION)
+		{
+			if (new->opt)
+				new->opt = ft_strjoin_gnl(new->opt, " ");
+			new->opt = ft_strjoin_gnl(new->opt, o->tokens[*i]->value);
+		}
+		if (o->tokens[*i] && is_woo2(o->tokens[*i]->type))
+			new->args[++j] = ft_strdup(o->tokens[*i]->value);
+		*i += 1;
+	}
+}
+
+t_parse_cmd	*handle_token(t_options *o, int *fd, int *i)
+{
+	t_parse_cmd	*new;
+
+	new = NULL;
+	fd[1] = STD_OUTPUT;
+	if (*i > 0 && o->tokens[*i]->value && o->tokens[*i - 1]->type == PIPE)
+		fd[0] = PIPE_FD;
+	new = check_io(o, i, fd);
+	if (o->tokens[*i] && o->tokens[*i]->type == PIPE)
+		return (new);
+	if (o->tokens[*i])
+	{
+		new->cmd = ft_strdup(o->tokens[*i]->value);
+		new->args = ft_calloc(sizeof(char *), token_size(o->tokens) + 1);
+		*i += 1;
+	}
+	get_args(o, new, i, fd);
 	return (new);
 }

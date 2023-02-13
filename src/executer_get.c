@@ -6,61 +6,28 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 19:39:08 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:15:46 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	get_in(t_parse_table **tables)
+int	get_in(t_parse_table *table)
 {
-	int	i;
-
-	i = 0;
-	while (tables[i])
-		i++;
-	i -= 1;
-	while (i >= 0)
-	{
-		if (tables[i]->in == READ)
-		{
-			if (!ft_strncmp(tables[i]->cmd->cmd, "here_doc", 9))
-				return (open("here_doc", O_RDONLY));
-			else
-				return (open(tables[i]->cmd->cmd, O_RDONLY));
-		}
-		i--;
-	}
+	if (table->in == READ)
+		return (open(table->cmd->infile, O_RDONLY));
+	else if (table->in == HEREDOC)
+		return (open("here_doc", O_RDONLY));
 	return (dup(STDIN_FILENO));
 }
 
-int	get_out(t_parse_table **tables)
+int	get_out(t_parse_table *table)
 {
-	int	i;
-	int	fd;
-
-	i = 0;
-	while (tables[i])
-	{
-		if (tables[i]->out == WRITE && tables[i]->cmd->cmd)
-		{
-			if (tables[i]->cmd->args && tables[i]->cmd->args[0]
-				&& !ft_strncmp(tables[i]->cmd->args[0], ">>", 2))
-			{
-				fd = open(tables[i]->cmd->cmd, O_APPEND | O_WRONLY, 0644);
-				close (fd);
-			}
-			else
-			{
-				fd = open(tables[i]->cmd->cmd,
-						O_CREAT | O_TRUNC | O_WRONLY, 0644);
-				close(fd);
-			}
-		}
-		i++;
-	}
-	i -= 1;
-	return (get_out_fd(tables, i));
+	if (table->out == WRITE)
+		return (open(table->cmd->outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644));
+	else if (table->out == APPEND)
+		return (open(table->cmd->outfile, O_CREAT | O_APPEND, 0644));
+	return (STDOUT_FILENO);
 }
 
 char	**get_paths(t_options *o)
@@ -83,7 +50,7 @@ char	*search_binary(t_options *o, char *cmd)
 
 	if (cmd[0] == '/' && access(cmd, X_OK) >= 0)
 		return (ft_strdup(cmd));
-	if (!strncmp(cmd, "./", 2))
+	if (!ft_strncmp(cmd, "./", 2))
 		return (ft_strdup(cmd));
 	i = 0;
 	split_free(o->paths);

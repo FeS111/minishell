@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:56:13 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/12 14:49:34 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 	return (1);
 }
 
-t_parse_cmd	*here_doc(t_options *o, int *in, int *out, int *i)
+t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 {
 	int		fd;
 	int		replace;
@@ -54,10 +54,7 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *out, int *i)
 	char	*deli;
 
 	replace = 1;
-	*in = READ;
-	*out = STDOUT_FILENO;
-	if (o->tokens[*i + 2] && o->tokens[*i + 2]->type == PIPE)
-		*out = PIPE_FD;
+	in[0] = HEREDOC;
 	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	deli = ft_strdup(o->tokens[*i + 1]->value);
 	if (ft_strchr("'\"", deli[0]) && ft_strchr("'\"", deli[ft_strlen(deli) - 1]))
@@ -71,6 +68,5 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *out, int *i)
 		run = handle_heredoc(o, deli, replace, fd);
 	free(deli);
 	close(fd);
-	*i += 2;
-	return (new_cmd(ft_strdup("here_doc"), NULL, NULL, NULL));
+	return (NULL);
 }
