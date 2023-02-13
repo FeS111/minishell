@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:43 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 16:14:14 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:03:32 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
+		if (fd[0] == -1)
+			safe_quit_open_error(o, fd, NULL, cmd->cmd->infile);
 		if (fd[1] != STDOUT_FILENO)
 		{
 			dup2(fd[1], STDOUT_FILENO);
@@ -72,9 +74,7 @@ static int	execute_non_pipe(t_options *o, t_parse_table *cmd, int *fd)
 		close(fd[0]);
 		do_op(o, cmd->cmd);
 	}
-	if (fd[1] != STDOUT_FILENO)
-		close(fd[1]);
-	close(fd[0]);
+	close_fd(fd);
 	return (child);
 }
 

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 14:15:46 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:00:06 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ char	*search_binary(t_options *o, char *cmd)
 	char	*absolute_path;
 	int		i;
 
-	if (cmd[0] == '/' && access(cmd, X_OK) >= 0)
-		return (ft_strdup(cmd));
-	if (!ft_strncmp(cmd, "./", 2))
+	if (!ft_strlen(cmd))
+		return (ft_putendl_fd(" : command not found", 2), NULL);
+	if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
 		return (ft_strdup(cmd));
 	i = 0;
 	split_free(o->paths);
