@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:53 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 16:57:10 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:11:17 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	lexer(t_options *o)
 		}
 		i++;
 	}
+	if (!tokens[0])
+		return (free(tokens), -1);
 	o->tokens = tokens;
 	return (0);
 }

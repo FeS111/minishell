@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:40 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 14:56:16 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:33:03 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	execute_child(t_options *o, t_parse_cmd *cmd, int *fd, int *pipefd)
 {
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
+	if (fd[0] == -1)
+		safe_quit_open_error(o, fd, NULL, cmd->infile);
 	close(pipefd[0]);
 	if (o->pipes > 0)
 		dup2(pipefd[1], STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:05 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 11:31:04 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:24:57 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,6 @@ char		**split_first(char *str, char c);
 char		*strtrim_front(char *str, char *set);
 int			split_size(char **split);
 void		set_status(t_options *o, pid_t last_child);
+void		safe_quit_open_error(t_options *o, int *fd, int *pipefd,
+									char *file);
 #endif

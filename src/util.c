@@ -6,11 +6,21 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:35 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 11:30:59 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:31:28 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	safe_quit_open_error(t_options *o, int *fd, int *pipefd, char *file)
+{
+	close_fd(fd);
+	close_fd(pipefd);
+	free_options(o);
+	ft_putstr_fd(file, 2);
+	ft_putendl_fd(": No such file or directory", 2);
+	exit(EXIT_FAILURE);
+}
 
 t_options	*create_options(void)
 {
@@ -53,7 +63,10 @@ void	free_options(t_options *o)
 
 void	close_fd(int *fd)
 {
-	close(fd[0]);
-	if (fd[1] != STDOUT_FILENO)
-		close (fd[1]);
+	if (fd)
+	{
+		close(fd[0]);
+		if (fd[1] != STDOUT_FILENO)
+			close (fd[1]);
+	}
 }
