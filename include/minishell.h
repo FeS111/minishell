@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:05 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 15:24:57 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:28:55 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_global
 {
 	int		in_executer;
 	int		status;
-	char	*folder;
 }	t_global;
 
 void		set_fd(int *fd);

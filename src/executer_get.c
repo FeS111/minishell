@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 16:00:06 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:29:40 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_out(t_parse_table *table)
 	if (table->out == WRITE)
 		return (open(table->cmd->outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644));
 	else if (table->out == APPEND)
-		return (open(table->cmd->outfile, O_CREAT | O_APPEND, 0644));
+		return (open(table->cmd->outfile, O_CREAT | O_APPEND | O_WRONLY, 0644));
 	return (STDOUT_FILENO);
 }
 

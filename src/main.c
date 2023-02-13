@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:56 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 13:42:00 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:30:18 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	history(t_options *o)
 void	shell(t_options *o)
 {
 	char	*folder;
+
 	g_global.in_executer = 0;
 	folder = get_current_folder(o->pwd);
 	o->line = readline(folder);
