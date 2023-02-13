@@ -33,7 +33,7 @@ void	history(t_options *o)
 void	shell(t_options *o)
 {
 	g_global.in_executer = 0;
-	g_global.folder = get_current_folder();
+	g_global.folder = get_current_folder(o->pwd);
 	o->line = readline(g_global.folder);
 	free(g_global.folder);
 	if (!o->line)

@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <unistd.h>
 
-extern t_global g_global;
+extern t_global	g_global;
 
 void	ctrl_c_handler(int sig)
 {

@@ -80,12 +80,13 @@ char		*str_replace(t_replace_options options);
 char		*replace_join(char *one, char *two);
 char		*str_remove_char(char *str, char c);
 char		*ft_getenv(t_options *o, char *name);
-char		*get_current_folder(void);
+char		*get_current_folder(char *pwd);
 void		add_env(t_options *o, char *name, char *value);
 void		remove_env(t_options *o, char *name);
 char		**split_first(char *str, char c);
 char		*strtrim_front(char *str, char *set);
 int			split_size(char **split);
 void		set_status(pid_t last_child);
-void		safe_quit_open_error(t_options *o, int *fd, int *pipefd, char *file);
+void		safe_quit_open_error(t_options *o, int *fd,
+				int *pipefd, char *file);
 #endif

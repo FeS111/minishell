@@ -108,17 +108,14 @@ static char	*get_current_branch(void)
 	return (res);
 }
 
-char	*get_current_folder(void)
+char	*get_current_folder(char *pwd)
 {
 	char	**tmp;
-	char	*pwd;
 	char	*res;
 	int		i;
 	char	*branch;
 
-	pwd = get_pwd();
 	tmp = ft_split(pwd, '/');
-	free(pwd);
 	i = 0;
 	while (tmp[i])
 		i++;
@@ -127,7 +124,6 @@ char	*get_current_folder(void)
 		res = ft_strjoin_gnl(res, "/");
 	else
 		res = ft_strjoin_gnl(res, tmp[i - 1]);
-	split_free(tmp);
 	branch = get_current_branch();
 	if (branch)
 	{
@@ -137,5 +133,5 @@ char	*get_current_folder(void)
 		res = ft_strjoin_gnl(res, "\033[0;35m)\033[0;0m");
 	}
 	res = ft_strjoin_gnl(res, " > ");
-	return (res);
+	return (split_free(tmp), res);
 }

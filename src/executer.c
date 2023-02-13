@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-extern t_global g_global;
+extern t_global	g_global;
 
 void	do_op(t_options *o, t_parse_cmd *cmd)
 {
