@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <unistd.h>
 
 extern t_global g_global;
 
@@ -24,6 +25,7 @@ void	ctrl_c_handler(int sig)
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
+			g_global.status = 1;
 		}
 	}
 }
