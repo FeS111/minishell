@@ -15,19 +15,14 @@
 void	add_env(t_options *o, char *name, char *value)
 {
 	int		i;
-	int		size;
 	char	**env;
 
-	size = 0;
 	if (!value)
 		return ;
-	while (o->env[size] != NULL)
-		size++;
-	env = malloc(sizeof(char *) * (size + 2));
+	env = malloc(sizeof(char *) * (split_size(o->env) + 2));
 	i = -1;
 	while (o->env[++i] != NULL)
 		env[i] = ft_strdup(o->env[i]);
-	size = 0;
 	env[i] = ft_strjoin_gnl(ft_strjoin(name, "="), value);
 	env[i + 1] = NULL;
 	split_free(o->env);
@@ -38,23 +33,21 @@ void	remove_env(t_options *o, char *name)
 {
 	int		i;
 	int		j;
-	int		size;
+	size_t	l;
 	char	**env;
 
-	size = 0;
-	while (o->env[size] != NULL)
-		size++;
-	env = malloc(sizeof(char *) * (size + 1));
+	env = malloc(sizeof(char *) * (split_size(o->env) + 1));
 	i = -1;
 	j = 0;
 	while (o->env[++i] != NULL)
 	{
-		if (!ft_strnstr(o->env[i], name, ft_strlen(name)))
-				// ft_strchr(o->env[i], '=') - o->env[i]) + 1)
-		{
-			env[j] = ft_strdup(o->env[i]);
-			j++;
-		}
+		l = ft_strchr(o->env[i], '=') - o->env[i];
+		if (ft_strlen(name) > l)
+			l = ft_strlen(name);
+		if (ft_strncmp(o->env[i], name, l) == 0)
+			continue ;
+		env[j] = ft_strdup(o->env[i]);
+		j++;
 	}
 	env[j] = NULL;
 	split_free(o->env);
