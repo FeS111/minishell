@@ -58,12 +58,12 @@ void	ft_echo(t_parse_cmd *cmd)
 	tmp = strjoinn(cmd->args, " ", 0, l);
 	if (cmd->opt)
 	{
-		tmp3 = ft_strjoin(" ", cmd->opt);
-		tmp2 = strtrim_front(tmp, tmp3);
+		tmp3 = strtrim_front(tmp, cmd->opt);
+		tmp2 = ft_substr(tmp3, 1, ft_strlen(tmp3) - 1);
 		free(tmp3);
 	}
 	else
-		tmp2 = strtrim_front(tmp, " ");
+		tmp2 = ft_strdup(tmp);
 	free(tmp);
 	if (cmd->opt && ft_strncmp(cmd->opt, "-n", 2) == 0)
 		ft_putstr_fd(tmp2, 1);

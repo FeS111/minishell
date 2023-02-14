@@ -48,13 +48,13 @@ void	shell(t_options *o)
 	executer(o);
 	history(o);
 }
-
+//
 // void	debug_shell(t_options *o)
 // {
 // 	char	*folder;
 // 	int		j;
 //
-// 	g_global.in_executer = 0;
+// 	g_global.mode = 0;
 // 	folder = get_current_folder(o->pwd);
 // 	o->line = readline(folder);
 // 	free(folder);
