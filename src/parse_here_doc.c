@@ -87,6 +87,6 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 		free_options(o);
 		free(deli);
 		exit(0);
-	}	
+	}
 	return (free(deli), close(fd), waitpid(child, NULL, 0), NULL);
 }

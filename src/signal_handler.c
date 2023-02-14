@@ -19,11 +19,16 @@ void	ctrl_c_handler(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putchar_fd('\n', 1);
-		if (!g_global.in_executer)
+		if (g_global.mode == 0)
 		{
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
+			g_global.status = 1;
+		}
+		else if (g_global.mode == 2)
+		{
+			g_global.mode = 3;
 			g_global.status = 1;
 		}
 	}

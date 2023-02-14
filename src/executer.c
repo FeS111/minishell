@@ -82,6 +82,9 @@ void	execute_cmd(t_options *o, int i, int *fd)
 {
 	pid_t	pid;
 
+	if (g_global.mode == 3)
+		return ;
+	g_global.mode = 1;
 	if (o->pipes > 0)
 		execute_pipe(o, &i, fd);
 	else
@@ -113,7 +116,6 @@ void	executer(t_options *o)
 		g_global.status = 1;
 		return ;
 	}
-	g_global.in_executer = 1;
 	if (o->tables[i])
 	{
 		execute_cmd(o, i, fd);

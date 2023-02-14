@@ -56,7 +56,7 @@ typedef struct s_replace_options
 
 typedef struct s_global
 {
-	int		in_executer;
+	int		mode;
 	int		status;
 }	t_global;
 

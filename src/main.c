@@ -34,7 +34,7 @@ void	shell(t_options *o)
 {
 	char	*folder;
 
-	g_global.in_executer = 0;
+	g_global.mode = 0;
 	folder = get_current_folder(o->pwd);
 	o->line = readline(folder);
 	free(folder);
@@ -118,7 +118,7 @@ int	main(void)
 {
 	t_options		*o;
 
-	g_global.in_executer = 0;
+	g_global.mode = 0;
 	g_global.status = 0;
 	o = create_options();
 	if (o->is_shell)

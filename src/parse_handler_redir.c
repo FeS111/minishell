@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+extern t_global	g_global;
+
 char	*get_infile(t_options *o, int *i, int *fd, char *infile)
 {
 	if (!o->tokens[*i])
@@ -23,7 +25,11 @@ char	*get_infile(t_options *o, int *i, int *fd, char *infile)
 	}
 	else if (!ft_strncmp(o->tokens[*i]->value, "<<", 3))
 	{
+		g_global.mode = 2;
 		here_doc(o, fd, i);
+		if (g_global.mode == 2)
+			g_global.mode = 0;
+
 		return ("here_doc");
 	}
 	return (infile);
