@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:56 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 18:30:18 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 07:48:53 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	shell(t_options *o)
 // 	char	*folder;
 // 	int		j;
 //
-// 	g_in_executer = 0;
-// 	folder = get_current_folder(o);
+// 	g_global.in_executer = 0;
+// 	folder = get_current_folder(o->pwd);
 // 	o->line = readline(folder);
 // 	free(folder);
 // 	if (lexer(o) == -1)

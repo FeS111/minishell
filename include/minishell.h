@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:05 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 18:28:55 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 08:09:23 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ int			split_size(char **split);
 void		set_status(pid_t last_child);
 void		safe_quit_open_error(t_options *o, int *fd,
 				int *pipefd, char *file);
+int			count_occurrence(char *str, char c);
 #endif

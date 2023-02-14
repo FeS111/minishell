@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:50 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 17:30:23 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/14 08:13:23 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,24 @@ int	quote_count(char *str)
 	return (count);
 }
 
+int	single_quote_count(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (str[0] == ' ')
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 int	is_word(char *str, int end)
 {
 	int	i;
@@ -66,7 +84,8 @@ int	is_word(char *str, int end)
 			continue ;
 		}
 		if (ft_isalnum(str[i]) || ft_strchr("_$.{}[]~/!@=?+-\"\'", str[i])
-			|| (str[i] == ' ' && quote_count(str) % 2 == 0))
+			|| (str[i] == ' ' && quote_count(str) % 2 == 0)
+			|| (str[i] == ' ' && single_quote_count(str) % 2 == 0))
 			continue ;
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 19:21:16 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 08:58:12 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 	char	*line;
 
 	line = readline("heredoc> ");
-	if (!ft_strncmp(line, deli,
-			ft_strlen(deli)))
+	if (!ft_strncmp(line, deli, ft_strlen(deli)))
 		return (free(line), 0);
 	if (line && *line)
 	{
@@ -42,6 +41,25 @@ static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 		free(line);
 	}
 	return (1);
+}
+
+static char	*handle_delimiter(char *deli, int *replace)
+{
+	if (!ft_strncmp(deli, "\\\"", ft_strlen(deli))
+		|| !ft_strncmp(deli, "\\\'", ft_strlen(deli)))
+		deli = str_remove_char(deli, '\\');
+	else if (single_quote_count(deli) < 2 && quote_count(deli) < 2)
+	{
+		deli = str_remove_char(deli, '\'');
+		deli = str_remove_char(deli, '\"');
+		return (deli);
+	}
+	else if (single_quote_count(deli) % 2 == 0 && single_quote_count(deli) > 0)
+		deli = str_remove_char(deli, '\'');
+	else if (quote_count(deli) % 2 == 0 && quote_count(deli) > 0)
+		deli = str_remove_char(deli, '\"');
+	*replace = 0;
+	return (deli);
 }
 
 t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
@@ -56,12 +74,9 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 	in[0] = HEREDOC;
 	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	deli = ft_strdup(o->tokens[*i + 1]->value);
-	if (ft_strchr("'\"", deli[0]) && ft_strchr("'\"", deli[ft_strlen(deli) - 1]))
-	{
-		replace = 0;
-		free(deli);
-		deli = ft_strtrim(o->tokens[*i + 1]->value, "'\"");
-	}
+	if (!ft_strchr(deli, '\'') || !ft_strchr(deli, '\"'))
+		deli = handle_delimiter(deli, &replace);
+	ft_putendl_fd(deli, 2);
 	run = 1;
 	child = fork();
 	if (child == 0)

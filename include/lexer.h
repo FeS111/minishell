@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:02 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:53:04 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/14 08:13:20 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ t_token		*get_pipe(char *str);
 
 int			is_word(char *str, int end);
 int			quote_len(char *str);
+int			quote_count(char *str);
+int			single_quote_count(char *str);
 
 #endif

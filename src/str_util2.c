@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:30:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/10 17:30:45 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/14 08:08:32 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,20 @@ int	split_size(char **split)
 	while (split && split[i])
 		i++;
 	return (i);
+}
+
+int	count_occurrence(char *str, char c)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	return (count);
 }
