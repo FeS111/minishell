@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 10:23:57 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:49:36 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 	char	*line;
 
 	line = readline("heredoc> ");
-	if (!ft_strncmp(line, deli, ft_strlen(deli)))
+	if (!ft_strncmp(line, deli, ft_strlen(deli))
+		&& ft_strlen(deli) == ft_strlen(line))
 		return (free(line), 0);
 	if (line && *line)
 	{

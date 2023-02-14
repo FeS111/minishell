@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:01 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 14:50:38 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:51:00 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*get_infile(t_options *o, int *i, int *fd, char *infile)
 		here_doc(o, fd, i);
 		if (g_global.mode == 2)
 			g_global.mode = 0;
-
 		return ("here_doc");
 	}
 	return (infile);

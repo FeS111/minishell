@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:22 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 14:01:09 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/14 12:55:05 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	set_status(pid_t last_child)
 {
 	int	status;
 
+	if (last_child == -1)
+		return ;
 	waitpid(last_child, &status, 0);
 	if (WIFSIGNALED(status))
 	{
