@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 09:06:43 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:23:57 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 	deli = ft_strdup(o->tokens[*i + 1]->value);
 	if (!ft_strchr(deli, '\'') || !ft_strchr(deli, '\"'))
 		deli = handle_delimiter(deli, &replace);
-	ft_putendl_fd(deli, 2);
 	run = 1;
 	child = fork();
 	if (child == 0)

@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:30:39 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 08:08:32 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:14:00 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,32 @@ char	*strtrim_front(char *str, char *set)
 	res = ft_strdup(tmp);
 	free(tmp);
 	return (res);
+}
+
+char	*strtrim_one(char *str, char *set)
+{
+	int		i;
+	int		j;
+	int		last;
+	char	*trim;
+
+	if (!str || !*str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	last = ft_strlen(str) - 1;
+	trim = ft_calloc(ft_strlen(str), 1);
+	if (ft_strchr(set, str[last]))
+		last--;
+	if (ft_strchr(set, str[0]))
+		i++;
+	while (i <= last)
+	{
+		trim[j] = str[i];
+		j++;
+		i++;
+	}
+	return (free(str), trim);
 }
 
 int	split_size(char **split)

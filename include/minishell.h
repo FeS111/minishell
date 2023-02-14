@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:05 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 08:09:23 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:14:28 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		add_env(t_options *o, char *name, char *value);
 void		remove_env(t_options *o, char *name);
 char		**split_first(char *str, char c);
 char		*strtrim_front(char *str, char *set);
+char		*strtrim_one(char *str, char *set);
 int			split_size(char **split);
 void		set_status(pid_t last_child);
 void		safe_quit_open_error(t_options *o, int *fd,

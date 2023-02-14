@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:34 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 11:14:46 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:17:30 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ int	get_varlength(char *str)
 
 char	*remove_quotes(char *str)
 {
-	int	i;
+	int		i;
+	char	*trim;
 
 	i = -1;
-	while (str[++i])
+	trim = NULL;
+	if (str[0] == '"' || str[0] == '\'')
 	{
-		if (str[i] == '"' || str[i] == '\'')
-		{
-			str = str_remove_char(str, str[i]);
-			break ;
-		}
+		trim = strtrim_one(str, "\'\"");
+		trim = str_remove_char(trim, '\\');
+		return (trim);
 	}
 	return (str);
 }
