@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 13:18:27 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:16:25 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_parse_cmd	*check_io(t_options *o, int *i, int *fd)
 	char		*infile;
 	char		*outfile;
 
-	new = new_cmd(NULL, NULL, NULL, NULL);
 	infile = NULL;
 	outfile = NULL;
 	if (o->tokens[*i]->type == IO)
@@ -38,6 +37,7 @@ t_parse_cmd	*check_io(t_options *o, int *i, int *fd)
 		outfile = get_outfile(o, i, fd, outfile);
 		*i += 2;
 	}
+	new = new_cmd(NULL, NULL, NULL, NULL);
 	if (o->tokens[*i] && o->tokens[*i]->type == PIPE)
 		fd[1] = PIPE;
 	if (o->tokens[*i] && o->tokens[*i]->type == IO)

@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:18 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 14:41:37 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:11:13 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,22 @@ int	parser(t_options *o)
 {
 	int				i;
 	int				j;
-	t_parse_table	**tables;
 	int				fd[2];
 
 	i = 0;
 	j = 0;
 	set_fd(fd);
-	tables = ft_calloc(sizeof(t_parse_table *), token_size(o->tokens) + 1);
+	o->tables = ft_calloc(sizeof(t_parse_table *), token_size(o->tokens) + 1);
 	o->pipes = count_pipes(o->tokens);
 	while (o->tokens[i])
 	{
-		tables[j] = new_table(build_cmd(o, fd, &i), fd[0], fd[1]);
-		if (!tables[j])
-		{
-			o->tables = tables;
+		o->tables[j] = new_table(build_cmd(o, fd, &i), fd[0], fd[1]);
+		if (!o->tables[j])
 			return (-1);
-		}
 		set_fd(fd);
 		j++;
 		i++;
 	}
-	tables[j] = NULL;
-	o->tables = tables;
+	o->tables[j] = NULL;
 	return (0);
 }

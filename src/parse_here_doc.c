@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 08:58:12 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:06:43 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ t_parse_cmd	*here_doc(t_options *o, int *in, int *i)
 		signal(SIGQUIT, SIG_DFL);
 		while (run)
 			run = handle_heredoc(o, deli, replace, fd);
-		wait(NULL);
+		free_options(o);
+		free(deli);
 		exit(0);
 	}	
-	return (waitpid(child, NULL, 0), free(deli), close(fd), NULL);
+	return (free(deli), close(fd), waitpid(child, NULL, 0), NULL);
 }
