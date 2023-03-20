@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:11 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 12:49:36 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:42:56 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ static int	handle_heredoc(t_options *o, char *deli, int replace, int fd)
 {
 	char	*line;
 
-	line = readline("heredoc> ");
-	if (!ft_strncmp(line, deli, ft_strlen(deli))
-		&& ft_strlen(deli) == ft_strlen(line))
+	if (o->is_shell)
+		line = readline("heredoc> ");
+	else
+		line = get_next_line(0);
+	if (!ft_strncmp(line, deli, ft_strlen(deli)))
 		return (free(line), 0);
 	if (line && *line)
 	{
 		if (replace)
 			line = evalulate(o, line);
 		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
+		if (o->is_shell)
+			write(fd, "\n", 1);
 		free(line);
 	}
 	return (1);
