@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:53:07 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/13 13:30:42 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/20 09:03:36 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_parse_cmd		*handle_token(t_options *o, int *fd, int *i);
 
 char			*get_infile(t_options *o, int *i, int *in, char *infile);
 char			*get_outfile(t_options *o, int *i, int *out, char *outfile);
+void			redir_panic(t_options *o, int *i);
 
 void			panic_token(char *str);
 t_parse_cmd		*new_cmd(char *cmd, char *opt, char *opt2, char **args);

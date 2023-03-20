@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:18 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/12 16:11:24 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:02:32 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_global	g_global;
 
 void	panic(t_options *o, int code)
 {
-	ft_putendl_fd("exit", 1);
+	// ft_putendl_fd("exit", 1);
 	free_options(o);
 	exit(code);
 }

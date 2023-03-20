@@ -6,13 +6,30 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:56:08 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 09:16:25 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:02:25 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 extern t_global	g_global;
+
+int	validate_io(t_options *o)
+{
+	int	i;
+
+	i = 0;
+	while (o->tokens[i])
+	{
+		if (o->tokens[i]->type == IO && !o->tokens[i + 1])
+		{
+			redir_panic(o, &i);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 void	redir_panic(t_options *o, int *i)
 {
@@ -33,6 +50,11 @@ t_parse_cmd	*check_io(t_options *o, int *i, int *fd)
 	outfile = NULL;
 	if (o->tokens[*i]->type == IO)
 	{
+		if (!o->tokens[*i + 1])
+		{
+			redir_panic(o, i);
+			return (NULL);
+		}
 		infile = get_infile(o, i, fd, infile);
 		outfile = get_outfile(o, i, fd, outfile);
 		*i += 2;
@@ -77,6 +99,8 @@ t_parse_cmd	*handle_token(t_options *o, int *fd, int *i)
 {
 	t_parse_cmd	*new;
 
+	if (validate_io(o))
+		return (NULL);
 	new = NULL;
 	fd[1] = STD_OUTPUT;
 	if (*i > 0 && o->tokens[*i]->value && o->tokens[*i - 1]->type == PIPE)

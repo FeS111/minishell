@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:56 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/14 07:48:53 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:06:35 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	shell(t_options *o)
 
 	g_global.mode = 0;
 	folder = get_current_folder(o->pwd);
-	o->line = readline(folder);
+	if (o->is_shell)
+		o->line = readline(folder);
+	else
+		o->line = get_next_line(0);
 	free(folder);
 	if (!o->line)
 		panic(o, 0);
@@ -48,7 +51,7 @@ void	shell(t_options *o)
 	executer(o);
 	history(o);
 }
-//
+
 // void	debug_shell(t_options *o)
 // {
 // 	char	*folder;
@@ -123,8 +126,6 @@ int	main(void)
 	o = create_options();
 	if (o->is_shell)
 		ft_printf("\e[1;1H\e[2J");
-	else
-		return (ft_putendl_fd("Use a shell, dude!", 2), panic(o, 1), 0);
 	signal(SIGINT, ctrl_c_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)

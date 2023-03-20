@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:55:21 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/07 13:58:43 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/20 11:11:19 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_getenv(t_options *o, char *name)
 			length = ft_strlen(tmp2);
 		else
 			length = ft_strlen(name);
-		if (ft_strncmp(tmp2, name, length) == 0)
+		if (tmp[1] && ft_strncmp(tmp2, name, length) == 0)
 		{
 			res = ft_strdup(tmp[1]);
 			split_free(tmp);
